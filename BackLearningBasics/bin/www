@@ -4,7 +4,20 @@
  * Module dependencies.
  */
 
-var app = require('../app');
+var MongoClient = require('mongodb').MongoClient;
+var MongoUri = 'mongodb+srv://dbLearningBasics:LBTeam2020!@learningbasics-0ey0j.mongodb.net/test?retryWrites=true&w=majority';
+var MongoDB = 'LearningBasicsTest';
+var MongoOpt = { useUnifiedTopology: true };
+
+MongoClient.connect(MongoUri, MongoOpt, (err, conn)=>{
+  if(err){
+    console.log(err);
+    process.exit(1);
+  }
+
+  var db = conn.db(MongoDB);
+
+var app = require('../app')(db);
 var debug = require('debug')('backlearningbasics:server');
 var http = require('http');
 
@@ -88,3 +101,6 @@ function onListening() {
     : 'port ' + addr.port;
   debug('Listening on ' + bind);
 }
+
+});//MongoConnect
+
