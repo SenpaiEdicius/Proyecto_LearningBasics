@@ -63,15 +63,16 @@ module.exports = (db) =>{
                 "updates":1
             }
         };
-        coursesCollection.updateOne(
+        coursesCollection.findOneAndUpdate(
             query,
             updateCommand,
+            {returnNewDocument: true},
             (err, rslt)=>{
                 if(err){
                     return handler(err, null);
                 }
                 console.log(rslt);
-                return handler(null, rslt.ops[0]);
+                return handler(null, rslt.value);
             });
     }
 

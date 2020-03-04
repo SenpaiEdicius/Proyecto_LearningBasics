@@ -1,0 +1,174 @@
+{
+	"info": {
+		"_postman_id": "3eeec4b4-565e-4ba6-8430-7e8e3958ff00",
+		"name": "LearningBasics",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "admin",
+			"item": [
+				{
+					"name": "courses",
+					"item": [
+						{
+							"name": "http://localhost:3000/api/admin/courses/all",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:3000/api/admin/courses/all",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"admin",
+										"courses",
+										"all"
+									]
+								},
+								"description": "Devuelve todos los cursos"
+							},
+							"response": []
+						},
+						{
+							"name": "http://localhost:3000/api/admin/courses/new",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/x-www-form-urlencoded",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "name",
+											"value": "CursoTest",
+											"type": "text"
+										},
+										{
+											"key": "desc",
+											"value": "Curso para probar que funcione",
+											"type": "text"
+										},
+										{
+											"key": "hours",
+											"value": "20",
+											"type": "text"
+										},
+										{
+											"key": "req",
+											"value": "IQ mayor a 250",
+											"type": "text"
+										},
+										{
+											"key": "active",
+											"value": "False",
+											"type": "text"
+										},
+										{
+											"key": "",
+											"value": "",
+											"type": "text",
+											"disabled": true
+										}
+									]
+								},
+								"url": {
+									"raw": "http://localhost:3000/api/admin/courses/new",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"admin",
+										"courses",
+										"new"
+									]
+								},
+								"description": "Crea un nuevo curso"
+							},
+							"response": []
+						},
+						{
+							"name": "http://localhost:3000/api/admin/courses/update/:id",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/x-www-form-urlencoded",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "name",
+											"value": "Test1245",
+											"type": "text"
+										},
+										{
+											"key": "desc",
+											"value": "aaa1245",
+											"type": "text"
+										},
+										{
+											"key": "hours",
+											"value": "1245",
+											"type": "text"
+										},
+										{
+											"key": "active",
+											"value": "False",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://localhost:3000/api/admin/courses/update/:id",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"admin",
+										"courses",
+										"update",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "5e5ede641433485668520e06"
+										}
+									]
+								},
+								"description": "Modifica retornando el documento viejo sin actualizar"
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"protocolProfileBehavior": {}
+}
