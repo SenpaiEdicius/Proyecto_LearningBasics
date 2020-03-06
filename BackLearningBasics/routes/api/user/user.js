@@ -86,6 +86,18 @@ router.post('/login', (req, res)=>{
   });
 });// Reingresar como usuario ya existente
 
+router.post('/courses/add', (req, res)=>{
+  var userID = req.body.userID;
+  var courseID = req.body.courseID;
+  userModel.RegisterToCourse(userID,courseID, (err, info)=>{
+    if(err){
+      console.log(err);
+      return res.status(500).json({"error":"error"});
+    }
+    return res.status(200).json(info);
+  });
+});
+
  return router;
 }
 module.exports = initUser;

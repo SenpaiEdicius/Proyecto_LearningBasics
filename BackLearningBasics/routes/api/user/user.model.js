@@ -13,6 +13,7 @@ module.exports = (db)=>{
   var userCollection = db.collection("user");
   var mycoursesCollection = db.collection("user.userCourses");
 
+  var coursesCollection = db.collection("courses");
 
   if(!hasIndexEmail) {
     userCollection.indexExists("userEmail_1", (err, rslt)=>{
@@ -143,6 +144,42 @@ module.exports = (db)=>{
       }
     )
   }
+  userModel.RegisterToCourse = (userID,courseID, handler)=>{
+    var query1 = {"_id": new ObjectID(courseID)};
 
+    var query2 = { "_id": new ObjectID(userID) };
+
+    var courseJSON = {};
+
+    coursesCollection.findOne(query1, (err, course)=>{
+      if(err){
+        console.log(err);
+        return handler(err,null);
+      }
+      courseJSON = course;
+      
+      var updateCommad = {
+        "$push" :{
+          "userCourses": [courseJSON]
+        }
+      };//updateCommand
+
+      userCollection.updateOne(
+        query2,
+        updateCommad,
+        (err, rslt)=>{
+          if(err){
+            return handler(err, null);
+          }
+          return handler(null, rslt.result);
+        }
+      );//UpdateOne
+    });//findOne
+
+   
+    
+
+    
+  }
   return userModel;
 }
