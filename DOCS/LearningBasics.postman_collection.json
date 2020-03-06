@@ -117,22 +117,27 @@
 									"urlencoded": [
 										{
 											"key": "name",
-											"value": "Test1245",
+											"value": "Something",
 											"type": "text"
 										},
 										{
 											"key": "desc",
-											"value": "aaa1245",
+											"value": "Anything",
 											"type": "text"
 										},
 										{
 											"key": "hours",
-											"value": "1245",
+											"value": "15",
 											"type": "text"
 										},
 										{
 											"key": "active",
 											"value": "False",
+											"type": "text"
+										},
+										{
+											"key": "req",
+											"value": "10 years of experience at NASA",
 											"type": "text"
 										}
 									]
@@ -154,11 +159,198 @@
 									"variable": [
 										{
 											"key": "id",
-											"value": "5e5ede641433485668520e06"
+											"value": "5e5f4dd1a34f6d3ae04e6023"
 										}
 									]
 								},
 								"description": "Modifica retornando el documento viejo sin actualizar"
+							},
+							"response": []
+						},
+						{
+							"name": "http://localhost:3000/api/admin/courses/nodes/all/:id",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:3000/api/admin/courses/nodes/all/:id",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"admin",
+										"courses",
+										"nodes",
+										"all",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "5e5ede641433485668520e06"
+										}
+									]
+								},
+								"description": "Muestra todos los nodos de determinado course por el ID"
+							},
+							"response": []
+						},
+						{
+							"name": "http://localhost:3000/api/admin/courses/node/new/:id",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/x-www-form-urlencoded",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "number",
+											"value": "5",
+											"type": "text"
+										},
+										{
+											"key": "name",
+											"value": "Whatever5",
+											"type": "text"
+										},
+										{
+											"key": "desc",
+											"value": "Wahtever will suffice5",
+											"type": "text"
+										},
+										{
+											"key": "dialogo",
+											"value": "Que cualquier cosa ombe, no quiero escribir5",
+											"type": "text"
+										},
+										{
+											"key": "tipo",
+											"value": "Video",
+											"type": "text"
+										},
+										{
+											"key": "respuesta",
+											"value": "true",
+											"type": "text"
+										},
+										{
+											"key": "completado",
+											"value": "false",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://localhost:3000/api/admin/courses/node/new/:id",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"admin",
+										"courses",
+										"node",
+										"new",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "5e5ede641433485668520e06"
+										}
+									]
+								},
+								"description": "Inserta un nuevo nodo en el curso que tenga el ID del URL"
+							},
+							"response": []
+						},
+						{
+							"name": "http://localhost:3000/api/admin/courses/node/upd/:idc/:idn",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/x-www-form-urlencoded",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "name",
+											"value": "Test",
+											"type": "text"
+										},
+										{
+											"key": "desc",
+											"value": "This is only for testing",
+											"type": "text"
+										},
+										{
+											"key": "dialogo",
+											"value": "The test was apparently successful",
+											"type": "text"
+										},
+										{
+											"key": "tipo",
+											"value": "Regex",
+											"type": "text"
+										},
+										{
+											"key": "respuesta",
+											"value": "$/s{0,}^",
+											"type": "text"
+										},
+										{
+											"key": "completado",
+											"value": "false",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://localhost:3000/api/admin/courses/node/upd/:idc/:idn",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"admin",
+										"courses",
+										"node",
+										"upd",
+										":idc",
+										":idn"
+									],
+									"variable": [
+										{
+											"key": "idc",
+											"value": "5e5ede641433485668520e06"
+										},
+										{
+											"key": "idn",
+											"value": "3"
+										}
+									]
+								},
+								"description": "Permite modificar los campos de name, desc, dialogo, tipo, respuesta y completado de determinado nodo en determinado curso"
 							},
 							"response": []
 						}

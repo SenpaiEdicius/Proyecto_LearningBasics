@@ -10,7 +10,7 @@ module.exports = (db) =>{
         courseRequirements: "",
         courseActive: null,
         courseNodes: []
-    }
+    };
     var nodeTemplate = {
         nodeNumber: null,
         nodeName: "",
@@ -19,7 +19,7 @@ module.exports = (db) =>{
         completionType: "",
         rightAnswer: "",
         nodeCompletion: null
-    }
+    };
 
     coursesModel.showCourses = (handler) =>{
         coursesCollection.find({}).toArray(handler);
@@ -75,6 +75,90 @@ module.exports = (db) =>{
                 return handler(null, rslt.value);
             });
     }
+
+
+    //Nodos
+    coursesModel.showNodes = (_id, handler) =>{
+        var id = new ObjectID(_id);
+        var query = {"_id":id};
+        var projection = {"courseNodes": 1, "_id":0};
+        coursesCollection.findOne(
+            query,
+            {"projection": projection},
+            (err, nodes)=>{
+                if(err){
+                    return handler(err, null);
+                }
+                return handler(null, nodes);
+            }
+        )
+    }
+
+    coursesModel.addNode = (data, handler) =>{
+        var {_id, number, name, desc, dialogo, tipo, respuesta, completado} = data;
+        var query = {"_id":new ObjectID(_id)};
+        var a = Object.assign(
+            {},
+            nodeTemplate,
+            {
+                nodeNumber: number,
+                nodeName: name,
+                nodeDesc: desc,
+                nodeDialogue: dialogo,
+                completionType: tipo,
+                rightAnswer: respuesta,
+                nodeCompletion: completado
+            }
+        );
+        var updateCommand = {
+            "$addToSet":{
+                courseNodes : a
+            },
+            "$inc":{
+                "nodes":1
+            }
+        };
+        coursesCollection.findOneAndUpdate(
+            query,
+            updateCommand,
+            {returnNewDocument: true},
+            (err, rslt)=>{
+                if(err){
+                    return handler(err, null); 
+                }
+                console.log(rslt);
+                return handler(null, rslt.value);
+            });
+    }
+
+    coursesModel.updateNode = (data, handler)=>{
+        var {_id, nodeNumber, name, desc, dialogo, tipo, respuesta, completado} = data;
+        var query = {"_id": new ObjectID(_id), "courseNodes.nodeNumber": nodeNumber};
+        var updateCommand = {
+            "$set":{
+                'courseNodes.nodeName': name,
+                'courseNodes.nodedesc': desc,
+                'courseNodes.nodeDialogue': dialogo,
+                'courseNodes.completionType': tipo,
+                'courseNodes.rightAnswer': respuesta,
+                'courseNodes.nodeCompletion': completado    
+            }
+        };
+        coursesCollection.findOneAndUpdate(
+            query,
+            updateCommand,
+            {returnNewDocument: true},
+            (err, rslt)=>{
+                if(err){
+                    return handler(err, null)
+                }
+                console.log(rslt);
+                return handler(null, rslt.value);
+            });
+
+    }
+
+
 
     return coursesModel;
 }

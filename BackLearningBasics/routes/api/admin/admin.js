@@ -3,9 +3,9 @@ var router = express.Router();
 
 function initAdmin(db){
 
-    var adminRouter = require('./courses/courses')(db);
+    var coursesRouter = require('./courses/courses')(db);
 
-    router.use('/courses', adminRouter);
+    router.use('/courses', coursesRouter);
 
     return router;
 
