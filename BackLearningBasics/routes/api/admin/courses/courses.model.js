@@ -132,30 +132,55 @@ module.exports = (db) =>{
     }
 
     coursesModel.updateNode = (data, handler)=>{
-        var {_id, nodeNumber, name, desc, dialogo, tipo, respuesta, completado} = data;
-        var query = {"_id": new ObjectID(_id), "courseNodes.nodeNumber": nodeNumber};
-        var updateCommand = {
-            "$set":{
-                'courseNodes.nodeName': name,
-                'courseNodes.nodedesc': desc,
-                'courseNodes.nodeDialogue': dialogo,
-                'courseNodes.completionType': tipo,
-                'courseNodes.rightAnswer': respuesta,
-                'courseNodes.nodeCompletion': completado    
+        var {_id, _nodeNumber, number, name, desc, dialogo, tipo, respuesta, completado} = data;
+        var a = Object.assign(
+            {},
+            nodeTemplate,
+            {
+                nodeNumber: number,
+                nodeName: name,
+                nodeDesc: desc,
+                nodeDialogue: dialogo,
+                completionType: tipo,
+                rightAnswer: respuesta,
+                nodeCompletion: completado
+            }
+        );
+        var queryDel = {"_id": new ObjectID(_id), "courseNodes.nodeNumber": _nodeNumber};
+        var queryUpd = {"_id": new ObjectID(_id)};
+        var updateCommandDel = {
+            "$pull":{
+                courseNodes: {nodeNumber: _nodeNumber}
             }
         };
+        var updateCommandUpd = {
+            "$addToSet":{
+                courseNodes:a      
+            }
+        }
         coursesCollection.findOneAndUpdate(
-            query,
-            updateCommand,
+            queryDel,
+            updateCommandDel,
             {returnNewDocument: true},
             (err, rslt)=>{
                 if(err){
-                    return handler(err, null)
+                    return handler(err, null);
                 }
-                console.log(rslt);
-                return handler(null, rslt.value);
-            });
-
+                console.log(rslt.vale);
+                coursesCollection.findOneAndUpdate(
+                    queryUpd,
+                    updateCommandUpd,
+                    {returnNewDocument: true},
+                    (err, rslt)=>{
+                        if(err){
+                            return handler(err, null)
+                        }
+                        console.log(rslt);
+                        return handler(null, rslt.value);
+                    }
+                );        
+            }
+        );
     }
 
 

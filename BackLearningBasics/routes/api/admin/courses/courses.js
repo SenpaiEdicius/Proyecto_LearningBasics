@@ -74,7 +74,7 @@ function initCourses(db){
         var numNode = req.params.idn;
         var data = {
             "_id": idCourse,
-            "nodeNumber": numNode,
+            "_nodeNumber": numNode,
             ...req.body
         };
         coursesModel.updateNode(data, (err, updatedNode)=>{

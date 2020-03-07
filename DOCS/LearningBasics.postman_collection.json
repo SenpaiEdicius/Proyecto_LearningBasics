@@ -190,7 +190,7 @@
 									"variable": [
 										{
 											"key": "id",
-											"value": "5e5ede641433485668520e06"
+											"value": "5e62f594f0e9e436dca509f4"
 										}
 									]
 								},
@@ -268,7 +268,7 @@
 									"variable": [
 										{
 											"key": "id",
-											"value": "5e5ede641433485668520e06"
+											"value": "5e62f594f0e9e436dca509f4"
 										}
 									]
 								},
@@ -297,28 +297,33 @@
 											"type": "text"
 										},
 										{
+											"key": "number",
+											"value": "3",
+											"type": "text"
+										},
+										{
 											"key": "desc",
-											"value": "This is only for testing",
+											"value": "This is only for testing (bear with it)",
 											"type": "text"
 										},
 										{
 											"key": "dialogo",
-											"value": "The test was apparently successful",
+											"value": "The test was apparently successful (or not)",
 											"type": "text"
 										},
 										{
 											"key": "tipo",
-											"value": "Regex",
+											"value": "Drag",
 											"type": "text"
 										},
 										{
 											"key": "respuesta",
-											"value": "$/s{0,}^",
+											"value": "drag626",
 											"type": "text"
 										},
 										{
 											"key": "completado",
-											"value": "false",
+											"value": "true",
 											"type": "text"
 										}
 									]
@@ -342,11 +347,11 @@
 									"variable": [
 										{
 											"key": "idc",
-											"value": "5e5ede641433485668520e06"
+											"value": "5e62f594f0e9e436dca509f4"
 										},
 										{
 											"key": "idn",
-											"value": "3"
+											"value": "5"
 										}
 									]
 								},
