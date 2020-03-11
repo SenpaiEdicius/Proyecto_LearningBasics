@@ -70,7 +70,6 @@ module.exports = (db)=>{
     userCollection.find({}).toArray(handler);
   }
 
-
   userModel.update = ( dataToUpdate , handler )=>{
     var { _id, usernames, userage, usergender, userpassword} = dataToUpdate;
     var query = { "_id": new ObjectID(_id)};
@@ -144,6 +143,7 @@ module.exports = (db)=>{
       }
     )
   }
+
   userModel.RegisterToCourse = (userID,courseID, handler)=>{
     var query1 = {"_id": new ObjectID(courseID)};
 
@@ -167,7 +167,7 @@ module.exports = (db)=>{
       userCollection.updateOne(
         query2,
         updateCommad,
-        (err, rslt)=>{
+        (err, rslt)=>{  
           if(err){
             return handler(err, null);
           }
@@ -175,11 +175,51 @@ module.exports = (db)=>{
         }
       );//UpdateOne
     });//findOne
-
-   
-    
-
-    
   }
+
+
+  userModel.getCourseNodes = (courseID, handler) =>{
+    var query = {"_id": new ObjectID(courseID)};
+    var projection = {"courseNodes":1, "_id":0};
+    coursesCollection.findOne(
+      query,
+      {"projection": projection},
+      (err, course)=>{
+        if(err){
+          return handler(err, null);
+        }
+        return handler(null, course.courseNodes);
+      }
+    );
+  }
+
+  userModel.extractCorrectAnswer = (nodes, nodeNumber)=>{
+    for (var x=0;x<nodes.length;x++){
+      if(nodes[x].nodeNumber === nodeNumber){
+        return {"correctAnswer":nodes[x].rightAnswer, "index":x};
+      }
+    }
+  }
+
+  userModel.completeNode = (id, nodeNumber, handler)=>{
+    var query = {"_id": new ObjectID(id), "courseNodes": {"$elemMatch":{"nodeNumber": nodeNumber}}};
+    var updateCommand = {
+      "$set":{
+        "courseNodes.$.nodeCompletion": true
+      }
+    };
+    coursesCollection.findOneAndUpdate(
+      query,
+      updateCommand,
+      (err, course)=>{
+        if(err){
+          return handler(err, null);
+        }
+        return handler(null, course.value.courseNodes); 
+      }
+    );
+  }
+
+
   return userModel;
 }

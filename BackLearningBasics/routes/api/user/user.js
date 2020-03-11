@@ -98,6 +98,36 @@ router.post('/courses/add', (req, res)=>{
   });
 });
 
+router.put('/courses/:id', (req, res)=>{
+  var id = req.params.id;
+  var {nodeNumber, answer} = req.body;
+  userModel.getCourseNodes(id, (err, nodes)=>{
+    if(err){
+      console.log(err);
+      return res.status(500).json({"error":"No se ha podido confirmar el nodo. Intente nuevamente"});
+    }
+      var correctAnswer = userModel.extractCorrectAnswer(nodes, nodeNumber);
+      if(nodes[correctAnswer.index].completionType === "Regex"){
+        if(!(answer.match(correctAnswer.correctAnswer))){
+          return res.status(200).json({"Resultado":"La respuesta es incorrecta"});
+        }
+        return res.status(200).json({"Resultado":"La respuesta es correcta"});
+      }
+      if(!(correctAnswer.correctAnswer === answer)){
+        return res.status(200).json({"Resultado":"La respuesta es incorrecta"});  
+      }{
+        userModel.completeNode(id, nodeNumber, (err, completed)=>{
+          if(err){
+            console.log(err);
+            return res.status(500).json({"error":"ERROR. Intente nuevamente el nodo"});
+          }
+          console.log(completed);
+          return res.status(200).json({"Resultado":"La respuesta es correcta"});
+        });
+      }  
+  });//si existe el nodo
+});//cambia estado de nodo a completado
+
  return router;
 }
 module.exports = initUser;
