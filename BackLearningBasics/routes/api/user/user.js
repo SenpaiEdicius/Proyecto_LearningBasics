@@ -121,7 +121,27 @@ router.put('/courses/:id', (req, res)=>{
       });
   });//si existe el nodo
 });//cambia estado de nodo a completado
-
+router.post('/subsciption/checkout/:id', (req, res)=>{
+  var id = req.params.id;
+  var data = req.body;
+  userModel.Checkout(data,id, (err, result)=>{
+    if(err){
+      console.log(err);
+      return res.status(500).json({"error":"error"});
+    }
+    return res.status(200).json(result);
+  });
+});//subsciption/checkout/:id
+router.put('/subsciption/cancel/:id',(req, res)=>{
+  var id = req.params.id;
+  userModel.cancelSubscription(id, (err,result)=>{
+    if(err){
+      console.log(err);
+      return res.status(500).json({"error":"error"});
+    }
+    return res.status(200).json(result);
+  });
+});//subsciption/cancel/:id
  return router;
 }
 module.exports = initUser;

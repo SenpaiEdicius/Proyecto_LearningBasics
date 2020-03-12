@@ -219,7 +219,51 @@ module.exports = (db)=>{
       }
     );
   }
+  userModel.Checkout = (paymentInfo,id, handler)=>{
+  paymentInfo.pymntDate = new Date().getTime();
+  var {pymntDsc,pymntAmount,pymntCoin,pymntType,status} = paymentInfo;
+  var query = {"_id": new ObjectID(id)};
+  var payment = {
+    "pymntDsc":pymntDsc,
+    "pymntAmount":pymntAmount,
+    "pymntCoin":pymntCoin,
+    "pymntType":pymntType,
+    "pymntDate": new Date().getTime()
+  }
+  var updateCommand = {
+    "$set":{
+      "subscription":status
+    },
+    "$push":{
+        "payments":payment
+    }
+  };
 
-
+  userCollection.updateOne(query,updateCommand, (err, result)=>{
+    if(err){
+      console.log(err);
+      return handler(err, null);
+    }
+    return handler(null, result);
+  });
+  }//Checkout
+  userModel.cancelSubscription = (id, handler)=>{
+    var query = {"_id": new ObjectID(id)};
+    var updateCommad = {
+      "$set":{
+        "subscription":{
+          "status":"INA",
+          "date": new Date().getTime()
+        }
+      }
+    }
+    userCollection.updateOne(query, updateCommad, (err,result)=>{
+      if(err){
+        console.log(err);
+        return handler(err, null);
+      }
+      return handler(null, result);
+    });
+  }//cancelSubscription
   return userModel;
 }
