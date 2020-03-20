@@ -41,8 +41,12 @@ router.get('/mycourses/:id',(req, res)=>{
 
 
 router.post('/register', (req, res)=>{
-  var datosEnviados = req.body;
-  userModel.addNew(datosEnviados, (err, addedDoc)=>{
+  var edad = parseInt(req.body.edad);
+  var data = {
+    "userage": edad,
+    ...req.body
+  };
+  userModel.addNew(data, (err, addedDoc)=>{
     if(err){
       console.log(err);
       return res.status(500).json({error:'error'});
@@ -51,10 +55,13 @@ router.post('/register', (req, res)=>{
     }); 
 }); //Registrarse como Usuario
 
+
 router.put('/upd/:id', (req, res)=>{
   var id = req.params.id;
+  var edad = parseInt(req.body.edad);
   var data = {
     "_id": id,
+    "userage": edad,
     ...req.body
   };
   userModel.update(data, (err, updatedDoc)=>{
@@ -65,6 +72,7 @@ router.put('/upd/:id', (req, res)=>{
     return res.status(200).json(updatedDoc);
   });
 });//Modificar Caracteristicas de Usuario
+
 
 router.post('/login', (req, res)=>{
   var {userEmail, userPassword} = req.body;
@@ -86,10 +94,11 @@ router.post('/login', (req, res)=>{
   });
 });// Reingresar como usuario ya existente
 
+
 router.post('/courses/add', (req, res)=>{
   var userID = req.body.userID;
   var courseID = req.body.courseID;
-  userModel.RegisterToCourse(userID,courseID, (err, info)=>{
+  userModel.RegisterToCourse(userID, courseID, (err, info)=>{
     if(err){
       console.log(err);
       return res.status(500).json({"error":"error"});
@@ -98,9 +107,11 @@ router.post('/courses/add', (req, res)=>{
   });
 });
 
+
 router.put('/courses/:id', (req, res)=>{
   var id = req.params.id;
-  var {nodeNumber, answer} = req.body;
+  var answer = req.body.answer;
+  var nodeNumber = parseInt(req.body.NodeNumber);
   userModel.getCourseNodes(id, (err, nodes)=>{
     if(err){
       console.log(err);

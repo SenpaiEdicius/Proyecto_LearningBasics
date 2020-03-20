@@ -95,7 +95,7 @@ module.exports = (db) =>{
     }
 
     coursesModel.addNode = (data, handler) =>{
-        var {_id, number, name, desc, dialogo, tipo, respuesta, completado} = data;
+        var {_id, number, name, desc, dialogo, tipo, respuesta} = data;
         var query = {"_id":new ObjectID(_id)};
         var a = Object.assign(
             {},
@@ -107,7 +107,7 @@ module.exports = (db) =>{
                 nodeDialogue: dialogo,
                 completionType: tipo,
                 rightAnswer: respuesta,
-                nodeCompletion: completado
+                nodeCompletion: false
             }
         );
         var updateCommand = {
@@ -132,55 +132,28 @@ module.exports = (db) =>{
     }
 
     coursesModel.updateNode = (data, handler)=>{
-        var {_id, _nodeNumber, number, name, desc, dialogo, tipo, respuesta, completado} = data;
-        var a = Object.assign(
-            {},
-            nodeTemplate,
-            {
-                nodeNumber: number,
-                nodeName: name,
-                nodeDesc: desc,
-                nodeDialogue: dialogo,
-                completionType: tipo,
-                rightAnswer: respuesta,
-                nodeCompletion: completado
+        var {_id, _nodeNumber, name, desc, dialogo, tipo, respuesta} = data;
+        var query = {"_id": new ObjectID(_id), "courseNodes": {"$elemMatch":{"nodeNumber": _nodeNumber}}};
+        var updateCommand = {
+            "$set":{
+              "courseNodes.$.nodeName": name,
+              "courseNodes.$.nodeDesc": desc,
+              "courseNodes.$.nodeDialogue": dialogo,
+              "courseNodes.$.completionType": tipo,
+              "courseNodes.$.rightAnswer": respuesta,
+              "courseNodes.$.nodeCompletion": false
             }
-        );
-        var queryDel = {"_id": new ObjectID(_id), "courseNodes.nodeNumber": _nodeNumber};
-        var queryUpd = {"_id": new ObjectID(_id)};
-        var updateCommandDel = {
-            "$pull":{
-                courseNodes: {nodeNumber: _nodeNumber}
+          };
+          coursesCollection.findOneAndUpdate(
+            query,
+            updateCommand,
+            (err, course)=>{
+              if(err){
+                return handler(err, null);
+              }
+              return handler(null, course.value.courseNodes); 
             }
-        };
-        var updateCommandUpd = {
-            "$addToSet":{
-                courseNodes:a      
-            }
-        }
-        coursesCollection.findOneAndUpdate(
-            queryDel,
-            updateCommandDel,
-            {returnNewDocument: true},
-            (err, rslt)=>{
-                if(err){
-                    return handler(err, null);
-                }
-                console.log(rslt.vale);
-                coursesCollection.findOneAndUpdate(
-                    queryUpd,
-                    updateCommandUpd,
-                    {returnNewDocument: true},
-                    (err, rslt)=>{
-                        if(err){
-                            return handler(err, null)
-                        }
-                        console.log(rslt);
-                        return handler(null, rslt.value);
-                    }
-                );        
-            }
-        );
+          );
     }
 
 

@@ -52,7 +52,7 @@ module.exports = (db)=>{
         userGender:usergender,
         userEmail:useremail,
         userPassword: pswdGenerator(userpassword),
-        userCourses: "No Tiene Cursos Registrados",
+        userCourses: [],
         userDateCreated: new Date().getTime()
       }
     );
@@ -144,10 +144,10 @@ module.exports = (db)=>{
     )
   }
 
-  userModel.RegisterToCourse = (userID,courseID, handler)=>{
+  userModel.RegisterToCourse = (userID, courseID, handler)=>{
     var query1 = {"_id": new ObjectID(courseID)};
 
-    var query2 = { "_id": new ObjectID(userID) };
+    var query2 = {"_id": new ObjectID(userID)};
 
     var courseJSON = {};
 
@@ -157,8 +157,9 @@ module.exports = (db)=>{
         return handler(err,null);
       }
       courseJSON = course;
-      
-      var updateCommad = {
+      console.log(courseJSON);
+
+      var updateCommand = {
         "$push" :{
           "userCourses": [courseJSON]
         }
@@ -166,7 +167,7 @@ module.exports = (db)=>{
 
       userCollection.updateOne(
         query2,
-        updateCommad,
+        updateCommand,
         (err, rslt)=>{  
           if(err){
             return handler(err, null);
@@ -177,7 +178,7 @@ module.exports = (db)=>{
     });//findOne
   }
 
-
+  //Used for Complete Node
   userModel.getCourseNodes = (courseID, handler) =>{
     var query = {"_id": new ObjectID(courseID)};
     var projection = {"courseNodes":1, "_id":0};
@@ -193,6 +194,7 @@ module.exports = (db)=>{
     );
   }
 
+  //Used for Complete Node
   userModel.extractCorrectAnswer = (nodes, nodeNumber)=>{
     for (var x=0;x<nodes.length;x++){
       if(nodes[x].nodeNumber === nodeNumber){

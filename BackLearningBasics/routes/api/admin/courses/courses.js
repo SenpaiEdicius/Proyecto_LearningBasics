@@ -15,7 +15,17 @@ function initCourses(db){
     });
 
     router.post('/new', (req, res)=>{
-        var data = req.body;
+        var act = req.body.act;
+        var chours = parseInt(req.body.chours);
+        if(act.toLowerCase()=="true")
+            act = true;
+        else
+            act = false;
+        var data = {
+            "active":act, 
+            "hours":chours, 
+            ...req.body
+        };
         coursesModel.addNewCourse(data, (err, newCourse)=>{
             if(err){
                 console.log(err);
@@ -27,8 +37,16 @@ function initCourses(db){
 
     router.put('/update/:id', (req, res)=>{
         var id = req.params.id;
+        var act = req.body.act;
+        var chours = parseInt(req.body.chours);
+        if(act.toLowerCase()=="true")
+            act = true;
+        else
+            act = false;
         var data = {
             "_id": id,
+            "active":act, 
+            "hours":chours, 
             ...req.body
         };
         coursesModel.update(data, (err, updatedDoc)=>{
@@ -56,8 +74,10 @@ function initCourses(db){
 
     router.put('/node/new/:id', (req, res)=>{
         var id = req.params.id;
+        var num = parseInt(req.body.num);
         var data = {
             "_id":id,
+            "number":num,
             ...req.body
         };
         coursesModel.addNode(data, (err, newNode)=>{
@@ -71,7 +91,7 @@ function initCourses(db){
 
     router.put('/node/upd/:idc/:idn', (req, res)=>{
         var idCourse = req.params.idc;
-        var numNode = req.params.idn;
+        var numNode = parseInt(req.params.idn);
         var data = {
             "_id": idCourse,
             "_nodeNumber": numNode,

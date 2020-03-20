@@ -1,0 +1,819 @@
+{
+	"info": {
+		"_postman_id": "3eeec4b4-565e-4ba6-8430-7e8e3958ff00",
+		"name": "LearningBasicsAllPostman",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "admin",
+			"item": [
+				{
+					"name": "courses",
+					"item": [
+						{
+							"name": "http://localhost:3000/api/admin/courses/all",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:3000/api/admin/courses/all",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"admin",
+										"courses",
+										"all"
+									]
+								},
+								"description": "Devuelve todos los cursos"
+							},
+							"response": []
+						},
+						{
+							"name": "http://localhost:3000/api/admin/courses/new",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/x-www-form-urlencoded",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "name",
+											"value": "TestUpdate",
+											"type": "text"
+										},
+										{
+											"key": "desc",
+											"value": "Curso para probar que funcione el update",
+											"type": "text"
+										},
+										{
+											"key": "chours",
+											"value": "500",
+											"type": "text"
+										},
+										{
+											"key": "req",
+											"value": "IQ mayor a 500",
+											"type": "text"
+										},
+										{
+											"key": "act",
+											"value": "truth",
+											"type": "text"
+										},
+										{
+											"key": "",
+											"value": "",
+											"type": "text",
+											"disabled": true
+										}
+									]
+								},
+								"url": {
+									"raw": "http://localhost:3000/api/admin/courses/new",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"admin",
+										"courses",
+										"new"
+									]
+								},
+								"description": "Crea un nuevo curso"
+							},
+							"response": []
+						},
+						{
+							"name": "http://localhost:3000/api/admin/courses/update/:id",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/x-www-form-urlencoded",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "name",
+											"value": "Something",
+											"type": "text"
+										},
+										{
+											"key": "desc",
+											"value": "Anything",
+											"type": "text"
+										},
+										{
+											"key": "chours",
+											"value": "15",
+											"type": "text"
+										},
+										{
+											"key": "act",
+											"value": "True",
+											"type": "text"
+										},
+										{
+											"key": "req",
+											"value": "10 years of experience at NASA",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://localhost:3000/api/admin/courses/update/:id",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"admin",
+										"courses",
+										"update",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "5e5f4dd1a34f6d3ae04e6023"
+										}
+									]
+								},
+								"description": "Modifica retornando el documento viejo sin actualizar"
+							},
+							"response": []
+						},
+						{
+							"name": "http://localhost:3000/api/admin/courses/nodes/all/:id",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:3000/api/admin/courses/nodes/all/:id",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"admin",
+										"courses",
+										"nodes",
+										"all",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "5e62f594f0e9e436dca509f4"
+										}
+									]
+								},
+								"description": "Muestra todos los nodos de determinado course por el ID"
+							},
+							"response": []
+						},
+						{
+							"name": "http://localhost:3000/api/admin/courses/node/new/:id",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/x-www-form-urlencoded",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "num",
+											"value": "8",
+											"type": "text"
+										},
+										{
+											"key": "name",
+											"value": "Crazy8",
+											"type": "text"
+										},
+										{
+											"key": "desc",
+											"value": "Mario Kart 8",
+											"type": "text"
+										},
+										{
+											"key": "dialogo",
+											"value": "Still waiting for Mario Kart 9...",
+											"type": "text"
+										},
+										{
+											"key": "tipo",
+											"value": "Drag",
+											"type": "text"
+										},
+										{
+											"key": "respuesta",
+											"value": "drag8",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://localhost:3000/api/admin/courses/node/new/:id",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"admin",
+										"courses",
+										"node",
+										"new",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "5e62f594f0e9e436dca509f4"
+										}
+									]
+								},
+								"description": "Inserta un nuevo nodo en el curso que tenga el ID del URL"
+							},
+							"response": []
+						},
+						{
+							"name": "http://localhost:3000/api/admin/courses/node/upd/:idc/:idn",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/x-www-form-urlencoded",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "name",
+											"value": "Update",
+											"type": "text"
+										},
+										{
+											"key": "desc",
+											"value": "This tests an upgrade",
+											"type": "text"
+										},
+										{
+											"key": "dialogo",
+											"value": "Now its 8.1",
+											"type": "text"
+										},
+										{
+											"key": "tipo",
+											"value": "Drag",
+											"type": "text"
+										},
+										{
+											"key": "respuesta",
+											"value": "^\\d{8}$",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://localhost:3000/api/admin/courses/node/upd/:idc/:idn",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"admin",
+										"courses",
+										"node",
+										"upd",
+										":idc",
+										":idn"
+									],
+									"variable": [
+										{
+											"key": "idc",
+											"value": "5e62f594f0e9e436dca509f4"
+										},
+										{
+											"key": "idn",
+											"value": "8"
+										}
+									]
+								},
+								"description": "Permite modificar los campos de name, desc, dialogo, tipo, respuesta y completado de determinado nodo en determinado curso"
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Payment",
+					"item": [
+						{
+							"name": "localhost:3000/api/admin/payment/all",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:3000/api/admin/payment/all",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"admin",
+										"payment",
+										"all"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "localhost:3000/api/admin/payment/new",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/x-www-form-urlencoded",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "name",
+											"value": "test2",
+											"type": "text"
+										},
+										{
+											"key": "dsc",
+											"value": "test2",
+											"type": "text"
+										},
+										{
+											"key": "status",
+											"value": "test2",
+											"type": "text"
+										},
+										{
+											"key": "lib",
+											"value": "test2",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "localhost:3000/api/admin/payment/new",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"admin",
+										"payment",
+										"new"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "localhost:3000/api/admin/payment/update/:id",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/x-www-form-urlencoded",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "name",
+											"value": "test2",
+											"type": "text"
+										},
+										{
+											"key": "dsc",
+											"value": "test2",
+											"type": "text"
+										},
+										{
+											"key": "status",
+											"value": "test2",
+											"type": "text"
+										},
+										{
+											"key": "lib",
+											"value": "test2",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "localhost:3000/api/admin/payment/update/:id",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"admin",
+										"payment",
+										"update",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "5e5f4e61b01ccf2accbdf587"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "user",
+			"item": [
+				{
+					"name": "localhost:3000/api/user/all",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/api/user/all",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"user",
+								"all"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "localhost:3000/api/user/courses/:id",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "NodeNumber",
+									"value": "8",
+									"type": "text"
+								},
+								{
+									"key": "answer",
+									"value": "^\\d{8}$",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:3000/api/user/courses/:id",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"user",
+								"courses",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "5e62f594f0e9e436dca509f4"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "localhost:3000/api/user/courses/add",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "userID",
+									"value": "5e617b469c525b25649e2886",
+									"type": "text"
+								},
+								{
+									"key": "courseID",
+									"value": "5e5f4dd1a34f6d3ae04e6023",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:3000/api/user/courses/add",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"user",
+								"courses",
+								"add"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "localhost:3000/api/user/login",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "userEmail",
+									"value": "jesalgado@unicah.edu",
+									"type": "text"
+								},
+								{
+									"key": "userPassword",
+									"value": "Mujer",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:3000/api/user/login",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"user",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "localhost:3000/api/user/upd/:id",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "usernames",
+									"value": "Georgia Ramirez",
+									"type": "text"
+								},
+								{
+									"key": "edad",
+									"value": "24",
+									"type": "text"
+								},
+								{
+									"key": "usergender",
+									"value": "Female",
+									"type": "text"
+								},
+								{
+									"key": "userpassword",
+									"value": "Mujer",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:3000/api/user/upd/:id",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"user",
+								"upd",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "5e617b079c525b25649e2885"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "localhost:3000/api/user/register",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "usernames",
+									"value": "Test 123",
+									"type": "text"
+								},
+								{
+									"key": "edad",
+									"value": "35",
+									"type": "text"
+								},
+								{
+									"key": "usergender",
+									"value": "Male",
+									"type": "text"
+								},
+								{
+									"key": "useremail",
+									"value": "test@unicah.edu",
+									"type": "text"
+								},
+								{
+									"key": "userpassword",
+									"value": "Test",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:3000/api/user/register",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"user",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "localhost:3000/api/user/mycourses/:id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/api/user/mycourses/:id",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"user",
+								"mycourses",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "5e617b079c525b25649e2885"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "localhost:3000/api/user/:id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/api/user/:id",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"user",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "5e617b079c525b25649e2885"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"protocolProfileBehavior": {}
+}
