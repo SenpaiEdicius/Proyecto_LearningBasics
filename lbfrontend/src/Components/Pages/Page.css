@@ -8,9 +8,9 @@ section{
 
 section main{
     background-color:#6fd251;
-    color: #fff;
     display: flex;
     flex-direction: column;
     justify-content: center;
     text-align: center;
+    min-height: 64vh;
 }

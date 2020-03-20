@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import {IoIosLogIn, IoIosHome} from 'react-icons/io';
 import './Footer.css'
 
@@ -9,8 +10,8 @@ export default class Footer extends Component{
                 <div>
                    <nav>
                         <ul>
-                            <li><IoIosHome/>Home</li>
-                            <li><IoIosLogIn/>Login</li>
+                            <Link to ="/"><IoIosHome/>Home</Link>
+                            <Link to="/login"><IoIosLogIn/>Login</Link>
                         </ul>   
                     </nav> 
                 </div>

@@ -5,6 +5,7 @@ footer {
     align-items: center;
     justify-content: center;
     width: 100vw;
+    background-color: #1bb04c;
 }
 
 footer div{
@@ -17,7 +18,7 @@ footer div{
 footer nav{
     width: 100vw;
     padding: 0px;
-    margin: 1em;
+    margin: 1rem;
 }
 
 nav ul {
@@ -29,11 +30,13 @@ nav ul {
     align-items: center;
 }
 
-nav ul li a {
+nav ul a {
     display: flex;
-    padding: 1em;
+    padding: 0;
     text-decoration: none;
     flex-direction: column;
     justify-content: ceter;
     align-items: center;
+    color: #000;
+    text-decoration: none;
   }
