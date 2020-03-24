@@ -5,6 +5,7 @@ import Button_F from '../../../Common/Button/Button';
 import { Link } from 'react-router-dom';
 import {emailRegex, emptyRegex, passwordRegex} from '../../../Common/Validators/Validators';
 import './Login.css';
+import { paxios, setLocalStorage } from '../../../Utilities/Utilities';
 
 export default class Login extends Component{
     constructor(){
@@ -36,7 +37,7 @@ export default class Login extends Component{
             tmpErrors = [];
             if(!(passwordRegex.test(password))||(emptyRegex.test(password))){
                 tmpErrors.push("Ingrese una contraseña con un formato válido"); 
-                tmpErrors.push("(Iniciar con mayúscula, contener un número, mínimo 8 caracteres y máximo 20)");
+                tmpErrors.push("(Iniciar con mayúscula, contener un número, una minúscula, mínimo 8 caracteres y máximo 20)");
             }
             if(tmpErrors.length){
                 nameErrors = Object.assign({}, nameErrors, {passwordError: tmpErrors.join('. ')});
@@ -66,7 +67,21 @@ export default class Login extends Component{
         if(errors){
             this.setState({...this.state, ...errors});
         }else{
-            alert("Everything's A-OK");
+            const {email, password} = this.state;
+            paxios.post(
+                "/api/user/login",
+                {
+                    userEmail: email,
+                    userPassword: password
+                }
+            )
+            .then((resp)=>{
+                console.log(resp.data);
+                setLocalStorage('jwt', resp.data.jwt);
+            })
+            .catch((error)=>{
+                console.log(error);
+            })
         }
 
     }
