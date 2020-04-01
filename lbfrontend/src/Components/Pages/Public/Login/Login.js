@@ -2,10 +2,10 @@ import React, {Component} from 'react';
 import Page from '../../Page';
 import Input from '../../../Common/Input/Input';
 import Button_F from '../../../Common/Button/Button';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import {emailRegex, emptyRegex, passwordRegex} from '../../../Common/Validators/Validators';
-import './Login.css';
 import { paxios, setLocalStorage } from '../../../Utilities/Utilities';
+import './Login.css';
 
 export default class Login extends Component{
     constructor(){
@@ -14,7 +14,8 @@ export default class Login extends Component{
             email: '',
             emailError: null,
             password: '',
-            passwordError: null
+            passwordError: null,
+            redirectTo: false
         }
         this.onChangeHandler = this.onChangeHandler.bind(this);
         this.onClickLogin = this.onClickLogin.bind(this);
@@ -77,7 +78,8 @@ export default class Login extends Component{
             )
             .then((resp)=>{
                 console.log(resp.data);
-                setLocalStorage('jwt', resp.data.jwt);
+                this.props.login(resp.data);
+                this.setState({...this.state, redirectTo: true});
             })
             .catch((error)=>{
                 console.log(error);
@@ -87,6 +89,10 @@ export default class Login extends Component{
     }
 
     render(){
+        if(this.state.redirectTo){
+            const redirect = (this.props.location.state) ? this.props.location.state.from.pathname : '/';
+            return (<Redirect to={redirect} />);
+        }
         return(
             <Page pageTitle="Login">
                 <Input 

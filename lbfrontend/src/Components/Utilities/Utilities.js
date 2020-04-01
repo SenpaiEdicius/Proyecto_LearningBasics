@@ -7,6 +7,17 @@ normalAxios.defaults.headers.put['Content-Type'] = "no-cache";
 
 export const paxios = normalAxios;
 
+let secureAxios = axios.create();
+secureAxios.defaults.headers.common['cache-control'] = "no-cache";
+secureAxios.defaults.headers.post['Content-Type'] = "no-cache";
+secureAxios.defaults.headers.put['Content-Type'] = "no-cache";
+
+export const saxios = secureAxios;
+
+export const setJWTBearer = (jwt) => {
+    secureAxios.defaults.headers.common["Authorization"] = `Bearer ${jwt}`;
+}
+
 const localStorageAvailable = (()=>{
     let b = 'b';
     try{

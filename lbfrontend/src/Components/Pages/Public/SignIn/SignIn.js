@@ -89,6 +89,8 @@ export default class Signin extends Component{
                 email === "aa@aa.aa"
             )
                 alert("Sea mas original con el correo por favor");
+            else if(email === "easter@egg.com")
+                alert("Easter Egg detected. Congratulations");
             else{
                 paxios.post(
                     "/api/user/register",
