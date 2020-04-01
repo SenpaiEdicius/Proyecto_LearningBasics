@@ -6,17 +6,6 @@ function initUser (db) {
 
 var userModel = require('./user.model')(db);
 
-router.get('/all', (req, res)=>{
-    userModel.getAll((err, users)=>{
-      if(err){
-        console.log(err);
-        return res.status(500).json({"error":"error"});
-      }
-      return res.status(200).json(users);
-    });
-} ); //Ver todos los usuarios
-
-
 router.get('/:id',(req, res)=>{
     var id =  req.params.id ;
     userModel.getById(id, (err, doc)=>{
@@ -60,7 +49,7 @@ router.put('/upd/:id', (req, res)=>{
   var id = req.params.id;
   var edad = parseInt(req.body.edad);
   var data = {
-    "_id": id,
+    "_id": id,  
     "userage": edad,
     ...req.body
   };
@@ -81,16 +70,20 @@ router.post('/login', (req, res)=>{
       console.log(err);
       return res.status(400).json({"msg":"Credenciales No Validas. Porfavor Intente denuevo."});
     }
-    if (userModel.comparePswd(user.userPassword, userPassword)){
-      delete user.userPassword;
-      var token =  jwt.sign(user,
-      'ProtossTerranZergEasyGG',
-      {expiresIn:'60m'}
-      )
-      return res.status(200).json({"user":user, "jwt":token});
-    }
-    console.log({ userEmail, userPassword, ...{ "msg":"Contraseñas No Coinciden"}});
-    return res.status(400).json({ "msg": "Credenciales No Validas. Porfavor Intente denuevo." });
+      if(!user.userActive){
+        console.log(err);
+        return res.status(400).json({"msg":"Su usuario ha sido desabilitado. Que tenga un buen dia"});
+      }
+      if (userModel.comparePswd(user.userPassword, userPassword)){
+        delete user.userPassword;
+        var token =  jwt.sign(user,
+        'ProtossTerranZergEasyGG',
+        {expiresIn:'60m'}
+        )
+        return res.status(200).json({"user":user, "jwt":token});
+      }
+      console.log({ userEmail, userPassword, ...{ "msg":"Contraseñas No Coinciden"}});
+      return res.status(400).json({ "msg": "Credenciales No Validas. Porfavor Intente denuevo." });
   });
 });// Reingresar como usuario ya existente
 

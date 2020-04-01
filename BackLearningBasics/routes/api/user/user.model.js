@@ -38,6 +38,8 @@ module.exports = (db)=>{
     userEmail: "",
     userPassword: "",
     userCourses: [],
+    userRoles: [],
+    userActive: false,
     userDateCreated: null
   }
 
@@ -53,6 +55,8 @@ module.exports = (db)=>{
         userEmail:useremail,
         userPassword: pswdGenerator(userpassword),
         userCourses: [],
+        userRoles: ["user"],
+        userActive: true,
         userDateCreated: new Date().getTime()
       }
     );
@@ -64,11 +68,6 @@ module.exports = (db)=>{
       return handler(null, rslt.ops[0]);
     }); 
   } //Registrar un Usuario
-
-
-  userModel.getAll = (handler)=>{
-    userCollection.find({}).toArray(handler);
-  }
 
   userModel.update = ( dataToUpdate , handler )=>{
     var { _id, usernames, userage, usergender, userpassword} = dataToUpdate;
@@ -123,7 +122,7 @@ module.exports = (db)=>{
         return handler(null, doc);
       }
     ); 
-  }//Gesitonar un Usuario
+  }//Gesitonar los cursos de un Usuario
 
   userModel.comparePswd = (hash, raw)=>{
     return bcrypt.compareSync(raw, hash);
@@ -131,7 +130,7 @@ module.exports = (db)=>{
 
   userModel.getByEmail = (email, handler)=>{
     var query = {"userEmail":email};
-    var projection = { "userEmail": 1, "userPassword": 1, "userCompleteName":1};
+    var projection = { "userEmail": 1, "userPassword": 1, "userCompleteName":1, "userActive":1};
     userCollection.findOne(
       query,
       {"projection":projection},

@@ -488,6 +488,167 @@
 					],
 					"protocolProfileBehavior": {},
 					"_postman_isSubFolder": true
+				},
+				{
+					"name": "users",
+					"item": [
+						{
+							"name": "http://localhost:3000/api/admin/users/all",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:3000/api/admin/users/all",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"admin",
+										"users",
+										"all"
+									]
+								},
+								"description": "Muestra todos los usuarios"
+							},
+							"response": []
+						},
+						{
+							"name": "localhost:3000/api/admin/users/register",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "usernames",
+											"value": "TestNewUpdates",
+											"type": "text"
+										},
+										{
+											"key": "edad",
+											"value": "77",
+											"type": "text"
+										},
+										{
+											"key": "usergender",
+											"value": "Male",
+											"type": "text"
+										},
+										{
+											"key": "useremail",
+											"value": "new@updates.com",
+											"type": "text"
+										},
+										{
+											"key": "userpassword",
+											"value": "Updates123",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "localhost:3000/api/admin/users/register",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"admin",
+										"users",
+										"register"
+									]
+								},
+								"description": "Registers a new User"
+							},
+							"response": []
+						},
+						{
+							"name": "http://localhost:3000/api/admin/users/:id",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:3000/api/admin/users/:id",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"admin",
+										"users",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "5e843f3c8862171020fcbe30"
+										}
+									]
+								},
+								"description": "Obtiene un solo usuario"
+							},
+							"response": []
+						},
+						{
+							"name": "http://localhost:3000/api/admin/users/upd/:id",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "usernames",
+											"value": "TestSuccessful",
+											"type": "text"
+										},
+										{
+											"key": "edad",
+											"value": "15",
+											"type": "text"
+										},
+										{
+											"key": "active",
+											"value": "tru",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://localhost:3000/api/admin/users/upd/:id",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"admin",
+										"users",
+										"upd",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "5e843f3c8862171020fcbe30"
+										}
+									]
+								},
+								"description": "Modifica ciertos campos de un usuario"
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
 				}
 			],
 			"protocolProfileBehavior": {}
@@ -495,26 +656,6 @@
 		{
 			"name": "user",
 			"item": [
-				{
-					"name": "localhost:3000/api/user/all",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "localhost:3000/api/user/all",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"api",
-								"user",
-								"all"
-							]
-						}
-					},
-					"response": []
-				},
 				{
 					"name": "localhost:3000/api/user/courses/:id",
 					"request": {
@@ -617,12 +758,12 @@
 							"urlencoded": [
 								{
 									"key": "userEmail",
-									"value": "jesalgado@unicah.edu",
+									"value": "new@updates.com",
 									"type": "text"
 								},
 								{
 									"key": "userPassword",
-									"value": "Mujer",
+									"value": "Updates123",
 									"type": "text"
 								}
 							]
@@ -674,7 +815,7 @@
 								},
 								{
 									"key": "userpassword",
-									"value": "Mujer",
+									"value": "Mujer123",
 									"type": "text"
 								}
 							]
