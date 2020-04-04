@@ -68,11 +68,11 @@ router.post('/login', (req, res)=>{
   userModel.getByEmail(userEmail, (err,user)=>{
     if(err){
       console.log(err);
-      return res.status(400).json({"msg":"Credenciales No Validas. Porfavor Intente denuevo."});
+      return res.status(200).json({"msg":"Credenciales No Validas. Porfavor intentelo nuevamente."});
     }
       if(!user.userActive){
         console.log(err);
-        return res.status(400).json({"msg":"Su usuario ha sido desabilitado. Que tenga un buen dia"});
+        return res.status(200).json({"msg":"Su usuario ha sido desabilitado. Que tenga un buen dia"});
       }
       if (userModel.comparePswd(user.userPassword, userPassword)){
         delete user.userPassword;
@@ -83,7 +83,7 @@ router.post('/login', (req, res)=>{
         return res.status(200).json({"user":user, "jwt":token});
       }
       console.log({ userEmail, userPassword, ...{ "msg":"Contraseñas No Coinciden"}});
-      return res.status(400).json({ "msg": "Credenciales No Validas. Porfavor Intente denuevo." });
+      return res.status(200).json({"msg": "Credenciales No Validas. Porfavor intentelo nuevamente."});
   });
 });// Reingresar como usuario ya existente
 

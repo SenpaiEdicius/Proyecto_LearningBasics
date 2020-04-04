@@ -78,8 +78,12 @@ export default class Login extends Component{
             )
             .then((resp)=>{
                 console.log(resp.data);
-                this.props.login(resp.data);
-                this.setState({...this.state, redirectTo: true});
+                if(resp.data.msg){
+                    alert(resp.data.msg);
+                }else{
+                    this.props.login(resp.data);
+                    this.setState({...this.state, redirectTo: true});    
+                }
             })
             .catch((error)=>{
                 console.log(error);
