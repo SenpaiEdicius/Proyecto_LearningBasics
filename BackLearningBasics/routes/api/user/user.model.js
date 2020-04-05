@@ -11,8 +11,6 @@ function pswdGenerator( pswdRaw ){
 module.exports = (db)=>{
   var userModel = {}
   var userCollection = db.collection("user");
-  var mycoursesCollection = db.collection("user.userCourses");
-
   var coursesCollection = db.collection("courses");
 
   if(!hasIndexEmail) {
@@ -156,24 +154,47 @@ module.exports = (db)=>{
         return handler(err,null);
       }
       courseJSON = course;
-      console.log(courseJSON);
+      if(courseJSON.courseActive && true){
+        var query = { "_id": new ObjectID(userID) };
+        var projection = { "userCourses": 1, "_id": 0};
+        userCollection.findOne(
+          query,
+          {"projection":projection},
+          (err, courses) => {  
+            if (err) {
+              return handler(err, null);
+            }
+            var x=0;
+            console.log(courses.userCourses[x][0]._id);
+            console.log(courseJSON._id.toString());
+            console.log(courses.userCourses.length);
+            for(x=0;x<courses.userCourses.length;x++){
+              if(courses.userCourses[x][0]._id == courseJSON._id.toString() && true){
+                return handler(null, {"msg":"Ya tiene agregado este curso!"});
+              }
+            }
 
-      var updateCommand = {
-        "$push" :{
-          "userCourses": [courseJSON]
-        }
-      };//updateCommand
+            var updateCommand = {
+              "$push" :{
+                "userCourses": [courseJSON]
+              }
+            };//updateCommand
 
-      userCollection.updateOne(
-        query2,
-        updateCommand,
-        (err, rslt)=>{  
-          if(err){
-            return handler(err, null);
-          }
-          return handler(null, rslt.result);
-        }
-      );//UpdateOne
+            userCollection.updateOne(
+              query2,
+              updateCommand,
+              (err, rslt)=>{  
+                if(err){
+                  return handler(err, null);
+                }
+                return handler(null, rslt.result);
+              }
+            );//UpdateOne
+          
+          });
+      }else{
+        return handler(null, {"msg":"Lastimosamente, no puede agregar este curso. Pruebe con otro curso"});
+      }
     });//findOne
   }
 

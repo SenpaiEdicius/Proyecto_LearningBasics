@@ -1,10 +1,12 @@
 import React, {Component} from 'react';
 import {BrowserRouter as Router, Route} from 'react-router-dom';
 import {setJWTBearer, setLocalStorage, getLocalStorage, removeLocalStorage} from './Components/Utilities/Utilities';
+import  PrivateRoute  from './Components/SecureRoutes/SecureRoutes';
 
 import Home from './Components/Pages/Public/Home/Home';
 import Login from './Components/Pages/Public/Login/Login';
 import SignIn from './Components/Pages/Public/SignIn/SignIn';
+import MyCourses from './Components/Pages/Private/MyCourses/MyCourses';
 import './App.css';
 
 class App extends Component{
@@ -15,7 +17,7 @@ class App extends Component{
       jwt: getLocalStorage('jwt')||'',
       isLogged: false
     }
-    if(this.state.jwt!=''){
+    if(this.state.jwt!==''){
       this.state.isLogged=true;
       setJWTBearer(this.state.jwt);
     }
@@ -31,6 +33,7 @@ class App extends Component{
       ...this.state,
       isLogged:true,
       user: fuser,
+      id: fuser.user._id,
       jwt: jwt
     });
     setJWTBearer(jwt);
@@ -53,6 +56,7 @@ class App extends Component{
     const auth = {
       isLogged:this.state.isLogged,
       user:this.state.user,
+      id: this.state.id,
       logout: this.logout
     };
     return (
@@ -60,6 +64,7 @@ class App extends Component{
         <Route render={(props) => { return (<Home {...props} auth={auth} />) }} path="/" exact />
         <Route render={(props) => { return (<Login {...props} auth={auth} login={this.login} />)}} path="/login" exact/>
         <Route render={(props) => { return (<SignIn {...props} auth={auth} />) }} path="/signin" exact/>
+        <PrivateRoute component={MyCourses} path="/mycourses" exact auth={auth}/>
       </Router>
     );  
   }

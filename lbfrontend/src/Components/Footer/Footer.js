@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import {IoIosLogIn, IoIosHome} from 'react-icons/io';
+import {IoIosLogIn, IoIosHome, IoIosLogOut} from 'react-icons/io';
+import {GiBookPile} from 'react-icons/gi';
 import './Footer.css'
 
 export default class Footer extends Component{
@@ -25,8 +26,8 @@ export default class Footer extends Component{
                        <nav>
                             <ul>
                                 <li><p>You're Logged</p></li>
-                                <li><Link to ="/"><IoIosHome/>Home</Link></li>
-                                <li><span onClick={this.logoutOnClick}><IoIosLogIn/>Logout</span></li>
+                                <li><Link to ="/mycourses"><GiBookPile/>Courses</Link></li>
+                                <li><span onClick={this.logoutOnClick}><IoIosLogOut/>Logout</span></li>
                             </ul>   
                         </nav> 
                     </div>
