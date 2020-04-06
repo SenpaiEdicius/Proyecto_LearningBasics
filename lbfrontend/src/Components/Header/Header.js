@@ -45,6 +45,7 @@ export default class Header extends Component{
                     <li><h2>Bienvenido</h2></li>
                     <li><Link>Aqui van los links</Link></li>
                     <li><Link>Por Mientras</Link></li>
+                    <li><Link to="/mycourses">Mis Cursos</Link></li>
                     <li><Link onClick={this.logoutOnClick}><IoMdLogOut/> Cerrar Sesión</Link></li>
                 </ul>
             </header>

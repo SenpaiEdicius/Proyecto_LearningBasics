@@ -1,0 +1,15 @@
+.page-list{
+    margin-top: $mobileHeight;
+    height: 100vh;
+    overflow: auto;
+    .item{
+        background-color: $pageColorMain;
+        height: 50px;
+        color: $pageWhite;
+        padding: 0.5em;
+        span:first-child {
+            
+            padding-right: 1.5rem;
+        }
+    }
+}

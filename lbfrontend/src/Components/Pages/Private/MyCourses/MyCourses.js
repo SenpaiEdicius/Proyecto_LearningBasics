@@ -6,7 +6,6 @@ import {Link} from 'react-router-dom';
 
 import Page from '../../Page';
 import { saxios } from '../../../Utilities/Utilities';
-import './List.css';
 export default class MyCourses extends Component {
     constructor(){
         super();
@@ -14,7 +13,7 @@ export default class MyCourses extends Component {
             items:[],
             hasMore:true,
             page:1,
-            itemsToLoad:10,
+            itemsToLoad:5,
             user: (getLocalStorage('user')||{})
         }
         this.loadMore = this.loadMore.bind(this);
@@ -53,12 +52,12 @@ export default class MyCourses extends Component {
         const uiItems = this.state.items.map(
             (item)=>{
                 return(
-                    <div className='listItem' key={item[0]._id}>
+                    <div className='item' key={item[0]._id}>
                         <span>{item[0].courseName}</span>
                         <span>Average Hours: {item[0].courseHours}</span>
                         <span className='updateListItem'>
                             <Link to={`/mycourses/classes/${item[0]._id}`}>
-                            <IoMdPlay size='2em'/>
+                            <IoMdPlay size='1em'/>
                             </Link></span>
                     </div>
                 );
@@ -66,25 +65,25 @@ export default class MyCourses extends Component {
         );
 
         if(!uiItems.length) uiItems.push(
-            <div className='listItem' key='pbListAddOne'>
+            <div className='list-items' key='pbListAddOne'>
                 <span>No hay nada aquí</span>
             </div>
         );
 
         return(
             <Page pageTitle="MyCourses" auth={this.props.auth}>
-                <div ref={(ref)=> this.scrollParentRef = ref}>
-                    <InfiniteScroll
-                        pageStart={0}
-                        loadMore={this.loadMore}
-                        hasMore={this.state.hasMore}
-                        useWindow={false}
-                        getScrollParent={()=>this.scrollParentRef}
-                        loader={<div key="pbListLoading"><IoIosSync/></div>}
-                        >
+                    <div ref={(ref)=> this.scrollParentRef = ref} className="page-list">
+                        <InfiniteScroll
+                            pageStart={0}
+                            loadMore={this.loadMore}
+                            hasMore={this.state.hasMore}
+                            useWindow={false}
+                            getScrollParent={()=>this.scrollParentRef}
+                            loader={<div key="pbListLoading"><IoIosSync/></div>}
+                            >
                             {uiItems}
-                    </InfiniteScroll>
-                </div>
+                        </InfiniteScroll>
+                    </div>
             </Page>
         );
     }

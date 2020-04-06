@@ -363,7 +363,7 @@ header .menu-links {
 
 header .menu-links li {
   position: relative;
-  top: 60px;
+  top: 50px;
   width: 100%;
   display: block;
   padding: 0em;
@@ -604,6 +604,23 @@ footer .rights span {
           flex-direction: column;
   -ms-flex-pack: distribute;
       justify-content: space-around;
+}
+
+.page-list {
+  margin-top: 18vw;
+  height: 100vh;
+  overflow: auto;
+}
+
+.page-list .item {
+  background-color: #27b863;
+  height: 50px;
+  color: #fff;
+  padding: 0.5em;
+}
+
+.page-list .item span:first-child {
+  padding-right: 1.5rem;
 }
 
 /*Tablet Screen*/

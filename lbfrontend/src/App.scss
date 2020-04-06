@@ -8,6 +8,8 @@
 
 @import'Components/Pages/Public/Home/homeMobile';
 @import'Components/Pages/Public/Login/loginMobile';
+@import'Components/Pages/Private/MyCourses/myCourseMobile';
+
 /*Tablet Screen*/
 @media (min-width:415px) {
   @import 'Sass/Grid/gridTablet';
