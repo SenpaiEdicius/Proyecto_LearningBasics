@@ -63,7 +63,7 @@ class App extends Component{
       <Router>
         <Route render={(props) => { return (<Home {...props} auth={auth} />) }} path="/" exact />
         <Route render={(props) => { return (<Login {...props} auth={auth} login={this.login} />)}} path="/login" exact/>
-        <Route render={(props) => { return (<SignIn {...props} auth={auth} />) }} path="/signin" exact/>
+        <Route render={(props) => { return (<SignIn {...props} auth={auth} />) }} path="/register" exact/>
         <PrivateRoute component={MyCourses} path="/mycourses" exact auth={auth}/>
       </Router>
     );  
