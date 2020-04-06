@@ -5,8 +5,7 @@ import Button_F from '../../../Common/Button/Button';
 import { Link, Redirect } from 'react-router-dom';
 import {emailRegex, emptyRegex, passwordRegex} from '../../../Common/Validators/Validators';
 import { paxios, setLocalStorage } from '../../../Utilities/Utilities';
-import './Login.css';
-
+import img from './undraw_hacker_mindset_gjwq.svg';
 export default class Login extends Component{
     constructor(){
         super();
@@ -99,26 +98,37 @@ export default class Login extends Component{
         }
         return(
             <Page pageTitle="Login">
-                <Input 
-                    name="email"
-                    caption="Correo Electónico"
-                    value={this.state.email}
-                    onChange={this.onChangeHandler}
-                    error={this.state.emailError}    
-                />
-                <Input
-                    name="password"
-                    caption="Contraseña"
-                    value={this.state.password}
-                    onChange={this.onChangeHandler} 
-                    type="password"
-                    error={this.state.passwordError}
-                />
-                <Button_F>
-                    <button onClick={this.onClickLogin}>Login</button>
-                </Button_F>
-                <p>No tiene cuenta?</p>
-                <Link to="/signin">Registrese Aquí</Link>
+                <section className="page-login">
+                    <div className="login-data col-s-12 col-m-4 col-4 col-l-3">
+                        <h1 className="center">Iniciar Sesión</h1>
+                        <br/>
+                        <Input 
+                            name="email"
+                            caption="Correo Electónico"
+                            value={this.state.email}
+                            onChange={this.onChangeHandler}
+                            error={this.state.emailError} 
+                            className="col-s-12 col-m-12 col-12 input-1"   
+                        />
+                        <Link to="/register">¿Olvidaste tu contraseña? </Link>
+                        
+                        <Input
+                            name="password"
+                            caption="Contraseña"
+                            value={this.state.password}
+                            onChange={this.onChangeHandler} 
+                            type="password"
+                            error={this.state.passwordError}
+                            className="col-s-12 col-m-12 col-12 input-1"   
+                        />
+                        <Button_F>
+                            <button className="button-3 col-s-11" onClick={this.onClickLogin}>Entrar</button>
+                        </Button_F>            
+                    </div>
+                    <div className="login-background col-m-8 col-6 col-offset-1 col-offset-l-2 hide-s">
+                        <img src={img} alt="Imagen de Fondo"  className="col-m-12 no-padding"/>
+                    </div>
+                </section>
             </Page>
         );    
     }

@@ -1,16 +1,15 @@
 import React from 'react';
-import './Input.css';
-
-export default ({name, value, type, caption, onChange, error})=>{
+export default ({name, value, type, caption, onChange, error, className})=>{
     return(
         <fieldset>
-            <legend htmlFor={name}>{caption}</legend>
+            <legend htmlFor={name} className="main-color">{caption}</legend>
             <input type={type||"text"} name={name}
-            id={name} value={value}
+            id={name} value={value} className={error ? className+' error': className}
             onChange={(onChange || ((e)=>false))}
             />
             <br/>
-            {(error && true) ? (<span className="error">{error}</span>) : null}
+            <br/>
+            {(error && true) ? (<span className="center orange">{error}</span>) : null}
         </fieldset>
     );
 }
