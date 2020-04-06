@@ -15,6 +15,7 @@ class App extends Component{
     this.state = {
       user: getLocalStorage('user')||{},
       jwt: getLocalStorage('jwt')||'',
+      id: getLocalStorage('id')||'',
       isLogged: false
     }
     if(this.state.jwt!==''){
@@ -39,6 +40,7 @@ class App extends Component{
     setJWTBearer(jwt);
     setLocalStorage('jwt', jwt);
     setLocalStorage('user', fuser);
+    setLocalStorage('id', this.state.id);
   }
 
   logout(){
