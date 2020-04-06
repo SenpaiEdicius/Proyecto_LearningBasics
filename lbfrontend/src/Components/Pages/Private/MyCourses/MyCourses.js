@@ -13,7 +13,7 @@ export default class MyCourses extends Component {
             items:[],
             hasMore:true,
             page:1,
-            itemsToLoad:5,
+            itemsToLoad:10,
             user: (getLocalStorage('user')||{})
         }
         this.loadMore = this.loadMore.bind(this);
@@ -21,14 +21,13 @@ export default class MyCourses extends Component {
 
     loadMore(page){
         const items = this.state.itemsToLoad;
-        const uri = `api/user/mycourses/${this.props.auth.id}`;
+        const uri = `api/user/mycourses/${this.props.auth.id}/${items}`;
         saxios.get(uri)
         .then(
             ({data})=>{
-                console.log(data);
-                const {userCourses: courses, total} = data;
+                const {allcourses, total} = data;
                 const loadedItems = this.state.items;
-                courses.map((e)=>loadedItems.push(e));
+                allcourses.map((e)=>loadedItems.push(e));
                 if(total){
                     this.setState({
                         'items':loadedItems,
@@ -49,14 +48,15 @@ export default class MyCourses extends Component {
     };
 
     render(){
+        console.log(this.state.items);
         const uiItems = this.state.items.map(
             (item)=>{
                 return(
-                    <div className='item' key={item[0]._id}>
-                        <span>{item[0].courseName}</span>
-                        <span>Average Hours: {item[0].courseHours}</span>
+                    <div className='item' key={item._id}>
+                        <span>{item.courseName}</span>
+                        <span>Average Hours: {item.courseHours}</span>
                         <span className='updateListItem'>
-                            <Link to={`/mycourses/classes/${item[0]._id}`}>
+                            <Link to={`/mycourses/classes/${item._id}`}>
                             <IoMdPlay size='1em'/>
                             </Link></span>
                     </div>

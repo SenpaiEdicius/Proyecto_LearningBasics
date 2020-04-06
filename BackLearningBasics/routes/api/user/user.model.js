@@ -107,20 +107,85 @@ module.exports = (db)=>{
     ); 
   }//Gesitonar un Usuario
 
-  userModel.getMyCoursesById = (id, handler) => {
-    var query = { "_id": new ObjectID(id) };
-    var projection = { "userCourses": 1, "_id": 0};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  userModel.getMyCoursesById = async (id, items, handler) => {
+    var query = {"_id": new ObjectID(id)};
+    var projection = {"userCourses": 1, "_id": 0};
     userCollection.findOne(
       query,
       {"projection":projection},
-      (err, doc) => {
-        if (err) {
+      (err,docs)=>{
+        if(err){
+          console.log(err);
           return handler(err, null);
         }
-        return handler(null, doc);
-      }
+        userCoursesArray = docs.userCourses;
+        idsArray=[];
+        for(y=0;y<userCoursesArray.length; y++){
+          idsArray.push(userCoursesArray[y][0]._id);
+        }
+        var page = 1;
+        var itemsPerPage = 10;
+        var arr = [];
+        var tempID='';  
+        for(z=0;z<=(userCoursesArray.length);z++){
+          tempID = new ObjectID(idsArray[z]);
+          arr.push({"_id": tempID});
+        };
+        var options = {
+          "limit": itemsPerPage,
+          "skip": ((page -1) * itemsPerPage),
+          "projection":{
+              "courseName":1, "courseHours":1
+          }
+        };
+        let cursor = coursesCollection.find({$or: arr}, options);
+        cursor.toArray((err, finaldocs)=>{
+          if (err) {
+            return handler(err, null);
+          }
+          return handler(null, {"allcourses": finaldocs||{"at":"least","print":"this"}, total: 2} );
+        }
+        );
+    }
     ); 
-  }//Gesitonar los cursos de un Usuario
+  };//Gesitonar los cursos de un Usuario
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   userModel.comparePswd = (hash, raw)=>{
     return bcrypt.compareSync(raw, hash);

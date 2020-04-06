@@ -17,15 +17,16 @@ router.get('/:id',(req, res)=>{
     });
 }); //Gestionar Usuario
 
-router.get('/mycourses/:id',(req, res)=>{
-    var id =  req.params.id ;
-    userModel.getMyCoursesById(id, (err, doc)=>{
-      if(err){
-        console.log(err);
-        return res.status(500).json({"error":"error"});
-      }
-      return res.status(200).json(doc);
-    });
+router.get('/mycourses/:id/:items',(req, res)=>{
+  var id =  req.params.id ;
+  var shownItems = req.params.items;
+  userModel.getMyCoursesById(id, shownItems, (err, doc)=>{
+    if(err){
+      console.log(err);
+      return res.status(500).json({"error":"error"});
+    }
+    return res.status(200).json(doc);
+  });
 }); //Gestionar Mis Cursos
 
 
