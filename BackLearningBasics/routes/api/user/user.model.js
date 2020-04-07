@@ -1,6 +1,7 @@
 var ObjectID = require('mongodb').ObjectID;
 var bcrypt = require('bcrypt');
 var hasIndexEmail = false;
+var nodemailer = require('nodemailer');
 
 function pswdGenerator( pswdRaw ){
   var hashedPswd = bcrypt.hashSync(pswdRaw, 10);
@@ -12,7 +13,14 @@ module.exports = (db)=>{
   var userModel = {}
   var userCollection = db.collection("user");
   var coursesCollection = db.collection("courses");
-
+  var mailer = nodemailer.createTransport({
+    host:'smtp.gmail.com',
+    port:587,
+    auth:{
+      user:'learningbasicshn@gmail.com',
+      pass:'LBTeam2020!'
+      }
+  });
   if(!hasIndexEmail) {
     userCollection.indexExists("userEmail_1", (err, rslt)=>{
         if(!rslt){
@@ -58,6 +66,7 @@ module.exports = (db)=>{
         userDateCreated: new Date().getTime()
       }
     );
+   
     userCollection.insertOne(userToAdd, (err, rslt)=>{
       if(err){
         return handler(err, null);
@@ -66,7 +75,7 @@ module.exports = (db)=>{
       return handler(null, rslt.ops[0]);
     }); 
   } //Registrar un Usuario
-
+   
   userModel.update = ( dataToUpdate , handler )=>{
     var { _id, usernames, userage, usergender, userpassword} = dataToUpdate;
     var query = { "_id": new ObjectID(_id)};
@@ -106,26 +115,6 @@ module.exports = (db)=>{
       }
     ); 
   }//Gesitonar un Usuario
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
   userModel.getMyCoursesById = async (id, items, handler) => {
     var query = {"_id": new ObjectID(id)};
@@ -169,23 +158,6 @@ module.exports = (db)=>{
     }
     ); 
   };//Gesitonar los cursos de un Usuario
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
   userModel.comparePswd = (hash, raw)=>{
     return bcrypt.compareSync(raw, hash);
@@ -306,7 +278,14 @@ module.exports = (db)=>{
       }
     );
   }
-
-
+  userModel.sendEmail = (mailOptions, handler)=>{
+    mailer.sendMail(mailOptions,(err, info)=>{
+      if(err){
+        console.log(err);
+        return handler(err,null);
+      }
+      return handler(null,info);
+    });
+  }
   return userModel;
 }

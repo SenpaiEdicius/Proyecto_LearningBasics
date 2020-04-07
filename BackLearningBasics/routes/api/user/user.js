@@ -126,7 +126,21 @@ router.put('/courses/:id', (req, res)=>{
       });
   });//si existe el nodo
 });//cambia estado de nodo a completado
-
+router.post('/forgot',(req,res)=>{
+  var mailOptions = {
+    from: 'learningbasicshn@gmail.com',
+    to: req.body.to,
+    subject: req.body.subject,
+    html: req.body.htmlBody
+  }
+  userModel.sendEmail(mailOptions,(err,result)=>{
+    if(err){
+      console.log(err);
+      return res.status(500).json({"error":"No se pudo enviar el correo"});
+    }
+    return res.status(200).json({"mensaje":"EL correo fue enviado satisfactoriamente"});
+  });
+});//Forgot
  return router;
 }
 module.exports = initUser;

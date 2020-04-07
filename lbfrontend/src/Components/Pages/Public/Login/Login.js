@@ -110,7 +110,7 @@ export default class Login extends Component{
                             error={this.state.emailError} 
                             className="col-s-12 col-m-12 col-12 input-1"   
                         />
-                        <Link to="/register">¿Olvidaste tu contraseña? </Link>
+                        <Link to="/forgot">¿Olvidaste tu contraseña? </Link>
                         
                         <Input
                             name="password"

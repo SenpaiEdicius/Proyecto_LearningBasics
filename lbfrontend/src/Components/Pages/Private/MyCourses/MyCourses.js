@@ -78,6 +78,7 @@ export default class MyCourses extends Component {
                             loadMore={this.loadMore}
                             hasMore={this.state.hasMore}
                             useWindow={false}
+                            threshold={108}
                             getScrollParent={()=>this.scrollParentRef}
                             loader={<div key="pbListLoading"><IoIosSync/></div>}
                             >
