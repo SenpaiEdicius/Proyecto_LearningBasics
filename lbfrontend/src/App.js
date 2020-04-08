@@ -9,7 +9,7 @@ import Forgot from './Components/Pages/Public/Forgot/Forgot';
 
 import SignIn from './Components/Pages/Public/SignIn/SignIn';
 import MyCourses from './Components/Pages/Private/MyCourses/MyCourses';
-import allCourses from './Components/Pages/Public/Courses/Courses';
+import AllCourses from './Components/Pages/Public/Courses/Courses';
 import './App.css';
 
 class App extends Component{
@@ -70,8 +70,9 @@ class App extends Component{
         <Route render={(props) => { return (<Login {...props} auth={auth} login={this.login} />)}} path="/login" exact/>
         <Route render={(props) => { return (<SignIn {...props} auth={auth} />) }} path="/register" exact/>
         <Route render={(props) => { return (<Forgot {...props} auth={auth}/>)}} path="/forgot" exact/>
+        <Route render={(props) => { return (<AllCourses {...props} auth={auth} />) }} path="/courses" exact/>
         <PrivateRoute component={MyCourses} path="/mycourses" exact auth={auth}/>
-        <PrivateRoute component={allCourses} path="/courses" exact auth={auth}/>
+
       </Router>
     );  
   }

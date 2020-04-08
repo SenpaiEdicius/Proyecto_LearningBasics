@@ -4,10 +4,10 @@ import { IoIosInformationCircleOutline, IoIosSync, IoMdAddCircle, IoIosImage } f
 import {Link} from 'react-router-dom';
 
 import Page from '../../Page';
-import { saxios } from '../../../Utilities/Utilities.js';
+import { paxios } from '../../../Utilities/Utilities.js';
 import './List.css';
 export default class Courses extends Component {
-  constructor(){;
+  constructor(){
     super();
     this.state={
      items:[],
@@ -20,7 +20,7 @@ export default class Courses extends Component {
  loadMore(page){
     const items  = this.state.itemsToLoad;
     const uri = `/api/public/courses/${page}/${items}`;
-    saxios.get(uri)
+    paxios.get(uri)
       .then(
         ({data})=>{
           console.log(data);
@@ -62,7 +62,7 @@ export default class Courses extends Component {
       </div>);
   
     return (
-      <Page pageTitle="Productos" auth={this.props.auth}>
+      <Page pageTitle="Productos">
         <div className="list" ref={(ref)=> this.scrollParentRef = ref}>
             <InfiniteScroll
               pageStart={0}
