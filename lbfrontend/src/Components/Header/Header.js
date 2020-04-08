@@ -38,7 +38,8 @@ export default class Header extends Component{
                 <ul className={ shown ? "nav-links open col-s-12 col-m-5 col-5 col-l-5 no-margin center": "nav-links col-s-12 col-m-5 col-5 col-l-5 no-margin center" }>
                     <li><Link to="/courses">Todos los Cursos</Link></li>
                     <li><Link to="/mycourses">Cursos Registrados</Link></li>
-                    
+                    <li><Link to="/update">Modificar Usuario</Link></li>
+
                     <li><Link onClick={ ()=>{this.setState({display: !displaying})}}><IoIosSettings/></Link></li>
                 </ul>
                 <ul className={displaying ? "menu-links open col-s-12 col-m-5 col-3 col-l-3 no-margin center no-padding": 

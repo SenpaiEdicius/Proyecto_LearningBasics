@@ -77,11 +77,10 @@ module.exports = (db)=>{
   } //Registrar un Usuario
    
   userModel.update = ( dataToUpdate , handler )=>{
-    var { _id, usernames, userage, usergender, userpassword} = dataToUpdate;
+    var { _id, usernames, userage, usergender} = dataToUpdate;
     var query = { "_id": new ObjectID(_id)};
     var updateCommad = {
       "$set":{
-        userPassword: pswdGenerator(userpassword),
         userCompleteName: usernames,
         userAge:userage,
         userGender:usergender,
