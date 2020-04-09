@@ -21,7 +21,7 @@ export default class MyCourses extends Component {
 
     loadMore(page){
         const items = this.state.itemsToLoad;
-        const uri = `api/user/mycourses/${this.props.auth.id}/${items}`;
+        const uri = `api/user/mycourses/${this.props.auth.id}/${page}/${items}`;
         saxios.get(uri)
         .then(
             ({data})=>{

@@ -17,10 +17,11 @@ router.get('/:id',(req, res)=>{
     });
 }); //Gestionar Usuario
 
-router.get('/mycourses/:id/:items',(req, res)=>{
+router.get('/mycourses/:id/:page/:items',(req, res)=>{
   var id =  req.params.id ;
-  var shownItems = req.params.items;
-  userModel.getMyCoursesById(id, shownItems, (err, doc)=>{
+  var page = parseInt(req.params.page);
+  var items = parseInt(req.params.items);
+  userModel.getMyCoursesById(id, page, items, (err, doc)=>{
     if(err){
       console.log(err);
       return res.status(500).json({"error":"error"});

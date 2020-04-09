@@ -115,7 +115,10 @@ module.exports = (db)=>{
     ); 
   }//Gesitonar un Usuario
 
-  userModel.getMyCoursesById = async (id, items, handler) => {
+
+
+
+  userModel.getMyCoursesById = async (id, _page, items, handler) => {
     var query = {"_id": new ObjectID(id)};
     var projection = {"userCourses": 1, "_id": 0};
     userCollection.findOne(
@@ -131,8 +134,8 @@ module.exports = (db)=>{
         for(y=0;y<userCoursesArray.length; y++){
           idsArray.push(userCoursesArray[y][0]._id);
         }
-        var page = 1;
-        var itemsPerPage = 10;
+        var page = _page||1;
+        var itemsPerPage = items||10;
         var arr = [];
         var tempID='';  
         for(z=0;z<=(userCoursesArray.length);z++){
@@ -151,12 +154,15 @@ module.exports = (db)=>{
           if (err) {
             return handler(err, null);
           }
-          return handler(null, {"allcourses": finaldocs||{"at":"least","print":"this"}, total: 2} );
+          return handler(null, {"allcourses": finaldocs||{"at":"least","print":"this"}, total: userCoursesArray.length});
         }
         );
     }
     ); 
   };//Gesitonar los cursos de un Usuario
+
+
+
 
   userModel.comparePswd = (hash, raw)=>{
     return bcrypt.compareSync(raw, hash);
