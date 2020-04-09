@@ -7,12 +7,11 @@ function pswdGenerator( pswdRaw ){
   var hashedPswd = bcrypt.hashSync(pswdRaw, 10);
   return hashedPswd;
 }
-
-
 module.exports = (db)=>{
   var userModel = {}
   var userCollection = db.collection("user");
   var coursesCollection = db.collection("courses");
+  var accessCollection = db.collection('access');
   var mailer = nodemailer.createTransport({
     host:'smtp.gmail.com',
     port:587,
@@ -48,7 +47,7 @@ module.exports = (db)=>{
     userActive: false,
     userDateCreated: null
   }
-
+  
   userModel.addNew = (dataToAdd, handler)=>{
     var { usernames, userage, usergender,useremail,userpassword} = dataToAdd;
     var userToAdd = Object.assign(
@@ -165,7 +164,7 @@ module.exports = (db)=>{
 
   userModel.getByEmail = (email, handler)=>{
     var query = {"userEmail":email};
-    var projection = { "userEmail": 1, "userPassword": 1, "userCompleteName":1, "userActive":1};
+    var projection = { "userEmail": 1, "userPassword": 1, "userCompleteName":1, "userActive":1,"userType":1};
     userCollection.findOne(
       query,
       {"projection":projection},
@@ -287,5 +286,6 @@ module.exports = (db)=>{
       return handler(null,info);
     });
   }
+
   return userModel;
 }

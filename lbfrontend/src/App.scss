@@ -9,6 +9,7 @@
 @import'Components/Pages/Public/Home/homeMobile';
 @import'Components/Pages/Public/Login/loginMobile';
 @import'Components/Pages/Private/MyCourses/myCourseMobile';
+@import'Components/Pages/Private/Admin/Access/accessMobile';
 
 /*Tablet Screen*/
 @media (min-width:415px) {
@@ -19,6 +20,7 @@
 
   @import'Components/Pages/Public/Home/homeTablet';
   @import'Components/Pages/Public/Login/loginTablet';
+  @import'Components/Pages/Private/Admin/Access/accessTablet';
 }
 /*Desktop Screens*/
   @media (min-width:1024px) {
@@ -27,6 +29,7 @@
 
     @import'Components/Pages/Public/Home/homeDesktop';
     @import'Components/Pages/Public/Login/loginDesktop';
+    @import'Components/Pages/Private/Admin/Access/accessDesktop';
 }
 /*tv Screens*/
   @media (min-width:1300px) {

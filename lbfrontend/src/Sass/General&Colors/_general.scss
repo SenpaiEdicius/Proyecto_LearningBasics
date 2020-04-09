@@ -62,14 +62,29 @@ body{
   border: 1.5px solid $pageColorMain;
 }
 .action-title{
-  background-color: $pageDark;
+  background-color: $pageWhite;
   opacity: 0.9;
-
-  box-shadow: 0px 7px 15px #2e2e2e;
+  margin: 15px;
+  padding: 2em;
+  border-radius: 0px;
+  box-shadow: 0px 0px 8px $pageGrey;
   h1{
-    color: $pageWhite;
+    color: $pageColorMain;
     opacity: 1;
     font-size: 2em !important;
+  }
+  button{
+    text-align: center;
+    display: block;
+    a{
+      display: block;
+      color: $pageWhite;
+    }
+    &:hover{
+      a{
+        color: $pageColorMain;
+      }
+    }
   }
 }
 .correct{

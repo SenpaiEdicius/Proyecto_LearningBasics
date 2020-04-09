@@ -201,16 +201,33 @@ body {
 }
 
 .action-title {
-  background-color: #000;
+  background-color: #fff;
   opacity: 0.9;
-  -webkit-box-shadow: 0px 7px 15px #2e2e2e;
-          box-shadow: 0px 7px 15px #2e2e2e;
+  margin: 15px;
+  padding: 2em;
+  border-radius: 0px;
+  -webkit-box-shadow: 0px 0px 8px rgba(109, 109, 109, 0.582);
+          box-shadow: 0px 0px 8px rgba(109, 109, 109, 0.582);
 }
 
 .action-title h1 {
-  color: #fff;
+  color: #27b863;
   opacity: 1;
   font-size: 2em !important;
+}
+
+.action-title button {
+  text-align: center;
+  display: block;
+}
+
+.action-title button a {
+  display: block;
+  color: #fff;
+}
+
+.action-title button:hover a {
+  color: #27b863;
 }
 
 .correct {
@@ -612,19 +629,53 @@ footer .rights span {
 
 .page-list {
   margin-top: 18vw;
-  height: 100vh;
   overflow: auto;
 }
 
-.page-list .item {
-  background-color: #27b863;
-  height: 50px;
-  color: #fff;
-  padding: 0.5em;
+.page-list {
+  background-color: #fafafa;
+  height: 100vh;
 }
 
-.page-list .item span:first-child {
-  padding-right: 1.5rem;
+.page-list .list .list-item {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: left;
+      -ms-flex-pack: left;
+          justify-content: left;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding: 0.8rem;
+  margin: 20px;
+  -webkit-box-shadow: 0px 0px 8px rgba(109, 109, 109, 0.582);
+          box-shadow: 0px 0px 8px rgba(109, 109, 109, 0.582);
+  height: 90px;
+  color: #27b863;
+  background-color: #fff;
+  position: relative;
+}
+
+.page-list .list .list-item .buttons {
+  position: absolute;
+  right: 5px;
+}
+
+.page-list .list .list-item .buttons button {
+  border: 2px solid #fff;
+  background-color: #27b863;
+  color: #fff;
+}
+
+.page-list .list .list-item .buttons button a {
+  display: block;
+  color: #fff;
+  font-size: 1.5em;
 }
 
 /*Tablet Screen*/
@@ -844,6 +895,9 @@ footer .rights span {
         -ms-flex-pack: space-evenly;
             justify-content: space-evenly;
   }
+  .page-list {
+    margin-top: 9vw;
+  }
 }
 
 /*Desktop Screens*/
@@ -1060,6 +1114,9 @@ footer .rights span {
             flex-direction: column;
     -ms-flex-pack: distribute;
         justify-content: space-around;
+  }
+  .page-list {
+    margin-top: 9vh;
   }
 }
 

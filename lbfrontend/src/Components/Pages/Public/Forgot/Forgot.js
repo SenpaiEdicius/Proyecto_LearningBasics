@@ -80,7 +80,7 @@ export default class Forgot extends Component {
     render() {
         if(this.state.emailSent){
             return(
-            <Page pageTitle="forgot">
+            <Page pageURL="forgot">
                 <section className="page-login">
                         <div className="login-data col-s-12 col-m-4 col-4 col-l-3">
                             <h1 className="center">Cambion de Contraseña</h1>
@@ -95,7 +95,7 @@ export default class Forgot extends Component {
             );
         }
         return (
-            <Page pageTitle="forgot">
+            <Page pageURL="forgot">
             <section className="page-login">
                     <div className="login-data col-s-12 col-m-4 col-4 col-l-3">
                         <h1 className="center">Cambion de Contraseña</h1>

@@ -27,7 +27,7 @@ const localStorageAvailable = (()=>{
     }catch(e){
         return false;
     }
-})();
+});
 
 export const setLocalStorage = (key, value)=>{
     if(localStorageAvailable){

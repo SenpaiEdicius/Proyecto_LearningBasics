@@ -2,13 +2,16 @@ import React, {Component} from 'react';
 import {BrowserRouter as Router, Route} from 'react-router-dom';
 import {setJWTBearer, setLocalStorage, getLocalStorage, removeLocalStorage} from './Components/Utilities/Utilities';
 import  PrivateRoute  from './Components/SecureRoutes/SecureRoutes';
-
+/*--------------Public Routing------------------*/
 import Home from './Components/Pages/Public/Home/Home';
 import Login from './Components/Pages/Public/Login/Login';
 import Forgot from './Components/Pages/Public/Forgot/Forgot';
-
 import SignIn from './Components/Pages/Public/SignIn/SignIn';
+/*--------------Private Routing------------------*/
 import MyCourses from './Components/Pages/Private/MyCourses/MyCourses';
+import Access from './Components/Pages/Private/Admin/Access/Access';
+import Level from './Components/Pages/Private/Admin/Access/Level';
+/*--------------CSS------------------*/
 import './App.css';
 
 class App extends Component{
@@ -24,12 +27,10 @@ class App extends Component{
       this.state.isLogged=true;
       setJWTBearer(this.state.jwt);
     }
-
     this.login = this.login.bind(this);
     this.logout = this.logout.bind(this);
 
   }
-
   login(user){
     const {jwt, ...fuser} = user;
     this.setState({
@@ -37,12 +38,14 @@ class App extends Component{
       isLogged:true,
       user: fuser,
       id: fuser.user._id,
+      type:fuser.user.userType,
       jwt: jwt
     });
     setJWTBearer(jwt);
     setLocalStorage('jwt', jwt);
     setLocalStorage('user', fuser);
     setLocalStorage('id', this.state.id);
+    setLocalStorage('type',this.state.type)
   }
 
   logout(){
@@ -70,8 +73,11 @@ class App extends Component{
         <Route render={(props) => { return (<SignIn {...props} auth={auth} />) }} path="/register" exact/>
         <Route render={(props) => { return (<Forgot {...props} auth={auth}/>)}} path="/forgot" exact/>
         <PrivateRoute component={MyCourses} path="/mycourses" exact auth={auth}/>
+        <PrivateRoute component={Access} path="/access" exact auth={auth}/>
+        <PrivateRoute component={Level} path="/access/level/:userType/:op" exact auth={auth}/>
+        
       </Router>
-    );  
+      );  
   }
 }
 

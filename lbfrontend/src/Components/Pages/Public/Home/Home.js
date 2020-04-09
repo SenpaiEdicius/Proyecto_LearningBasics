@@ -3,7 +3,7 @@ import Page from '../../Page';
 import { DiCss3,DiHtml5,DiPhp,DiCode } from "react-icons/di";
 export default ({auth})=>{
     return (
-        <Page pageTitle="WELCOME?" auth={auth}>
+        <Page pageURL="WELCOME?" auth={auth}>
             <section className="page-landing">
                 <div className="landing-photo col-s-12 col-m-9 col-10 no-padding">
                     <h2 className="col-s-12">Bienvenidos al Futuro del Aprendizaje</h2>
