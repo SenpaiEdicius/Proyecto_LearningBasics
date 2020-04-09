@@ -102,6 +102,31 @@ module.exports = (db)=>{
     );
   }//Modificar Caracteristicas de un Usuario
 
+
+  userModel.updatepass = ( dataToUpdate , handler )=>{
+    var { _id, password} = dataToUpdate;
+    var query = { "_id": new ObjectID(_id)};
+    var updateCommad = {
+      "$set":{
+        userPassword: pswdGenerator(password),
+        lastUpdated: new Date().getTime()
+      },
+      "$inc" :{
+        "updates": 1
+      }
+    };
+    userCollection.updateOne(
+      query,
+      updateCommad,
+      (err, rslt)=>{
+        if(err){
+          return handler(err, null);
+        }
+        return handler(null, rslt.result);
+      }
+    );
+  }//Modificar Caracteristicas de un Usuario
+
   userModel.getById = (id, handler) => {
     var query = { "_id": new ObjectID(id) };
     userCollection.findOne(

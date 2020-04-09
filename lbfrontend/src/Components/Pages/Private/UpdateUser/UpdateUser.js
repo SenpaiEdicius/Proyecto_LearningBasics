@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import Page from '../../Page';
 import Input from '../../../Common/Input/Input';
 import Button_F from '../../../Common/Button/Button';
-import {emptyRegex, nameRegex, edadRegex, passwordRegex} from '../../../Common/Validators/Validators';
+import {emptyRegex, nameRegex, edadRegex} from '../../../Common/Validators/Validators';
 import css from './css.css';
 import { saxios } from '../../../Utilities/Utilities';
 
@@ -98,7 +98,6 @@ export default class Login extends Component{
                 alert("Ingrese una edad creíble");
             }
             else{
-                alert(JSON.stringify(this.props.auth.id));
                 const uri = `api/user/upd/${this.props.auth.id}`;
                 saxios.put(uri,{
                     id: this.props.auth.id,

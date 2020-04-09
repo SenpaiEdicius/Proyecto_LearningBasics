@@ -90,6 +90,30 @@ router.post('/login', (req, res)=>{
 });// Reingresar como usuario ya existente
 
 
+router.post('/updatepswd', (req, res)=>{
+  var id =  req.body.id ;
+  var oldpassword = req.body.oldpass;
+  var password = req.body.newpass;
+  userModel.getById(id, (err, doc)=>{
+    if(err){
+      console.log(err);
+      return res.status(200).json({"msg":"Error inesperado. Intente nuevamente"});
+    }
+      if (!userModel.comparePswd(doc.userPassword, oldpassword)){
+        return res.status(200).json({"msg":"La contraseña actual no es correcta"});
+      }
+        console.log("Si pasa");
+        userModel.updatepass({_id:id, password}, (err, upd)=>{
+          if(err){
+            console.log(err);
+            return res.status(200).json({"msg":"Error inesperado. Intente nuevamente"});
+          }
+          return res.status(200).json({"msg":"Se ha completado el cambio de contraseña con éxito"});
+        }); 
+  });
+});// Revisar Contraseña
+
+
 router.post('/courses/add', (req, res)=>{
   var userID = req.body.userID;
   var courseID = req.body.courseID;
