@@ -13,6 +13,36 @@ function initAccess(db){
         });
         
     });
+    router.get('/pages', (req,res)=>{
+        accessModel.getPages((err,pages)=>{
+            if(err){
+                console.log(err);
+                return res.status(500).json({"error":err});
+            }
+            return res.status(200).json(pages);
+        });
+    });
+    router.get('/pages/:id', (req,res)=>{
+        var id = req.params.id;
+        accessModel.getPagesByCod(id,(err,page)=>{
+            if(err){
+                console.log(err);
+                return res.status(500).json({"error":err});
+            }
+            return res.status(200).json(page);
+        });
+    });
+    router.put('/pages/modify/:id', (req,res)=>{
+        var id = req.params.id;
+        var modifyingData = req.body;
+        accessModel.modifyPage(id,modifyingData,(err,page)=>{
+            if(err){
+                console.log(err);
+                return res.status(500).json({"error":err});
+            }
+            return res.status(200).json(page);
+        });
+    });
     router.put('/give/:id',(req,res)=>{
         var type = req.body.type;
         var id = req.params.id;

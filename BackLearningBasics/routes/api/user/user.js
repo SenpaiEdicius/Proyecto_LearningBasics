@@ -71,7 +71,7 @@ router.post('/login', (req, res)=>{
       console.log(err);
       return res.status(200).json({"msg":"Credenciales No Validas. Porfavor intentelo nuevamente."});
     }
-      if(!user.userActive){
+      if(!user.userActive|| user.userActive==null){
         console.log(err);
         return res.status(200).json({"msg":"Su usuario ha sido desabilitado. Que tenga un buen dia"});
       }

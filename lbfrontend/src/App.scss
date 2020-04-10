@@ -7,9 +7,13 @@
 @import'Components/Footer/footerMobile';
 
 @import'Components/Pages/Public/Home/homeMobile';
+@import'Components/Pages/Public/Found/foundMobile';
 @import'Components/Pages/Public/Login/loginMobile';
 @import'Components/Pages/Private/MyCourses/myCourseMobile';
 @import'Components/Pages/Private/Admin/Access/accessMobile';
+@import 'Components/Pages/Private/Admin/Access/singleMobile';
+@import'Components/Common/Form/formMobile';
+
 
 /*Tablet Screen*/
 @media (min-width:415px) {
@@ -20,7 +24,11 @@
 
   @import'Components/Pages/Public/Home/homeTablet';
   @import'Components/Pages/Public/Login/loginTablet';
+  @import'Components/Pages/Public/Found/foundTablet';
   @import'Components/Pages/Private/Admin/Access/accessTablet';
+  @import 'Components/Pages/Private/Admin/Access/singleTablet';
+  @import'Components/Common/Form/formTablet';
+
 }
 /*Desktop Screens*/
   @media (min-width:1024px) {
@@ -29,7 +37,10 @@
 
     @import'Components/Pages/Public/Home/homeDesktop';
     @import'Components/Pages/Public/Login/loginDesktop';
+    @import'Components/Pages/Public/Found/foundDesktop';
     @import'Components/Pages/Private/Admin/Access/accessDesktop';
+    @import 'Components/Pages/Private/Admin/Access/singleDesktop';
+    @import'Components/Common/Form/formDesktop';
 }
 /*tv Screens*/
   @media (min-width:1300px) {

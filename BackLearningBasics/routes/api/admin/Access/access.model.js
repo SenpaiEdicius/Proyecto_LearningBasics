@@ -9,6 +9,31 @@ module.exports = (db)=>{
         pageClass:"",
         hasAccess:[]
     }
+    accessModel.getPages = (handler)=>{
+        accessCollection.find({}).toArray(handler);
+    }
+    accessModel.getPagesByCod = (id,handler)=>{
+        var query = {"_id":new ObjectID(id)}
+        accessCollection.find(query).toArray(handler);
+    }
+    accessModel.modifyPage = (id,modyfingData,handler)=>{
+        var query={"_id": new ObjectID(id)};
+        var {pageName, pageURL, pageClass} = modyfingData;
+        var updateCommand = {
+            "$set":{
+                pageName:pageName,
+                pageURL:pageURL,
+                pageClass:pageClass
+            }
+        }
+        accessCollection.updateOne(query,updateCommand,(err, updatedPage)=>{
+            if(err){
+                console.log(err);
+                return handler(err, null);
+              }
+              return handler(null, updatedPage);
+        })
+    }
     accessModel.newPage = (pageData, handler)=>{
         var {pageName,pageURL,pageClass} = pageData;
         var accessToAdd = Object.assign({},accessTemplate,
