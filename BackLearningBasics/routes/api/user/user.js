@@ -111,7 +111,7 @@ router.post('/updatepswd', (req, res)=>{
           return res.status(200).json({"msg":"Se ha completado el cambio de contraseña con éxito"});
         }); 
   });
-});// Revisar Contraseña
+});// Cambiar Contraseña
 
 
 router.post('/courses/add', (req, res)=>{
@@ -124,10 +124,20 @@ router.post('/courses/add', (req, res)=>{
     }
     return res.status(200).json(info);
   });
+});//Añadir Curso a usuario
+
+router.get('/course/nodes/:id', (req, res)=>{
+  var id = req.params.id;
+  userModel.getCourseNodes(id, (err, nodes)=>{
+    if(err){
+      console.log(err);
+      return res.status(500).json({"error":"No se ha podido confirmar el nodo. Intente nuevamente"});
+    }
+    return res.status(200).json(nodes);
+  });
 });
 
-
-router.put('/courses/:id', (req, res)=>{
+router.put('/courses/class/:id', (req, res)=>{
   var id = req.params.id;
   var answer = req.body.answer;
   var nodeNumber = parseInt(req.body.NodeNumber);
@@ -151,6 +161,8 @@ router.put('/courses/:id', (req, res)=>{
       });
   });//si existe el nodo
 });//cambia estado de nodo a completado
+
+
 router.post('/forgot',(req,res)=>{
   var mailOptions = {
     from: 'learningbasicshn@gmail.com',

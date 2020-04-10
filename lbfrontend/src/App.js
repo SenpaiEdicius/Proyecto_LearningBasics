@@ -12,6 +12,7 @@ import SignIn from './Components/Pages/Public/SignIn/SignIn';
 import MyCourses from './Components/Pages/Private/MyCourses/MyCourses';
 import UpdateUser from './Components/Pages/Private/UpdateUser/UpdateUser';
 import UpdatePassword from './Components/Pages/Private/UpdatePassword/UpdatePassword';
+import Nodes from './Components/Pages/Private/Nodes/Nodes';
 import './App.css';
 
 class App extends Component{
@@ -77,6 +78,7 @@ class App extends Component{
         <PrivateRoute component={MyCourses} path="/mycourses" exact auth={auth}/>
         <PrivateRoute component={UpdateUser} path="/update" exact auth={auth}/>
         <PrivateRoute component={UpdatePassword} path='/updatePass' exact auth={auth}/>
+        <PrivateRoute component={Nodes} path='/course/classes/:id' auth={auth}/>
       </Router>
     );  
   }

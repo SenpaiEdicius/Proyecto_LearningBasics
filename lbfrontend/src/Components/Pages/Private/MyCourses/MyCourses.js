@@ -13,7 +13,7 @@ export default class MyCourses extends Component {
             items:[],
             hasMore:true,
             page:1,
-            itemsToLoad:10,
+            itemsToLoad:20,
             user: (getLocalStorage('user')||{})
         }
         this.loadMore = this.loadMore.bind(this);
@@ -56,7 +56,7 @@ export default class MyCourses extends Component {
                         <span>{item.courseName}</span>
                         <span>Average Hours: {item.courseHours}</span>
                         <span className='updateListItem'>
-                            <Link to={`/mycourses/classes/${item._id}`}>
+                            <Link to={`/course/classes/${item._id}`}>
                             <IoMdPlay size='1em'/>
                             </Link></span>
                     </div>
