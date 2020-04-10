@@ -154,9 +154,11 @@ module.exports = (db)=>{
           return handler(err, null);
         }
         userCoursesArray = docs.userCourses;
-        idsArray=[];
-        for(y=0;y<userCoursesArray.length; y++){
-          idsArray.push(userCoursesArray[y][0]._id);
+        if(userCoursesArray!==[]){
+          var idsArray=[];
+          for(y=0;y<userCoursesArray.length; y++){
+            idsArray.push(userCoursesArray[y]._id);
+          }  
         }
         var page = _page||1;
         var itemsPerPage = items||10;

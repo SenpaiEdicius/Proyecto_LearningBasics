@@ -48,7 +48,6 @@ export default class MyCourses extends Component {
     };
 
     render(){
-        console.log(this.state.items);
         const uiItems = this.state.items.map(
             (item)=>{
                 return(

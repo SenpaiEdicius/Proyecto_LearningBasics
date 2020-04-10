@@ -61,7 +61,7 @@ export default class Courses extends Component {
       </div>);
   
     return (
-      <Page pageTitle="Productos" auth={this.props.auth}>
+      <Page pageTitle="Cursos" auth={this.props.auth}>
         <div className="list" ref={(ref)=> this.scrollParentRef = ref}>
             <InfiniteScroll
               pageStart={0}
