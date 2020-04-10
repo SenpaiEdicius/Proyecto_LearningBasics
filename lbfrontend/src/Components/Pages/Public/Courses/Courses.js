@@ -5,7 +5,6 @@ import {Link} from 'react-router-dom';
 
 import Page from '../../Page';
 import { paxios } from '../../../Utilities/Utilities.js';
-import './List.css';
 export default class Courses extends Component {
   constructor(){
     super();
@@ -62,7 +61,7 @@ export default class Courses extends Component {
       </div>);
   
     return (
-      <Page pageTitle="Productos">
+      <Page pageTitle="Productos" auth={this.props.auth}>
         <div className="list" ref={(ref)=> this.scrollParentRef = ref}>
             <InfiniteScroll
               pageStart={0}

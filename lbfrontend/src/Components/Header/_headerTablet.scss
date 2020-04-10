@@ -17,7 +17,8 @@ min-height: $tabletHeight;
         transform: translateX(500px);
     }
     .menu-links{
-        top: $tabletHeight;
+        margin-top: 7vw !important;
+       
     }
     
     .burger{

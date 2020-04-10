@@ -362,9 +362,10 @@ header .nav-links.open {
 
 header .menu-links {
   position: absolute;
-  height: 100vh;
   right: 0px;
-  top: 18vw;
+  margin-top: 18vw !important;
+  padding-bottom: 5em !important;
+  height: 100vh;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -380,11 +381,12 @@ header .menu-links {
           transform: translateX(530px);
   -webkit-transition: 0.5s all ease-in-out;
   transition: 0.5s all ease-in-out;
+  overflow-y: scroll;
 }
 
 header .menu-links li {
   position: relative;
-  top: 50px;
+  top: 10px;
   min-width: 100%;
   display: block;
   padding: 0em;
@@ -394,7 +396,7 @@ header .menu-links li a {
   background-color: #27b863;
   padding: 1em;
   color: #fff;
-  font-size: 1.5em;
+  font-size: 1.3em;
   -webkit-transition: 0.4s all ease-in-out;
   transition: 0.4s all ease-in-out;
 }
@@ -859,7 +861,7 @@ footer .rights span {
             transform: translateX(500px);
   }
   header .menu-links {
-    top: 9vw;
+    margin-top: 7vw !important;
   }
   footer {
     background-color: #27b863;
@@ -1132,7 +1134,7 @@ footer .rights span {
             transform: none;
   }
   header .menu-links {
-    top: 9vh;
+    margin-top: 6.5vh !important;
   }
   header .close {
     display: none;

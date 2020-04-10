@@ -86,6 +86,7 @@ export default class NewPage extends Component {
           .then((resp) => {
             console.log(resp.data);
             alert("Pagina creada correctamente");
+            this.setState({ redirect: true });
           })
           .catch((error) => {
             console.log(error);

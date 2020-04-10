@@ -1,6 +1,6 @@
 import React from 'react';
 import Page from '../../Page';
-import { DiCss3,DiHtml5,DiPhp,DiCode } from "react-icons/di";
+import { DiCss3,DiHtml5,DiPhp } from "react-icons/di";
 export default ({auth})=>{
     return (
         <Page pageURL="WELCOME?" auth={auth}>

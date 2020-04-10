@@ -13,6 +13,13 @@ import MyCourses from './Components/Pages/Private/MyCourses/MyCourses';
 import UpdateUser from './Components/Pages/Private/UpdateUser/UpdateUser';
 import UpdatePassword from './Components/Pages/Private/UpdatePassword/UpdatePassword';
 import Nodes from './Components/Pages/Private/Nodes/Nodes';
+import Access from './Components/Pages/Private/Admin/Access/Access';
+import Level from './Components/Pages/Private/Admin/Access/Level';
+import NewPage from './Components/Pages/Private/Admin/Pages/NewPage';
+
+import Pages from './Components/Pages/Private/Admin/Pages/Pages';
+/*--------------Errors--------------------------*/
+import Found from './Components/Pages/Public/Found/Found';
 import './App.css';
 
 class App extends Component{
@@ -71,25 +78,23 @@ class App extends Component{
     return (
       <Router>
         <Switch>
-          
           <Route render={(props) => { return (<Home {...props} auth={auth} />) }} path="/" exact />
           <Route render={(props) => { return (<Login {...props} auth={auth} login={this.login} />)}} path="/login" exact/>
           <Route render={(props) => { return (<SignIn {...props} auth={auth} />) }} path="/register" exact/>
-          <Router render={(props) => { return (<Forgot {...props} auth={auth}/>)}} path="/forgot" exact/>
+          <Route render={(props) => { return (<Forgot {...props} auth={auth}/>)}} path="/forgot" exact/>
+          <Route render={(props) => { return (<AllCourses {...props} auth={auth} />) }} path="/courses" exact/>
+          <Route render={(props) => { return (<Found {...props} auth={auth} />) }} path="/404" exact />
           <PrivateRoute component={MyCourses} path="/mycourses" exact auth={auth}/>
+          <PrivateRoute component={UpdatePassword} path='/updatePass' exact auth={auth}/>
+          <PrivateRoute component={UpdateUser} path="/update" exact auth={auth}/>
+          <PrivateRoute component={Nodes} path='/course/classes/:id' auth={auth}/>
           <PrivateRoute component={Access} path="/access" exact auth={auth}/>
           <PrivateRoute component={Level} path="/access/level/:userType/:op" exact auth={auth}/>
           <PrivateRoute component={Pages} path="/pages" exact auth={auth}/>
           <PrivateRoute component={NewPage} path="/pages/newPage" exact auth={auth}/>
           <PrivateRoute component={NewPage} path="/pages/modify/:id" exact auth={auth}/>
-          <Route render={(props) => { return (<Found {...props} auth={auth} />) }} path="/404" exact />
-          
           <Redirect to="/404" auth={auth}/>
         </Switch>
-        <Route render={(props) => { return (<AllCourses {...props} auth={auth} />) }} path="/courses" exact/>
-        <PrivateRoute component={UpdatePassword} path='/updatePass' exact auth={auth}/>
-        <PrivateRoute component={UpdateUser} path="/update" exact auth={auth}/>
-        <PrivateRoute component={Nodes} path='/course/classes/:id' auth={auth}/>
       </Router>
       );  
   }

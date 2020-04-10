@@ -41,11 +41,6 @@ export default class Access extends Component {
         <div className="page-list">
           <div className="action-title">
             <h1>Control de Accesos</h1>
-            <br/>
-            <Link to="/access/newPage" className="col-s-12 no-padding center orange">
-              <FaPlusCircle /> &nbsp;
-              Nueva Pagina
-            </Link>
           </div>
           <ul className="list">{types}</ul>
         </div>

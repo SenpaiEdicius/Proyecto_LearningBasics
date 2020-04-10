@@ -61,18 +61,20 @@ header {
   }
   .menu-links {
     position: absolute;
-    height: 100vh;
     right: 0px;
-    top: $mobileHeight;
+    margin-top: $mobileHeight !important;
+    padding-bottom: 5em !important;
+    height: 100vh;
     display: flex;
     align-items: center;
     flex-direction: column;
     background-color: $pageColorMain;
     transform: translateX(530px);
     transition: 0.5s all ease-in-out;
+    overflow-y: scroll;
     li {
       position: relative;
-      top: 50px;
+      top: 10px;
       min-width: 100%;
       display: block;
       padding: 0em;
@@ -80,7 +82,7 @@ header {
         background-color: $pageColorMain;
         padding: 1em;
         color: $pageWhite;
-        font-size: 1.5em;
+        font-size: 1.3em;
         transition: 0.4s all ease-in-out;
         &:hover {
           background-color: $pageWhite;

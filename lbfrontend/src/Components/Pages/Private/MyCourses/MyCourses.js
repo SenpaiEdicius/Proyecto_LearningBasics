@@ -52,7 +52,7 @@ export default class MyCourses extends Component {
         const uiItems = this.state.items.map(
             (item)=>{
                 return(
-                    <div className='item' key={item._id}>
+                    <div className='list-item' key={item._id}>
                         <span>{item.courseName}</span>
                         <span>Average Hours: {item.courseHours}</span>
                         <span className='updateListItem'>
@@ -80,7 +80,8 @@ export default class MyCourses extends Component {
                             useWindow={false}
                             threshold={108}
                             getScrollParent={()=>this.scrollParentRef}
-                            loader={<div key="pbListLoading"><IoIosSync/></div>}
+                            loader={<div key="pbListLoading" ><IoIosSync/></div>}
+                            className="list"
                             >
                             {uiItems}
                         </InfiniteScroll>
