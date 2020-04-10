@@ -232,18 +232,18 @@ module.exports = (db)=>{
               return handler(err, null);
             }
             var x=0;
-            console.log(courses.userCourses[x][0]._id);
+            console.log("ESTO SIRVE PARA SEPARAR!!!");
             console.log(courseJSON._id.toString());
             console.log(courses.userCourses.length);
             for(x=0;x<courses.userCourses.length;x++){
               if(courses.userCourses[x][0]._id == courseJSON._id.toString() && true){
                 return handler(null, {"msg":"Ya tiene agregado este curso!"});
               }
-            }
+            }  
 
             var updateCommand = {
               "$push" :{
-                "userCourses": [courseJSON]
+                "userCourses": courseJSON
               }
             };//updateCommand
 
@@ -290,16 +290,29 @@ module.exports = (db)=>{
     }
   }
 
-  userModel.completeNode = (id, nodeNumber, handler)=>{
-    var query = {"_id": new ObjectID(id), "courseNodes": {"$elemMatch":{"nodeNumber": nodeNumber}}};
-    var updateCommand = {
+  userModel.completeNode = (userID ,id, nodeNumber, handler)=>{
+    var query = {"_id": new ObjectID(userID)};
+    var updateCommand={
       "$set":{
-        "courseNodes.$.nodeCompletion": true
+        "userCourses.$[c].courseNodes.$[node].nodeCompletion":true
       }
     };
-    coursesCollection.findOneAndUpdate(
+    var filter={
+      arrayFilters: 
+        [
+          {
+            'c._id':new ObjectID(id)
+          },
+          {
+            'node.nodeNumber': nodeNumber
+          }
+        ],
+        multi: true
+    };
+    userCollection.findOneAndUpdate(
       query,
       updateCommand,
+      filter,
       (err, course)=>{
         if(err){
           return handler(err, null);

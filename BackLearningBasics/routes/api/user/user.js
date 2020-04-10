@@ -137,9 +137,10 @@ router.get('/course/nodes/:id', (req, res)=>{
   });
 });
 
-router.put('/courses/class/:id', (req, res)=>{
+router.put('/course/class/:id', (req, res)=>{
   var id = req.params.id;
   var answer = req.body.answer;
+  var userID = req.body.userid;
   var nodeNumber = parseInt(req.body.NodeNumber);
   userModel.getCourseNodes(id, (err, nodes)=>{
     if(err){
@@ -151,7 +152,7 @@ router.put('/courses/class/:id', (req, res)=>{
       (correctAnswer.correctAnswer === answer))){
         return res.status(200).json({"Resultado":"La respuesta es incorrecta"});
       }
-      userModel.completeNode(id, nodeNumber, (err, completed)=>{
+      userModel.completeNode(userID, id, nodeNumber, (err, completed)=>{
         if(err){
           console.log(err);
           return res.status(500).json({"error":"ERROR. Intente nuevamente el nodo"});
