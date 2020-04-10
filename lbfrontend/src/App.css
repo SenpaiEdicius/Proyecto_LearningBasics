@@ -177,7 +177,7 @@ body {
 .button-3 {
   border: none;
   border-radius: 5px;
-  padding: 1em !important;
+  padding: 1.2em !important;
   background-color: #27b863;
   color: #fff;
   -webkit-transition: all 0.5s ease-in-out;
@@ -201,16 +201,33 @@ body {
 }
 
 .action-title {
-  background-color: #000;
+  background-color: #fff;
   opacity: 0.9;
-  -webkit-box-shadow: 0px 7px 15px #2e2e2e;
-          box-shadow: 0px 7px 15px #2e2e2e;
+  margin: 15px;
+  padding: 2em;
+  border-radius: 0px;
+  -webkit-box-shadow: 0px 0px 8px rgba(109, 109, 109, 0.582);
+          box-shadow: 0px 0px 8px rgba(109, 109, 109, 0.582);
 }
 
 .action-title h1 {
-  color: #fff;
+  color: #27b863;
   opacity: 1;
   font-size: 2em !important;
+}
+
+.action-title button {
+  text-align: center;
+  display: block;
+}
+
+.action-title button a {
+  display: block;
+  color: #fff;
+}
+
+.action-title button:hover a {
+  color: #27b863;
 }
 
 .correct {
@@ -368,7 +385,7 @@ header .menu-links {
 header .menu-links li {
   position: relative;
   top: 50px;
-  width: 100%;
+  min-width: 100%;
   display: block;
   padding: 0em;
 }
@@ -446,8 +463,19 @@ header .close.hidden {
   display: none;
 }
 
-header .burger:hover, header .close:hover {
+header .burger:hover,
+header .close:hover {
   cursor: pointer;
+}
+
+header .user-menu {
+  padding: 1.5em;
+  color: #27b863;
+}
+
+header .user-menu:hover {
+  color: #fff;
+  background-color: #27b863;
 }
 
 footer {
@@ -579,6 +607,26 @@ footer .rights span {
   font-size: 4em;
 }
 
+.page-404 {
+  margin-top: 18vw;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  height: 80vh;
+}
+
+.page-404 h1 {
+  text-align: center;
+  color: #fc4040;
+  font-size: 1.2em;
+}
+
 .page-login {
   margin-top: 18vw;
   background-color: #fafafa;
@@ -612,19 +660,91 @@ footer .rights span {
 
 .page-list {
   margin-top: 18vw;
-  height: 100vh;
   overflow: auto;
 }
 
-.page-list .item {
-  background-color: #27b863;
-  height: 50px;
-  color: #fff;
-  padding: 0.5em;
+.page-list {
+  background-color: #fafafa;
+  height: 100vh;
 }
 
-.page-list .item span:first-child {
-  padding-right: 1.5rem;
+.page-list .list .list-item {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: left;
+      -ms-flex-pack: left;
+          justify-content: left;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding: 0.8rem;
+  margin: 20px;
+  -webkit-box-shadow: 0px 0px 8px rgba(109, 109, 109, 0.582);
+          box-shadow: 0px 0px 8px rgba(109, 109, 109, 0.582);
+  height: 90px;
+  color: #27b863;
+  background-color: #fff;
+  position: relative;
+}
+
+.page-list .list .list-item .buttons {
+  position: absolute;
+  right: 15px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: space-evenly;
+      -ms-flex-pack: space-evenly;
+          justify-content: space-evenly;
+}
+
+.page-list .list .list-item .buttons a {
+  display: block;
+  padding: 10px !important;
+  font-size: 2em;
+}
+
+.page-single {
+  margin-top: 18vw;
+  min-height: 100vh;
+}
+
+.single {
+  overflow: hidden;
+  margin: 2em auto;
+  background-color: #fff;
+  -webkit-box-shadow: 0px 0px 8px rgba(109, 109, 109, 0.582);
+          box-shadow: 0px 0px 8px rgba(109, 109, 109, 0.582);
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: space-evenly;
+      -ms-flex-pack: space-evenly;
+          justify-content: space-evenly;
+  min-height: 130vw;
+}
+
+.single .buttons {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
 }
 
 /*Tablet Screen*/
@@ -710,7 +830,6 @@ footer .rights span {
     transition: all 1s ease-in-out;
   }
   header .nav-links {
-    overflow-y: scroll;
     position: absolute;
     -webkit-clip-path: circle(100%);
             clip-path: circle(100%);
@@ -843,6 +962,38 @@ footer .rights span {
     -webkit-box-pack: space-evenly;
         -ms-flex-pack: space-evenly;
             justify-content: space-evenly;
+  }
+  .page-404 {
+    margin-top: 9vw;
+  }
+  .page-404 h1 {
+    font-size: 3em;
+  }
+  .page-list {
+    margin-top: 9vw;
+  }
+  .page-single {
+    margin-top: 9vw;
+  }
+  .single {
+    margin-top: 2em;
+    background-color: #fff;
+    -webkit-box-shadow: 0px 0px 8px rgba(109, 109, 109, 0.582);
+            box-shadow: 0px 0px 8px rgba(109, 109, 109, 0.582);
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -webkit-box-pack: space-evenly;
+        -ms-flex-pack: space-evenly;
+            justify-content: space-evenly;
+    min-height: 80vw;
+  }
+  .single input, .single select {
+    padding: 0.8em !important;
   }
 }
 
@@ -989,6 +1140,9 @@ footer .rights span {
   header .burger {
     display: none;
   }
+  header .user-menu {
+    padding: 1em;
+  }
   .page-landing {
     margin-top: 9vh;
   }
@@ -1060,6 +1214,35 @@ footer .rights span {
             flex-direction: column;
     -ms-flex-pack: distribute;
         justify-content: space-around;
+  }
+  .page-404 {
+    margin-top: 9vh;
+  }
+  .page-404 h1 {
+    font-size: 4em;
+  }
+  .page-list {
+    margin-top: 9vh;
+  }
+  .page-single {
+    margin-top: 9vh;
+  }
+  .single {
+    margin-top: 2em;
+    background-color: #fff;
+    -webkit-box-shadow: 0px 0px 8px rgba(109, 109, 109, 0.582);
+            box-shadow: 0px 0px 8px rgba(109, 109, 109, 0.582);
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -webkit-box-pack: space-evenly;
+        -ms-flex-pack: space-evenly;
+            justify-content: space-evenly;
+    min-height: 80vh;
   }
 }
 

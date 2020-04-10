@@ -1,7 +1,6 @@
 header{
 min-height: $tabletHeight;
     .nav-links{
-    overflow-y: scroll;
     position: absolute;
     clip-path: circle(100%);
     transform: translateX(0px);
@@ -20,6 +19,7 @@ min-height: $tabletHeight;
     .menu-links{
         top: $tabletHeight;
     }
+    
     .burger{
     }
 transition: all 1s ease-in-out;

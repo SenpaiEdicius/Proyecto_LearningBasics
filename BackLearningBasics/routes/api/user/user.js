@@ -72,7 +72,7 @@ router.post('/login', (req, res)=>{
       console.log(err);
       return res.status(200).json({"msg":"Credenciales No Validas. Porfavor intentelo nuevamente."});
     }
-      if(!user.userActive){
+      if(!user.userActive|| user.userActive==null){
         console.log(err);
         return res.status(200).json({"msg":"Su usuario ha sido desabilitado. Que tenga un buen dia"});
       }
@@ -82,7 +82,7 @@ router.post('/login', (req, res)=>{
         'ProtossTerranZergEasyGG',
         {expiresIn:'60m'}
         )
-        return res.status(200).json({"user":user, "jwt":token});
+        return res.status(200).json({"user":user, "jwt":token,"userType":user.userType});
       }
       console.log({ userEmail, userPassword, ...{ "msg":"Contraseñas No Coinciden"}});
       return res.status(200).json({"msg": "Credenciales No Validas. Porfavor intentelo nuevamente."});
@@ -179,6 +179,8 @@ router.post('/forgot',(req,res)=>{
     return res.status(200).json({"mensaje":"EL correo fue enviado satisfactoriamente"});
   });
 });//Forgot
+
+
  return router;
 }
 module.exports = initUser;

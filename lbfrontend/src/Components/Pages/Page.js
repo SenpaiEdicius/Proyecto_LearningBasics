@@ -1,15 +1,14 @@
 import React from 'react';
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
-export default ({pageTitle, hideFooter, children, auth})=>{
-    const finalHideFooter = hideFooter||false;
+export default ({pageURL, children, auth})=>{
     return(
         <section>
-            <Header auth={auth} title={pageTitle||'Page'}></Header>
+            <Header auth={auth} title={pageURL||'Page'}></Header>
             <main>
                 {children}
             </main>
-            {(!finalHideFooter)?(<Footer auth={auth}></Footer>):null}
+            <Footer auth={auth}></Footer>
         </section>
     );
 }

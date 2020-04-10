@@ -97,7 +97,7 @@ export default class Login extends Component{
             return (<Redirect to={redirect} />);
         }
         return(
-            <Page pageTitle="Login">
+            <Page pageURL="Login">
                 <section className="page-login">
                     <div className="login-data col-s-12 col-m-4 col-4 col-l-3">
                         <h1 className="center">Iniciar Sesión</h1>

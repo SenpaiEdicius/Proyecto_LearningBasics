@@ -113,7 +113,7 @@ export default class Signin extends Component{
 
     render(){
         return(
-            <Page pageTitle="SignIn">
+            <Page pageURL="SignIn">
                 <Input
                     name="name"
                     caption="Nombre Completo"
