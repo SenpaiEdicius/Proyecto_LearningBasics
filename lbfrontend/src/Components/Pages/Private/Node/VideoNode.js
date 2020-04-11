@@ -5,7 +5,7 @@ import Button_F from '../../../Common/Button/Button';
 import { Link, Redirect } from 'react-router-dom';
 import {emailRegex, emptyRegex, passwordRegex} from '../../../Common/Validators/Validators';
 import { paxios, setLocalStorage } from '../../../Utilities/Utilities';
-export default class DragNode extends Component{
+export default class VideoNode extends Component{
     constructor(){
         super();
         this.onClickSubmit = this.onClickSubmit.bind(this);
