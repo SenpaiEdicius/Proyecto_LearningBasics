@@ -21,7 +21,7 @@ export default class DragNode extends Component{
                 <br/><br/><br/>
                 
                 <Button_F>
-                    <button className="button-3 col-s-11" onClick={this.onClickSubmit}>Verificar Respuesta</button>
+                    <button className="button-3 col-s-11" onClick={this.onClickSubmit}>Completar y continuar</button>
                 </Button_F> 
             </Page>
         )

@@ -41,6 +41,7 @@ export default class Nodes extends Component {
     };
 
     render(){
+        console.log(this.state.data);
         let txt='';
         var uiItems = [];
         if(this.state.data!==null){
@@ -51,12 +52,28 @@ export default class Nodes extends Component {
                     }else{
                         txt = "Completado";
                     }
+                    var uri = '';
+                    if(item.completionType==="Regex"){
+                        uri= `/course/class/r/${this.state.courseID}/${item.nodeNumber}`;
+                    }
+                    else if(item.completionType==="Drag"){
+                        uri = `/course/class/d/${this.state.courseID}/${item.nodeNumber}`
+                    }
+                    else if(item.completionType==="Text"){
+                        uri = `/course/class/t/${this.state.courseID}/${item.nodeNumber}`
+                    }
+                    else if(item.completionType==="Video"){
+                        uri = `/course/class/v/${this.state.courseID}/${item.nodeNumber}`
+                    }
+                    else{
+                        uri = `/course/class/notdefined/${this.state.courseID}/${item.nodeNumber}`
+                    }
                     return(
                         <div className='item' key={item.nodeNumber}>
                             <span>{item.nodeName}</span>
                             <span>Estado: {txt}</span>
                             <span className='updateListItem'>
-                                <Link to={`/course/class/${this.state.courseID}/${item.nodeNumber}`}>
+                                <Link to={uri}>
                                     <IoMdPlay size='1em'/>
                                     Realizar clase
                                 </Link></span>

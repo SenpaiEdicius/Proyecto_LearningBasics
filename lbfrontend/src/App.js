@@ -13,6 +13,10 @@ import MyCourses from './Components/Pages/Private/MyCourses/MyCourses';
 import UpdateUser from './Components/Pages/Private/UpdateUser/UpdateUser';
 import UpdatePassword from './Components/Pages/Private/UpdatePassword/UpdatePassword';
 import Nodes from './Components/Pages/Private/Nodes/Nodes';
+import NodeDrag from './Components/Pages/Private/Node/DragNode';
+import NodeText from './Components/Pages/Private/Node/TextNode';
+import NodeRegex from './Components/Pages/Private/Node/RegexNode';
+import NodeVideo from './Components/Pages/Private/Node/VideoNode';
 import Access from './Components/Pages/Private/Admin/Access/Access';
 import Level from './Components/Pages/Private/Admin/Access/Level';
 import NewPage from './Components/Pages/Private/Admin/Pages/NewPage';
@@ -88,6 +92,11 @@ class App extends Component{
           <PrivateRoute component={UpdatePassword} path='/updatePass' exact auth={auth}/>
           <PrivateRoute component={UpdateUser} path="/update" exact auth={auth}/>
           <PrivateRoute component={Nodes} path='/course/classes/:id' auth={auth}/>
+          <PrivateRoute component={NodeDrag} path='/course/class/d/:idc/:idn' auth={auth}/>
+          <PrivateRoute component={NodeText} path='/course/class/t/:idc/:idn' auth={auth}/>
+          <PrivateRoute component={NodeRegex} path='/course/class/r/:idc/:idn' auth={auth}/>
+          <PrivateRoute component={NodeVideo} path='/course/class/v/:idc/:idn' auth={auth}/>
+
           <PrivateRoute component={Access} path="/access" exact auth={auth}/>
           <PrivateRoute component={Level} path="/access/level/:userType/:op" exact auth={auth}/>
           <PrivateRoute component={Pages} path="/pages" exact auth={auth}/>
