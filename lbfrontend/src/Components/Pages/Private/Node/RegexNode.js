@@ -36,11 +36,11 @@ export default class TextNode extends Component{
         saxios.get(uri)
         .then(
             ({data})=>{
-                console.log({data}); //BORRRARRR ESTO DESPUES
+
                 this.setState({
                     'data': data[nodeID-1]
                 }, function(){
-                    console.log(this.state.data);
+ 
                     this.render();
                 });
             }
@@ -65,8 +65,10 @@ export default class TextNode extends Component{
             'NodeNumber':nodeID
         }).then(
             ({data})=>{
+                console.log({data});
                 this.setState({...this.state, redirectTo: true});
-                console.log({data}); //BORRRARRR ESTO DESPUES
+               
+
             }
         )
         .catch(
@@ -81,7 +83,7 @@ export default class TextNode extends Component{
                 var location = '/course/classes/'+this.props.match.params.idc;
                 return (<Redirect to={location} />);
             }
-            console.log(this.state.data);
+
             if(this.state.data === null){
                 var NodeInfo = ["nodeNumber" > 0,"nodeName">"blank","nodeDesc">"blank",
                 "nodeDialogue">"blank","completionType">"blank","rightAnswer">"blank","nodeCompletion">"blank"]
