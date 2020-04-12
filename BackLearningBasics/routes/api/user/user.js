@@ -2,6 +2,7 @@ var express =  require('express');
 var router = express.Router();
 var jwt = require('jsonwebtoken');
 
+
 function initUser (db) {
 
 var userModel = require('./user.model')(db);
@@ -82,7 +83,7 @@ router.post('/login', (req, res)=>{
         'ProtossTerranZergEasyGG',
         {expiresIn:'60m'}
         )
-        return res.status(200).json({"user":user, "jwt":token,"userType":user.userType});
+        return res.status(200).json({"user":user, "jwt":token,"userType":user.userType,"id":user._id});
       }
       console.log({ userEmail, userPassword, ...{ "msg":"Contraseñas No Coinciden"}});
       return res.status(200).json({"msg": "Credenciales No Validas. Porfavor intentelo nuevamente."});
@@ -180,7 +181,43 @@ router.post('/forgot',(req,res)=>{
     return res.status(200).json({"mensaje":"EL correo fue enviado satisfactoriamente"});
   });
 });//Forgot
-
+router.post('/payment/:id',(req,res)=>{
+  var data = {
+    _id: req.params.id,
+    ...req.body
+  }
+  //console.log(data);
+  userModel.paypalPayment(data,(error,result)=>{
+    if(error){
+      console.log(error);
+      return res.status(500).json({"error":error});
+    }
+    return res.status(200).json(result);
+  
+  });
+});
+router.post('/payment/execute/:token',(req,res)=>{
+  var token = req.params.token;
+  userModel.executePaypal(token,(error,result)=>{
+    if(error){
+      console.log(error);
+      return res.status(500).json({"error":error});
+    }
+    return res.status(200).json(result);
+  
+  });
+});
+router.get('/payment/agreement/:id',(req,res)=>{
+  var id = req.params.id;
+  userModel.billingPaypal(id,(error,result)=>{
+    if(error){
+      console.log(error);
+      return res.status(500).json({"error":error});
+    }
+    return res.status(200).json(result);
+  
+  });
+});
 
  return router;
 }

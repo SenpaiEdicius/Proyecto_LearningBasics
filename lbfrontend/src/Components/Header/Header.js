@@ -11,18 +11,12 @@ export default class Header extends Component{
         this.logoutOnClick = this.logoutOnClick.bind(this);
         this.state = {
             open : false,
-            display: false,
+            display: true,
             userType : getLocalStorage('type')||'UKN',
             menu:[]
         }
     }
-   
-    logoutOnClick(e){
-        e.preventDefault();
-        e.stopPropagation();
-        this.props.auth.logout();
-    }
-    loadMenu(){
+    componentDidMount(){
         const type = this.state.userType;      
         paxios.post('/api/admin/access/makeMenu',{userType:type}).
         then((resp)=>{
@@ -36,12 +30,14 @@ export default class Header extends Component{
             }
         })
     }
+    logoutOnClick(e){
+        e.preventDefault();
+        e.stopPropagation();
+        this.props.auth.logout();
+    }
     render(){
         
         const userMenu = [];
-        if(this.state.menu.length <=0)
-            this.loadMenu();
-
         if(this.state.menu.length >= 0){
             this.state.menu.map((menus)=>{
                 userMenu.push(<li key={menus.pageURL}><Link to={menus.pageURL}>{menus.pageName}</Link></li>)
@@ -92,7 +88,7 @@ export default class Header extends Component{
                 </div>     
                 <ul className={ shown ? "nav-links open col-s-12 col-m-5 col-5 col-l-4 no-margin center": "nav-links col-s-12 col-m-5 col-5 col-l-4 no-margin center" }>
                     <li><Link to="/courses">Cursos</Link></li>
-                    <li><Link to="/subscriptions">Subscripciones</Link></li>
+                    <li><Link to="/subscription">Subscripciones</Link></li>
                     <li><Link to="/login">Inicia Sesión</Link></li>
                 </ul>
             </header>

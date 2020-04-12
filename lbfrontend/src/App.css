@@ -162,8 +162,8 @@ body {
   padding: 0px;
 }
 
-.line-redDark {
-  background-color: #be0202;
+.line {
+  background-color: #27b863;
   width: 100%;
   height: 5px;
 }
@@ -661,13 +661,7 @@ footer .rights span {
 }
 
 .page-list {
-  margin-top: 18vw;
-  overflow: auto;
-}
-
-.page-list {
   background-color: #fafafa;
-  height: 100vh;
 }
 
 .page-list .list .list-item {
@@ -688,7 +682,7 @@ footer .rights span {
   margin: 20px;
   -webkit-box-shadow: 0px 0px 8px rgba(109, 109, 109, 0.582);
           box-shadow: 0px 0px 8px rgba(109, 109, 109, 0.582);
-  height: 90px;
+  min-height: 90px;
   color: #27b863;
   background-color: #fff;
   position: relative;
@@ -747,6 +741,109 @@ footer .rights span {
   -webkit-box-direction: normal;
       -ms-flex-direction: row;
           flex-direction: row;
+}
+
+.page-subs {
+  margin-top: 18vw;
+  min-height: 100vh;
+  background-color: #fafafa;
+}
+
+.page-subs .subs-cards {
+  padding: 1em;
+}
+
+.page-subs .subs-cards .card {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: space-evenly;
+      -ms-flex-pack: space-evenly;
+          justify-content: space-evenly;
+  height: 100vw;
+  margin: 50px 0px;
+  background-color: #fff;
+  border-radius: 5px;
+  -webkit-box-shadow: 0px 0px 8px rgba(109, 109, 109, 0.582);
+          box-shadow: 0px 0px 8px rgba(109, 109, 109, 0.582);
+}
+
+.page-subs .subs-cards .card .prices span {
+  text-decoration: line-through;
+}
+
+.page-subs .subs-cards .card .prices .discount {
+  font-size: 1.5em;
+}
+
+.page-register {
+  overflow: hidden;
+  margin-top: 18vw;
+  background-color: #fafafa;
+  padding-bottom: 1em;
+}
+
+.page-register .form, .page-register .total {
+  margin: 1.8em;
+  background-color: #fff;
+  border-radius: 5px;
+  -webkit-box-shadow: 0px 0px 8px rgba(109, 109, 109, 0.582);
+          box-shadow: 0px 0px 8px rgba(109, 109, 109, 0.582);
+}
+
+.page-register .buttons {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: space-evenly;
+      -ms-flex-pack: space-evenly;
+          justify-content: space-evenly;
+}
+
+.page-register .buttons button, .page-register .buttons a {
+  padding: 0.8em !important;
+  font-size: 1em;
+}
+
+.page-register h3 {
+  font-size: 2em;
+}
+
+.page-approved {
+  margin-top: 18vw;
+  min-height: 75vh;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  text-align: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -ms-flex-line-pack: center;
+      align-content: center;
+  background-color: #fafafa;
+  padding: 1em;
+}
+
+.page-approved .approved-text {
+  -webkit-box-shadow: 0px 0px 8px rgba(109, 109, 109, 0.582);
+          box-shadow: 0px 0px 8px rgba(109, 109, 109, 0.582);
+  border-radius: 5px;
+  background-color: #fff;
+  padding-top: 50%;
+  min-height: 75vh;
 }
 
 /*Tablet Screen*/
@@ -997,6 +1094,61 @@ footer .rights span {
   .single input, .single select {
     padding: 0.8em !important;
   }
+  .page-subs {
+    margin-top: 9vw;
+    min-height: 77.2vh;
+    background-color: #fafafa;
+  }
+  .page-subs .subs-cards {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+            flex-direction: row;
+    -webkit-box-pack: space-evenly;
+        -ms-flex-pack: space-evenly;
+            justify-content: space-evenly;
+  }
+  .page-subs .subs-cards .card {
+    height: 50vw;
+    margin: 1em;
+    background-color: #fff;
+    border-radius: 5px;
+    -webkit-box-shadow: 0px 0px 8px rgba(109, 109, 109, 0.582);
+            box-shadow: 0px 0px 8px rgba(109, 109, 109, 0.582);
+  }
+  .page-register {
+    overflow: hidden;
+    margin-top: 9vw;
+    background-color: #fafafa;
+    padding-bottom: 1em;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: reverse;
+        -ms-flex-direction: row-reverse;
+            flex-direction: row-reverse;
+    -ms-flex-pack: distribute;
+        justify-content: space-around;
+  }
+  .page-register .form, .page-register .total {
+    background-color: #fff;
+    border-radius: 5px;
+    -webkit-box-shadow: 0px 0px 8px rgba(109, 109, 109, 0.582);
+            box-shadow: 0px 0px 8px rgba(109, 109, 109, 0.582);
+  }
+  .page-register .total {
+    height: 100%;
+  }
+  .page-register h3 {
+    font-size: 2em;
+  }
+  .page-approved {
+    margin-top: 9vw;
+  }
 }
 
 /*Desktop Screens*/
@@ -1246,6 +1398,45 @@ footer .rights span {
             justify-content: space-evenly;
     min-height: 80vh;
   }
+  .page-subs {
+    margin-top: 9vh;
+    height: 79.2vh;
+    background-color: #fafafa;
+  }
+  .page-subs .subs-cards {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+            flex-direction: row;
+    -ms-flex-pack: distribute;
+        justify-content: space-around;
+  }
+  .page-subs .subs-cards .card {
+    height: 38vw;
+    width: 20vw;
+    background-color: #fff;
+    border-radius: 5px;
+    -webkit-box-shadow: 0px 0px 8px rgba(109, 109, 109, 0.582);
+            box-shadow: 0px 0px 8px rgba(109, 109, 109, 0.582);
+  }
+  .page-register {
+    margin-top: 9vh;
+  }
+  .page-register .total {
+    height: 100%;
+  }
+  .page-register h3 {
+    font-size: 2em;
+  }
+  .page-register input {
+    padding: 0.5em;
+  }
+  .page-approved {
+    margin-top: 9vh;
+  }
 }
 
 /*tv Screens*/
@@ -1318,6 +1509,14 @@ footer .rights span {
   }
   .col-offset-l-11 {
     margin-left: 91.66%;
+  }
+  .page-subs .subs-cards .card {
+    max-height: 30vw;
+    width: 20vw;
+    background-color: #fff;
+    border-radius: 5px;
+    -webkit-box-shadow: 0px 0px 8px rgba(109, 109, 109, 0.582);
+            box-shadow: 0px 0px 8px rgba(109, 109, 109, 0.582);
   }
 }
 /*# sourceMappingURL=App.css.map */
