@@ -7,7 +7,8 @@ import Home from './Components/Pages/Public/Home/Home';
 import Login from './Components/Pages/Public/Login/Login';
 import Forgot from './Components/Pages/Public/Forgot/Forgot';
 import AllCourses from './Components/Pages/Public/Courses/Courses';
-import SignIn from './Components/Pages/Public/SignIn/SignIn';
+import Register from './Components/Pages/Public/Register/Register';
+import Subs from './Components/Pages/Public/Subscripciones/Subs';
 /*--------------Private Routing------------------*/
 import MyCourses from './Components/Pages/Private/MyCourses/MyCourses';
 import UpdateUser from './Components/Pages/Private/UpdateUser/UpdateUser';
@@ -20,7 +21,7 @@ import NodeVideo from './Components/Pages/Private/Node/VideoNode';
 import Access from './Components/Pages/Private/Admin/Access/Access';
 import Level from './Components/Pages/Private/Admin/Access/Level';
 import NewPage from './Components/Pages/Private/Admin/Pages/NewPage';
-
+import Approved from './Components/Pages/Public/Approved/Approved';
 import Pages from './Components/Pages/Private/Admin/Pages/Pages';
 /*--------------Errors--------------------------*/
 import Found from './Components/Pages/Public/Found/Found';
@@ -70,6 +71,7 @@ class App extends Component{
       user:{},
       jwt:''
     });
+    window.location.replace("http://localhost:3001");
   }
 
   render(){
@@ -84,10 +86,14 @@ class App extends Component{
         <Switch>
           <Route render={(props) => { return (<Home {...props} auth={auth} />) }} path="/" exact />
           <Route render={(props) => { return (<Login {...props} auth={auth} login={this.login} />)}} path="/login" exact/>
-          <Route render={(props) => { return (<SignIn {...props} auth={auth} />) }} path="/register" exact/>
+          <Route render={(props) => { return (<Register {...props} auth={auth}/>) }} path="/register/:plan" component={Register}  exact/>
           <Route render={(props) => { return (<Forgot {...props} auth={auth}/>)}} path="/forgot" exact/>
           <Route render={(props) => { return (<AllCourses {...props} auth={auth} />) }} path="/courses" exact/>
+          <Route render={(props) => { return (<Subs {...props} auth={auth} />) }} path="/subscription" exact/>
+          <Route render={(props) => { return (<Approved {...props} auth={auth} />) }} path="/approved" exact />
           <Route render={(props) => { return (<Found {...props} auth={auth} />) }} path="/404" exact />
+          
+          
           <PrivateRoute component={MyCourses} path="/mycourses" exact auth={auth}/>
           <PrivateRoute component={UpdatePassword} path='/updatePass' exact auth={auth}/>
           <PrivateRoute component={UpdateUser} path="/update" exact auth={auth}/>
@@ -102,7 +108,7 @@ class App extends Component{
           <PrivateRoute component={Pages} path="/pages" exact auth={auth}/>
           <PrivateRoute component={NewPage} path="/pages/newPage" exact auth={auth}/>
           <PrivateRoute component={NewPage} path="/pages/modify/:id" exact auth={auth}/>
-          <Redirect to="/404" auth={auth}/>
+        <Redirect to="/404" auth={auth}/>
         </Switch>
       </Router>
       );  
