@@ -267,17 +267,17 @@ module.exports = (db)=>{
   }
 
   //Used for Complete Node
-  userModel.getCourseNodes = (courseID, handler) =>{
-    var query = {"_id": new ObjectID(courseID)};
-    var projection = {"courseNodes":1, "_id":0};
-    coursesCollection.findOne(
+  userModel.getCourseNodes = (courseID, userId, handler) =>{
+    var query = {"_id": new ObjectID(userId), 'userCourses._id': new ObjectID(courseID)};
+    var projection = {"userCourses.courseNodes":1, "_id":0};
+    userCollection.findOne(
       query,
       {"projection": projection},
       (err, course)=>{
         if(err){
           return handler(err, null);
         }
-        return handler(null, course.courseNodes);
+        return handler(null, course.userCourses[0].courseNodes);
       }
     );
   }

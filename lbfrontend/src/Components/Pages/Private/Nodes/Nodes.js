@@ -16,10 +16,11 @@ export default class Nodes extends Component {
         }
     }
 
+
     componentDidMount(){
         const courseID = this.props.match.params.id;
         this.setState({'courseID': courseID})
-        const uri = `/api/user/course/nodes/${courseID}`;
+        const uri = `/api/user/course/nodes/${this.props.auth.id}/${courseID}`;
         saxios.get(uri)
         .then(
             ({data})=>{
@@ -41,7 +42,6 @@ export default class Nodes extends Component {
     };
 
     render(){
-        console.log(this.state.data);
         let txt='';
         var uiItems = [];
         if(this.state.data!==null){

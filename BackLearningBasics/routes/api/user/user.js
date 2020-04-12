@@ -126,9 +126,10 @@ router.post('/courses/add', (req, res)=>{
   });
 });//Añadir Curso a usuario
 
-router.get('/course/nodes/:id', (req, res)=>{
-  var id = req.params.id;
-  userModel.getCourseNodes(id, (err, nodes)=>{
+router.get('/course/nodes/:idu/:idc', (req, res)=>{
+  var id = req.params.idc;
+  var userID = req.params.idu;
+  userModel.getCourseNodes(id, userID, (err, nodes)=>{
     if(err){
       console.log(err);
       return res.status(500).json({"error":"No se ha podido confirmar el nodo. Intente nuevamente"});
