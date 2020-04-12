@@ -27,7 +27,7 @@ export default class Approved extends Component{
         return(
             <Page pageURL="/approved" auth={this.props.auth}>
                 <section className="page-approved">
-                    <div className="approved-text main-color">
+                    <div className="approved-text main-color col-9">
                         <h2>Tu transaccion fue aprovada exitosamente</h2>
                     </div>
                 </section>
