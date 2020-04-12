@@ -17,6 +17,8 @@ import NodeDrag from './Components/Pages/Private/Node/DragNode';
 import NodeText from './Components/Pages/Private/Node/TextNode';
 import NodeRegex from './Components/Pages/Private/Node/RegexNode';
 import NodeVideo from './Components/Pages/Private/Node/VideoNode';
+
+import CreateCourse from './Components/Pages/Private/Admin/Courses/CreateCourse';
 import Access from './Components/Pages/Private/Admin/Access/Access';
 import Level from './Components/Pages/Private/Admin/Access/Level';
 import NewPage from './Components/Pages/Private/Admin/Pages/NewPage';
@@ -96,6 +98,7 @@ class App extends Component{
           <PrivateRoute component={NodeText} path='/course/class/t/:idc/:idn' auth={auth}/>
           <PrivateRoute component={NodeRegex} path='/course/class/r/:idc/:idn' auth={auth}/>
           <PrivateRoute component={NodeVideo} path='/course/class/v/:idc/:idn' auth={auth}/>
+          <PrivateRoute component={CreateCourse} path='/courses/newCourse' auth={auth}/>
 
           <PrivateRoute component={Access} path="/access" exact auth={auth}/>
           <PrivateRoute component={Level} path="/access/level/:userType/:op" exact auth={auth}/>

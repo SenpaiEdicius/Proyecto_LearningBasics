@@ -10,7 +10,7 @@ import {
 } from "../../../Common/Validators/Validators";
 import { saxios } from "../../../Utilities/Utilities";
 
-export default class Login extends Component {
+export default class UpdateUser extends Component {
   constructor() {
     super();
     this.state = {
@@ -117,7 +117,7 @@ export default class Login extends Component {
   }
 
   render() {
-    const action ="Actualizando Contraseña";
+    const action ="Actualizando Usuario";
     const selectItems = [
       { value: "Masculino", dsc: "Masculino" },
       { value: "Femenino", dsc: "Femenino" },

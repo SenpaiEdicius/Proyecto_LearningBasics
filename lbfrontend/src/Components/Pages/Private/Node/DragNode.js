@@ -43,11 +43,10 @@ export default class DragNode extends Component{
         this.setState({'nodeNumber': nodeID})
         const courseID = this.props.match.params.idc;
         this.setState({'courseID': courseID})
-        const uri = `/api/user/course/nodes/${courseID}`;
+        const uri = `/api/user/course/nodes/${this.props.auth.id}/${courseID}`;
         saxios.get(uri)
         .then(
             ({data})=>{
-                console.log(data[nodeID-1]);
                 this.setState({
                     'data': data[nodeID-1]
                 }, function(){
@@ -98,7 +97,7 @@ export default class DragNode extends Component{
             return (<Redirect to={location}/>);
         }
         return(
-            <Page pageURL="Class">
+            <Page pageURL="Class" auth={this.props.auth}>
                 <br/><br/><br/>
                 <div>
                     <h2>{this.state.data.nodeName || ''}</h2>
