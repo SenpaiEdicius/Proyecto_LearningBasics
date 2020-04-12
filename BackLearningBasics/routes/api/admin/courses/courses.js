@@ -14,6 +14,17 @@ function initCourses(db){
         });
     });
 
+    router.get('/:id',(req, res)=>{
+        var id =  req.params.id ;
+        coursesModel.getById(id, (err, doc)=>{
+          if(err){
+            console.log(err);
+            return res.status(500).json({"error":"error"});
+          }
+          return res.status(200).json(doc);
+        });
+    }); //Gestionar Usuario
+
     router.post('/new', (req, res)=>{
         var act = req.body.act;
         var chours = parseInt(req.body.chours);

@@ -212,7 +212,7 @@ module.exports = (db) => {
       courseJSON = course;
       if (courseJSON.courseActive && true) {
         var query = { _id: new ObjectID(userID) };
-        var projection = { userCourses: 1, _id: 0 };
+        var projection = { "userCourses": 1, "_id": 0 };
         userCollection.findOne(
           query,
           { projection: projection },
@@ -221,12 +221,9 @@ module.exports = (db) => {
               return handler(err, null);
             }
             var x = 0;
-            console.log("ESTO SIRVE PARA SEPARAR!!!");
-            console.log(courseJSON._id.toString());
-            console.log(courses.userCourses.length);
             for (x = 0; x < courses.userCourses.length; x++) {
               if (
-                courses.userCourses[x][0]._id == courseJSON._id.toString() &&
+                courses.userCourses[x]._id == courseJSON._id.toString() &&
                 true
               ) {
                 return handler(null, { msg: "Ya tiene agregado este curso!" });

@@ -26,6 +26,33 @@ export default class CreateCourse extends Component{
         this.validate = this.validate.bind(this);
     }
 
+    componentDidMount(){
+        saxios
+        .get(`/api/admin/courses/${this.props.match.params.id}`)
+        .then((data) => {
+          //alert(JSON.stringify(data.data));
+          var active = '';
+          const sel = document.getElementById("act");
+          if(data.data.courseActive){
+            active="true";
+            sel.selectedIndex = 1;
+          }else{
+            active="false";
+            sel.selectedIndex = 0;
+          }
+          this.setState({
+            name: data.data.courseName,
+            desc: data.data.courseDesc,
+            chours: data.data.courseHours,
+            req: data.data.courseRequirements,
+            act: active
+          });
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+
     onClickUpdate(e){
         e.preventDefault();
         e.stopPropagation();
@@ -39,8 +66,8 @@ export default class CreateCourse extends Component{
                 alert("Ingrese una cantidad de horas realista");
             }
             else{
-                const uri = '/api/admin/courses/new';
-                saxios.post(uri,{
+                const uri = `/api/admin/courses/update/${this.props.match.params.id}`;
+                saxios.put(uri,{
                     name: this.state.name,
                     desc: this.state.desc,
                     chours: this.state.chours,
@@ -48,7 +75,7 @@ export default class CreateCourse extends Component{
                     act: this.state.act
                 })
                 .then(({ data }) => {
-                    alert("Ha sido ingresado correctamente el curso");
+                    alert("Ha sido actualizado correctamente el curso");
                 })
                 .catch((err) => {
                     console.log(err);
@@ -119,7 +146,7 @@ export default class CreateCourse extends Component{
     }
 
     render(){
-        const action ="Crear Curso";
+        const action ="Actualizar Curso";
         const selectItems=[
             { value: "false", dsc: "Inactivo" },
             { value: "true", dsc: "Activo" }
@@ -166,7 +193,7 @@ export default class CreateCourse extends Component{
             />,
           ];
         return(
-            <Page pageURL="CreateCourse" auth={this.props.auth}>
+            <Page pageURL="UpdateCourse" auth={this.props.auth}>
                 <Form
                     title={action}
                     id="form-update-user"

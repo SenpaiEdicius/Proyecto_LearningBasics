@@ -3,6 +3,7 @@ var ObjectID = require('mongodb').ObjectID;
 module.exports = (db) =>{
     var coursesModel = {};
     var coursesCollection = db.collection("courses");
+    var userCollection = db.collection("user");
     var courseTemplate = {
         courseName: "",
         courseDesc: "",
@@ -24,6 +25,19 @@ module.exports = (db) =>{
     coursesModel.showCourses = (handler) =>{
         coursesCollection.find({}).toArray(handler);
     }
+
+    coursesModel.getById = (id, handler) => {
+        var query = { "_id": new ObjectID(id) };
+        coursesCollection.findOne(
+          query,
+          (err, doc) => {
+            if (err) {
+              return handler(err, null);
+            }
+            return handler(null, doc);
+          }
+        ); 
+      }//Gesitonar un Usuario
 
     coursesModel.addNewCourse = (dataToAdd, handler) =>{
         var {name, desc, hours, req, active} = dataToAdd;
@@ -71,8 +85,36 @@ module.exports = (db) =>{
                 if(err){
                     return handler(err, null);
                 }
-                console.log(rslt);
-                return handler(null, rslt.value);
+                var query2 = {"userCourses": {"$elemMatch":{"_id": new ObjectID(_id)}}};
+                var updateCommand2 = {
+                    "$set":{
+                        "userCourses.$[course].courseName": name,
+                        "userCourses.$[course].courseDesc": desc,
+                        "userCourses.$[course].courseHours": hours,
+                        "userCourses.$[course].courseRequirements": req,
+                        "userCourses.$[course].courseActive": active,
+                        "userCourses.$[course].lastUpdate": new Date().getTime()
+                    },
+                    "$inc":{
+                        "userCourses.$[course].updates":1 
+                    }
+                };
+                var filters = {
+                    arrayFilters:[
+                        {"course._id":new ObjectID(_id)}
+                    ]
+                };
+                userCollection.updateMany(
+                    query2,
+                    updateCommand2,
+                    filters,
+                    (err, userUpd)=>{
+                        if(err){
+                            return handler(err, null);
+                        }
+                        console.log("Si pasa por aqui");
+                        return handler(null, userUpd);
+                    });
             });
     }
 
