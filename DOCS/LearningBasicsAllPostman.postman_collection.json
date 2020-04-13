@@ -35,6 +35,35 @@
 							"response": []
 						},
 						{
+							"name": "http://localhost:3000/api/admin/courses/:id",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:3000/api/admin/courses/:id",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"admin",
+										"courses",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "5e93dbee6ddabd5ba4554503"
+										}
+									]
+								},
+								"description": "Busca un curso por ID"
+							},
+							"response": []
+						},
+						{
 							"name": "http://localhost:3000/api/admin/courses/new",
 							"request": {
 								"method": "POST",
@@ -51,27 +80,27 @@
 									"urlencoded": [
 										{
 											"key": "name",
-											"value": "TestUpdate",
+											"value": "TestNewCourseLayout",
 											"type": "text"
 										},
 										{
 											"key": "desc",
-											"value": "Curso para probar que funcione el update",
+											"value": "Curso para probar que funcione la nueva forma del courseTemplate",
 											"type": "text"
 										},
 										{
 											"key": "chours",
-											"value": "500",
+											"value": "99",
 											"type": "text"
 										},
 										{
 											"key": "req",
-											"value": "IQ mayor a 500",
+											"value": "Ya me confunde tanto Test",
 											"type": "text"
 										},
 										{
 											"key": "act",
-											"value": "truth",
+											"value": "false",
 											"type": "text"
 										},
 										{
@@ -117,27 +146,27 @@
 									"urlencoded": [
 										{
 											"key": "name",
-											"value": "Something",
+											"value": "TestUpdateCourseInUser",
 											"type": "text"
 										},
 										{
 											"key": "desc",
-											"value": "Anything",
+											"value": "Curso para probar que funcione update User and Course Collection",
 											"type": "text"
 										},
 										{
 											"key": "chours",
-											"value": "15",
+											"value": "22",
 											"type": "text"
 										},
 										{
 											"key": "act",
-											"value": "True",
+											"value": "true",
 											"type": "text"
 										},
 										{
 											"key": "req",
-											"value": "10 years of experience at NASA",
+											"value": "Que funcione",
 											"type": "text"
 										}
 									]
@@ -159,7 +188,7 @@
 									"variable": [
 										{
 											"key": "id",
-											"value": "5e5f4dd1a34f6d3ae04e6023"
+											"value": "5e8e7f211bd1133ed4a0cf04"
 										}
 									]
 								},
@@ -215,22 +244,22 @@
 									"urlencoded": [
 										{
 											"key": "num",
-											"value": "8",
+											"value": "1",
 											"type": "text"
 										},
 										{
 											"key": "name",
-											"value": "Crazy8",
+											"value": "Node1",
 											"type": "text"
 										},
 										{
 											"key": "desc",
-											"value": "Mario Kart 8",
+											"value": "Node to test Adding on user and courses",
 											"type": "text"
 										},
 										{
 											"key": "dialogo",
-											"value": "Still waiting for Mario Kart 9...",
+											"value": "This node only tests if it adds to user and courses collection, so don't expect much (this should be node 1)",
 											"type": "text"
 										},
 										{
@@ -240,7 +269,12 @@
 										},
 										{
 											"key": "respuesta",
-											"value": "drag8",
+											"value": "draggable1",
+											"type": "text"
+										},
+										{
+											"key": "req",
+											"value": "The answer is: A\nIts not B\nIts not C\nIts not D",
 											"type": "text"
 										}
 									]
@@ -263,7 +297,7 @@
 									"variable": [
 										{
 											"key": "id",
-											"value": "5e62f594f0e9e436dca509f4"
+											"value": "5e93dbee6ddabd5ba4554503"
 										}
 									]
 								},
@@ -288,17 +322,17 @@
 									"urlencoded": [
 										{
 											"key": "name",
-											"value": "Update",
+											"value": "Node3",
 											"type": "text"
 										},
 										{
 											"key": "desc",
-											"value": "This tests an upgrade",
+											"value": "Node to test Drag",
 											"type": "text"
 										},
 										{
 											"key": "dialogo",
-											"value": "Now its 8.1",
+											"value": "In this node, you'll be able to test if the user is able to  select one of the multiple options presented, drag what he thinks the correct answer is and validate if it is the correct answer. This will be done by making the page, making this message visible as the instructions/explanation of the node, and in the end, being able to make the user drag and drop the correct answer and validate",
 											"type": "text"
 										},
 										{
@@ -308,7 +342,7 @@
 										},
 										{
 											"key": "respuesta",
-											"value": "^\\d{8}$",
+											"value": "draggable2",
 											"type": "text"
 										}
 									]
@@ -332,11 +366,11 @@
 									"variable": [
 										{
 											"key": "idc",
-											"value": "5e62f594f0e9e436dca509f4"
+											"value": "5e8fef13bc38802cf0584ff2"
 										},
 										{
 											"key": "idn",
-											"value": "8"
+											"value": "3"
 										}
 									]
 								},
@@ -588,7 +622,7 @@
 									"variable": [
 										{
 											"key": "id",
-											"value": "5e843f3c8862171020fcbe30"
+											"value": "5e901bef77d66e370c3be577"
 										}
 									]
 								},
@@ -616,7 +650,7 @@
 										},
 										{
 											"key": "active",
-											"value": "tru",
+											"value": "true",
 											"type": "text"
 										}
 									]
@@ -666,18 +700,23 @@
 							"urlencoded": [
 								{
 									"key": "NodeNumber",
-									"value": "8",
+									"value": "1",
 									"type": "text"
 								},
 								{
 									"key": "answer",
-									"value": "^\\d{8}$",
+									"value": "draggable1",
+									"type": "text"
+								},
+								{
+									"key": "userid",
+									"value": "5e901bef77d66e370c3be577",
 									"type": "text"
 								}
 							]
 						},
 						"url": {
-							"raw": "localhost:3000/api/user/courses/:id",
+							"raw": "localhost:3000/api/user/course/class/:id",
 							"host": [
 								"localhost"
 							],
@@ -685,13 +724,14 @@
 							"path": [
 								"api",
 								"user",
-								"courses",
+								"course",
+								"class",
 								":id"
 							],
 							"variable": [
 								{
 									"key": "id",
-									"value": "5e62f594f0e9e436dca509f4"
+									"value": "5e93dbee6ddabd5ba4554503"
 								}
 							]
 						}
@@ -715,12 +755,12 @@
 							"urlencoded": [
 								{
 									"key": "userID",
-									"value": "5e617b469c525b25649e2886",
+									"value": "5e901bef77d66e370c3be577",
 									"type": "text"
 								},
 								{
 									"key": "courseID",
-									"value": "5e5f4dd1a34f6d3ae04e6023",
+									"value": "5e93dbee6ddabd5ba4554503",
 									"type": "text"
 								}
 							]
@@ -763,7 +803,7 @@
 								},
 								{
 									"key": "userPassword",
-									"value": "Updates123",
+									"value": "Updates12345",
 									"type": "text"
 								}
 							]
@@ -800,23 +840,24 @@
 							"urlencoded": [
 								{
 									"key": "usernames",
-									"value": "Georgia Ramirez",
+									"value": "Test Successful",
 									"type": "text"
 								},
 								{
 									"key": "edad",
-									"value": "24",
+									"value": "15",
 									"type": "text"
 								},
 								{
 									"key": "usergender",
-									"value": "Female",
+									"value": "Masculino",
 									"type": "text"
 								},
 								{
 									"key": "userpassword",
 									"value": "Mujer123",
-									"type": "text"
+									"type": "text",
+									"disabled": true
 								}
 							]
 						},
@@ -835,7 +876,7 @@
 							"variable": [
 								{
 									"key": "id",
-									"value": "5e617b079c525b25649e2885"
+									"value": "5e843f3c8862171020fcbe30"
 								}
 							]
 						}
@@ -859,12 +900,12 @@
 							"urlencoded": [
 								{
 									"key": "usernames",
-									"value": "Test 123",
+									"value": "Newer Test Subject",
 									"type": "text"
 								},
 								{
 									"key": "edad",
-									"value": "35",
+									"value": "44",
 									"type": "text"
 								},
 								{
@@ -874,12 +915,12 @@
 								},
 								{
 									"key": "useremail",
-									"value": "test@unicah.edu",
+									"value": "imtired@needsleep.com",
 									"type": "text"
 								},
 								{
 									"key": "userpassword",
-									"value": "Test",
+									"value": "Needsleep123",
 									"type": "text"
 								}
 							]
@@ -905,7 +946,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:3000/api/user/mycourses/:id",
+							"raw": "localhost:3000/api/user/mycourses/:id/:page/:items",
 							"host": [
 								"localhost"
 							],
@@ -914,12 +955,22 @@
 								"api",
 								"user",
 								"mycourses",
-								":id"
+								":id",
+								":page",
+								":items"
 							],
 							"variable": [
 								{
 									"key": "id",
-									"value": "5e617b079c525b25649e2885"
+									"value": "5e843f3c8862171020fcbe30"
+								},
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "items",
+									"value": "10"
 								}
 							]
 						}
@@ -945,7 +996,95 @@
 							"variable": [
 								{
 									"key": "id",
-									"value": "5e617b079c525b25649e2885"
+									"value": "5e901bef77d66e370c3be577"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:3000/api/user/course/nodes/:id",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "user",
+									"value": "",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/user/course/nodes/:idu/:idc",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"user",
+								"course",
+								"nodes",
+								":idu",
+								":idc"
+							],
+							"variable": [
+								{
+									"key": "idu",
+									"value": "5e901bef77d66e370c3be577"
+								},
+								{
+									"key": "idc",
+									"value": "5e8e7f211bd1133ed4a0cf04"
+								}
+							]
+						},
+						"description": "Muestra todos los nodos de un curso"
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "public",
+			"item": [
+				{
+					"name": "http://localhost:3000/api/public/courses/:page/:items",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/public/courses/:page/:items",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"public",
+								"courses",
+								":page",
+								":items"
+							],
+							"variable": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "items",
+									"value": "10"
 								}
 							]
 						}
