@@ -247,7 +247,23 @@ module.exports = (db) => {
               if (err) {
                 return handler(err, null);
               }
-              return handler(null, rslt.result);
+              query3 = {"_id":new ObjectID(courseID)};
+              updateCommand3 =  {
+                "$inc":{
+                  courseParticipants: 1
+                }
+              };
+              coursesCollection.findOneAndUpdate(
+                query3,
+                updateCommand3,
+                (err, result)=>{
+                  if(err){
+                    console.log(err);
+                    return handler(err, null);
+                  }
+                  return handler(rslt.result);
+                }
+              )
             }); //UpdateOne
           }
         );

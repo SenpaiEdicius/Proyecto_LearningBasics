@@ -59,26 +59,7 @@ export default class CreateNode extends Component{
                 alert("Ingrese una cantidad de horas realista");
             }
             else{
-                const uri = `/api/admin/courses/node/new/${this.props.match.params.idc}`;
-                saxios.put(uri,{
-                    num: this.state.number,
-                    name: this.state.name,
-                    desc: this.state.desc,
-                    dialogo: this.state.dialogue,
-                    tipo: this.state.type,
-                    respuesta: this.state.resp,
-                    req: this.state.req
-                })
-                .then(
-                    ({data})=>{
-                        alert("Se ha agregado correctamente la clase");
-                    }
-                )
-                .catch(
-                    (err)=>{
-                        console.log(err);
-                    }
-                )
+
             }
         }
     }
