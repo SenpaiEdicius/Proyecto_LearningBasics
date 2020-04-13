@@ -556,7 +556,7 @@ footer .rights span {
       -ms-flex-pack: start;
           justify-content: start;
   text-align: center;
-  height: 300px;
+  min-height: 250px;
   -webkit-box-sizing: 1px;
           box-sizing: 1px;
   border-radius: 5px;
@@ -1056,7 +1056,7 @@ footer .rights span {
         -ms-flex-pack: start;
             justify-content: start;
     text-align: center;
-    height: 250px;
+    min-height: 250px;
     -webkit-box-sizing: 1px;
             box-sizing: 1px;
     border-radius: 5px;
@@ -1442,7 +1442,7 @@ footer .rights span {
         -ms-flex-pack: start;
             justify-content: start;
     text-align: center;
-    height: 250px;
+    min-height: 250px;
     -webkit-box-sizing: 1px;
             box-sizing: 1px;
     border-radius: 5px;
@@ -1456,7 +1456,7 @@ footer .rights span {
             justify-content: space-between;
   }
   .page-courses .list .listItem h1 {
-    font-size: 0.8em;
+    font-size: 1em;
   }
   .page-courses .list .listItem h2 {
     font-size: 0.8rem;

@@ -62,10 +62,14 @@ export default class Courses extends Component {
         return (
           <div className='listItem col-s-5 col-m-3 col-2' key={item._id}>
             <h1 className="main-color">{item.courseName} </h1>
+            <br />
             <div className="line"></div>
+            <br />
             <h2>Tiempo de Completación <br/> {item.courseHours} H</h2>
             <p>{item.courseDesc}</p>
+            <br />
             <div className="line"></div>
+            <br />
             {(this.props.auth.isLogged)? <Link className="button-3" to={link+item._id}>{dsc}</Link>:
             <Link className="button-3" to={link}>Registrar</Link> }
             

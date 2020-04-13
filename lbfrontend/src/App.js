@@ -85,6 +85,7 @@ class App extends Component{
       type:this.state.type,
       logout: this.logout,
     };
+    console.log(this.state.type)
     return (
       <Router>
         <Switch>
@@ -96,8 +97,6 @@ class App extends Component{
           <Route render={(props) => { return (<Subs {...props} auth={auth} />) }} path="/subscription" exact/>
           <Route render={(props) => { return (<Canceled {...props} auth={auth} />) }} path="/canceled" exact />
           <Route render={(props) => { return (<Found {...props} auth={auth} />) }} path="/404" exact />
-          
-          
           <PrivateRoute component={MyCourses} path="/mycourses" exact auth={auth}/>
           <PrivateRoute component={UpdatePassword} path='/updatePass' exact auth={auth}/>
           <PrivateRoute component={UpdateUser} path="/update" exact auth={auth}/>
