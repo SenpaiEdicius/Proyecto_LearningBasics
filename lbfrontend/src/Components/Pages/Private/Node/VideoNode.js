@@ -3,11 +3,6 @@ import Page from "../../Page";
 import Input from "../../../Common/Input/Input";
 import Button_F from "../../../Common/Button/Button";
 import { Link, Redirect } from "react-router-dom";
-import {
-  emailRegex,
-  emptyRegex,
-  passwordRegex,
-} from "../../../Common/Validators/Validators";
 import { paxios, setLocalStorage } from "../../../Utilities/Utilities";
 import { saxios } from "../../../Utilities/Utilities";
 import ResponsivePlayer from "./Video/ResponsivePlayer";
@@ -16,7 +11,9 @@ export default class VideoNode extends Component {
   constructor() {
     super();
     this.state = {
-      data: null,
+      data: {
+        nodeRequest: ""
+      },
       courseID: "",
     };
     this.onClickSubmit = this.onClickSubmit.bind(this);
@@ -27,7 +24,7 @@ export default class VideoNode extends Component {
     this.setState({ nodeNumber: nodeID });
     const courseID = this.props.match.params.idc;
     this.setState({ courseID: courseID });
-    const uri = `/api/user/course/nodes/${courseID}`;
+    const uri = `/api/user/course/nodes/${this.props.auth.id}/${courseID}`;
 
     saxios
       .get(uri)
@@ -84,6 +81,7 @@ export default class VideoNode extends Component {
         "completionType" > "blank",
         "rightAnswer" > "blank",
         "nodeCompletion" > "blank",
+        "nodeRequest" > "blank"
       ];
     } else {
       var NodeInfo = [
@@ -94,6 +92,7 @@ export default class VideoNode extends Component {
         this.state.data.completionType,
         this.state.data.rightAnswer,
         this.state.data.nodeCompletion,
+        this.state.data.nodeRequest,
       ]; //No imprime booolean completion
     }
 
@@ -124,7 +123,7 @@ export default class VideoNode extends Component {
 
         <div>
           <ResponsivePlayer
-            url="https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+            url={NodeInfo[7]}
             onProgress={handleWatchComplete}
           />
         </div>
