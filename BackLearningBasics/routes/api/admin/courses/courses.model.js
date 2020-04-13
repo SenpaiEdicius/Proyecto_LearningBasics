@@ -215,7 +215,7 @@ module.exports = (db) =>{
     }
 
     coursesModel.updateNode = (data, handler)=>{
-        var {_id, _nodeNumber, name, desc, dialogo, tipo, respuesta} = data;
+        var {_id, _nodeNumber, name, desc, dialogo, tipo, respuesta, req} = data;
         var query = {"_id": new ObjectID(_id), "courseNodes": {"$elemMatch":{"nodeNumber": _nodeNumber}}};
         var updateCommand = {
             "$set":{
@@ -224,7 +224,8 @@ module.exports = (db) =>{
               "courseNodes.$.nodeDialogue": dialogo,
               "courseNodes.$.completionType": tipo,
               "courseNodes.$.rightAnswer": respuesta,
-              "courseNodes.$.nodeCompletion": false
+              "courseNodes.$.nodeCompletion": false,
+              "courseNodes.$.nodeRequest": req
             }
           };
           coursesCollection.findOneAndUpdate(
@@ -234,7 +235,40 @@ module.exports = (db) =>{
               if(err){
                 return handler(err, null);
               }
-              return handler(null, course.value.courseNodes); 
+                var query2 = {"userCourses": {"$elemMatch":{"_id": new ObjectID(_id)}}};
+                var updateCommand2 = {
+                    $set: {
+                    "userCourses.$[c].courseNodes.$[node].nodeName": name,
+                    "userCourses.$[c].courseNodes.$[node].nodeDesc": desc,
+                    "userCourses.$[c].courseNodes.$[node].nodeDialogue": dialogo,
+                    "userCourses.$[c].courseNodes.$[node].completeType": tipo,
+                    "userCourses.$[c].courseNodes.$[node].rightAnswer": respuesta,
+                    "userCourses.$[c].courseNodes.$[node].nodeCompletion": false,
+                    "userCourses.$[c].courseNodes.$[node].nodeRequest": req,
+                    },
+                };
+                var filter = {
+                    arrayFilters: [
+                    {
+                        "c._id": new ObjectID(_id),
+                    },
+                    {
+                        "node.nodeNumber": _nodeNumber,
+                    },
+                    ],
+                    multi: true,
+                };
+                userCollection.findOneAndUpdate(
+                    query2,
+                    updateCommand2,
+                    filter,
+                    (err, course) => {
+                    if (err) {
+                        return handler(err, null);
+                    }
+                    return handler(null, course.value.courseNodes);
+                    }
+                ); 
             }
           );
     }

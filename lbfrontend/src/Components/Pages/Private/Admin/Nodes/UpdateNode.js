@@ -6,7 +6,7 @@ import Select from '../../../../Common/Select/Select';
 import { longStringRegex, emptyRegex, edadRegex } from '../../../../Common/Validators/Validators';
 import { saxios } from '../../../../Utilities/Utilities';
 
-export default class CreateNode extends Component{
+export default class UpdateNode extends Component{
     constructor(){
         super();
         this.state ={
@@ -31,19 +31,42 @@ export default class CreateNode extends Component{
 
     componentDidMount(){
         const courseID = this.props.match.params.idc;
-        const uri = `/api/admin/courses/${courseID}`;
-        saxios.get(uri)
+        const nodeNum = this.props.match.params.idn;
+        const actualNum = nodeNum-1;
+        const uri2 = `/api/admin/courses/nodes/all/${courseID}`;
+        saxios.get(uri2)
         .then(
             ({data})=>{
-                console.log(data.nodes);
-                this.setState({number: (data.nodes+1)});
+                this.setState({
+                    number: data.courseNodes[actualNum].nodeNumber,
+                    name: data.courseNodes[actualNum].nodeName,
+                    desc: data.courseNodes[actualNum].nodeDesc,
+                    dialogue: data.courseNodes[actualNum].nodeDialogue,
+                    type: data.courseNodes[actualNum].completionType,
+                    resp: data.courseNodes[actualNum].rightAnswer,
+                    req: data.courseNodes[actualNum].nodeRequest
+                }, function(){
+                    const comb = document.getElementById("type");
+                    if(this.state.type==="Drag"){
+                        comb.selectedIndex = 0;
+                    }
+                    else if(this.state.type==="Video"){
+                        comb.selectedIndex = 1; 
+                    }
+                    else if(this.state.type==="Regex")
+                    {
+                        comb.selectedIndex = 2;
+                    }else{
+                        comb.selectedIndex = 3;
+                    }
+                });
             }
         )
         .catch(
             (err)=>{
                 console.log(err);
             }
-        )
+        );
     }
 
     onClickUpdate(e){
@@ -59,7 +82,27 @@ export default class CreateNode extends Component{
                 alert("Ingrese una cantidad de horas realista");
             }
             else{
-
+                const courseID = this.props.match.params.idc;
+                const nodeNum = this.props.match.params.idn;
+                const uri = `/api/admin/courses/node/upd/${courseID}/${nodeNum}`;
+                saxios.put(uri,{
+                    name: this.state.name,
+                    desc: this.state.desc,
+                    dialogo: this.state.dialogue,
+                    tipo: this.state.type,
+                    respuesta: this.state.resp,
+                    req: this.state.req
+                })
+                .then(
+                    ({data})=>{
+                        alert("Se ha modificado exitosamente la clase");
+                    }
+                )
+                .catch(
+                    (err)=>{
+                        console.log(err);
+                    }
+                )
             }
         }
     }
@@ -134,7 +177,7 @@ export default class CreateNode extends Component{
     }
 
     render(){
-        const action ="Crear Clase";
+        const action ="Modificar Clase";
         const selectItems=[
             { value: "Drag", dsc: "Drag" },
             { value: "Video", dsc: "Video" },
@@ -168,7 +211,7 @@ export default class CreateNode extends Component{
             />,
             <Input
                 name="resp"
-                caption="Respuesta correcta (Ya sea el regex, texto, draggable o url)"
+                caption="Respuesta correcta (Ya sea el regex, texto o draggable)"
                 value={this.state.resp}
                 onChange={this.onChangeHandler}
                 error={this.state.respError}
@@ -176,7 +219,7 @@ export default class CreateNode extends Component{
             />,
             <Input
                 name="req"
-                caption="Opciones o Instrucciones para completar clase"
+                caption="Opciones o Instrucciones para completar clase (o url del video)"
                 value={this.state.req}
                 onChange={this.onChangeHandler}
                 error={this.state.reqError}
@@ -191,7 +234,7 @@ export default class CreateNode extends Component{
             />,
           ];
         return(
-            <Page pageURL="CreateCourse" auth={this.props.auth}>
+            <Page pageURL="UpdateCourse" auth={this.props.auth}>
                 <Form
                     title={action}
                     id="form-update-user"

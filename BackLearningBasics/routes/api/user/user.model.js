@@ -261,7 +261,7 @@ module.exports = (db) => {
                     console.log(err);
                     return handler(err, null);
                   }
-                  return handler(rslt.result);
+                  return handler(null, rslt.result);
                 }
               )
             }); //UpdateOne
@@ -330,6 +330,7 @@ module.exports = (db) => {
       }
     );
   };
+
   userModel.sendEmail = (mailOptions, handler) => {
     mailer.sendMail(mailOptions, (err, info) => {
       if (err) {
