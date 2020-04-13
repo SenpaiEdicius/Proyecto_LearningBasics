@@ -104,7 +104,7 @@ export default class VideoNode extends Component {
     };
 
     return (
-      <Page pageURL="Class">
+      <Page pageURL="Class" auth={this.props.auth}>
         <br />
         <br />
         <br />

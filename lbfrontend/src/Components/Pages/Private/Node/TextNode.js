@@ -82,7 +82,7 @@ export default class TextNode extends Component{
         }
        
         return(
-            <Page pageURL="Class">
+            <Page pageURL="Class" auth={this.props.auth}>
                 <br/>
                 <br/>
                 <br/>
