@@ -195,6 +195,7 @@ module.exports = (db) => {
       userCompleteName: 1,
       userActive: 1,
       userType: 1,
+      forgotToken:1
     };
     userCollection.findOne(query, { projection: projection }, (err, user) => {
       if (err) {
@@ -554,6 +555,36 @@ module.exports = (db) => {
       return handler(null, updatedUser);
     });
   };
-  
+  userModel.createForgotToken = (email,token,handler)=>{
+    var query = {"userEmail":email};
+
+    var updateCommad = {
+      "$set":{
+        "forgotToken":token
+      }
+    }
+    userCollection.updateOne(query,updateCommad, (error,updatedUser)=>{
+      if (error) {
+        console.log(error);
+        return handler(error, null);
+      }
+      return handler(null, updatedUser);
+    });
+  }
+  userModel.deleteToken = (id, handler)=>{
+    var query = {_id: new ObjectID(id)};
+    var updateCommad = {
+      "$unset":{
+        "forgotToken":""
+      }
+    }
+    userCollection.updateOne(query,updateCommad,(error,updatedUser)=>{
+      if (error) {
+        console.log(error);
+        return handler(error, null);
+      }
+      return handler(null, updatedUser);
+    })
+  }
   return userModel;
 };

@@ -105,6 +105,7 @@ export default class Login extends Component{
             <Page pageURL="Login">
                 <section className="page-login">
                     <div className="login-data col-s-12 col-m-4 col-4 col-l-3">
+                        <form>
                         <h1 className="center">Iniciar Sesión</h1>
                         <br/>
                         <Input 
@@ -128,8 +129,9 @@ export default class Login extends Component{
                         />
                         {(this.state.loading && true)? <div className="loading center">
                         <Loading />    </div>:(<Button_F>
-                            <button className="button-3 col-s-12" onClick={this.onClickLogin}>Entrar</button>
+                            <button className="button-3 col-s-12" type="button" onClick={this.onClickLogin}>Entrar</button>
                         </Button_F>)  }
+                        </form>
                               
                     </div>
                     <div className="login-background col-m-8 col-6 col-offset-1 col-offset-l-2 hide-s">

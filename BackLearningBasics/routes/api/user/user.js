@@ -116,7 +116,56 @@ router.post('/updatepswd', (req, res)=>{
         }); 
   });
 });// Cambiar Contraseña
-
+router.put('/token', (req,res)=>{console.log("hola");
+  var email = req.body.email;
+  var token =  jwt.sign(email,
+    'ProtossTerranZergEasyGG'
+    )
+  console.log(token)
+  userModel.createForgotToken(email,token,(err, result)=>{
+    if(err){
+      console.log(err);
+      return res.status(500).json({"error":err});
+    }
+    return res.status(200).json({info:result,token:token});
+  })
+});//Crear token
+router.put('/forgotpswd', (req, res)=>{
+  var id =  req.body.id ;
+  var password = req.body.newpass;
+  userModel.updatepass({_id:id, password}, (err, upd)=>{
+    if(err){
+      console.log(err);
+      return res.status(200).json({"msg":"Error inesperado. Intente nuevamente"});
+    }
+    userModel.deleteToken(id,(err,upd)=>{
+      if(err){
+        console.log(err);
+        return res.status(200).json({"msg":"Error inesperado. Intente nuevamente"});
+      }
+      return res.status(200).json({"msg":"Se ha completado el cambio de contraseña con éxito"});
+    })
+    
+  }); 
+});// Olvido de Contraseña
+router.get('/forgotpswd/:email/:token', (req,res)=>{
+  var {email, token } = req.params;
+  userModel.getByEmail(email, (err,user)=>{
+    if(err){
+      console.log(err);
+      return res.status(500).json({"msg":"Correo no encontrado"});
+    }
+    //console.log(JSON.stringify(user));
+    if(user.forgotToken === undefined){
+      return res.status(500).json({"msg":"No solicito cambio de Contraseña"});
+    }
+    
+    if(user.forgotToken !== token){
+      return res.status(500).json({"msg":"Ocurrio un Error"})
+    }
+      return res.status(200).json({"id":user._id});
+  })
+})
 
 router.post('/courses/add', (req, res)=>{
   var userID = req.body.userID;

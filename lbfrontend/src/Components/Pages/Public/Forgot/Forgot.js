@@ -1,14 +1,14 @@
 import React, { Component } from "react";
 import Page from "../../Page";
 
-import { paxios } from "../../../Utilities/Utilities";
+import { paxios, setLocalStorage } from "../../../Utilities/Utilities";
 import Loading from "../../../Common/Loading/Loading";
 import Input from "../../../Common/Input/Input";
 import Button_F from "../../../Common/Button/Button";
-import Mail from "../../../Common/Mail/Mail";
 import { emailRegex, emptyRegex } from "../../../Common/Validators/Validators";
 import img from "../Login/undraw_hacker_mindset_gjwq.svg";
 import { Link } from "react-router-dom";
+import { IoLogoWindows } from "react-icons/io";
 export default class Forgot extends Component {
   constructor() {
     super();
@@ -57,15 +57,122 @@ export default class Forgot extends Component {
     } else {
       const { email } = this.state;
       this.setState({ emailSending: true });
+     paxios.put("/api/user/token",{"email":email}).
+     then((resp)=>{
+        if(resp.data.error){
+          //window.location.assign('http://localhost:3001/')
+        }
+        this.sendMail(resp.data.token);
+     }).catch((error)=>{console.log(error)})
+    }
+  }
+  sendMail(token){
+    const { email } = this.state;
+      
       paxios
         .post("/api/user/forgot", {
           to: email,
           subject: "Cambio de Contraseña",
-          htmlBody:
-            '<div style="background-color: #27b863; padding: 50px; color: #fff; font-size:50px; text-align: center;">' +
-            '<h1 style="background-color: #fff; color:#27b863; padding: 50px">Learning Basics</h1>' +
-            '<p style="background-color: #fff; color:#27b863; padding: 50px">Cambio de Contraseña</p>' +
-            "</div>",
+          htmlBody: '<!DOCTYPE html>'
+        +'<html>'
+            +'<head>'
+                +'<meta charset="UTF-8">'
+                +'<link href="https://fonts.googleapis.com/css?family=Poppins&display=swap" rel="stylesheet">'
+                +'<meta name="viewport" content="width=device-width, initial-scale=1.0">'
+                +'<title>Food Service</title>'
+                +'<style>'
+                    +'* {'
+                    +'font-family: "Poppins", sans-serif;'
+                    +'}'
+                    +'a{'
+                    +'display:block;'
+                    +'color: #fff !important; '
+                    +'text-decoration: none;'
+                    +'}'
+                    +'.mail {'
+                    +'background-color: #27b863;'
+                    +'padding: 4em;'
+                    +'}'
+                    +'.action-title {'
+                    +'background-color: #FFF;'
+                    +'padding: 0.5em;'
+                    +'margin: 1em 0px;'
+                    +'border-radius: 9px;'
+                    +'width: 200px;'
+                    +'}'
+        
+                    +'.action-title h1 {'
+                    +'text-align: center;'
+                    +'opacity: 1;'
+                    +'color: #27b863;'
+                    +'font-size: 2em !important;'
+                   +'}'
+        
+                    +'.content {'
+                    +'border-radius: 9px;'
+                    +'text-align: center;'
+                    +'margin: 0em;'
+                    +'background-color: #FFF;'
+                    +'padding: 0.5em;'
+                    +'width: 200px;'
+                    +'}'
+        
+                    +'.content h2 {'
+                    +'background-color: transparent;'
+                    +'font-size: 2em;'
+                    +'}'
+                    +'.content .messages{'
+                        +'padding: 1.5em;'
+                        +'border-radius: 9px;'
+                        +'background-color: #27b863;'
+                    +'}'
+                    +'.content .messages li {'
+                        +'list-style: none;'
+                    +'text-align: center;'
+                    +'font-size: 1em;'
+                    +'}'
+                    +'.thanks{'
+                        +'text-align: center;'
+                        +'color: #fff;'
+                        +'font-size: 1.2em;'
+                        +'list-style: none;'
+                    +'}'
+                   +'@media (min-width: 1024px) {'
+                   +'.action-title {'
+                    +'background-color: #FFF;'
+                    +'margin: 3em;'
+                    +'width: 800px;'
+                    +'}'
+                    +'.mail {'
+                        +'padding: 10em;'
+                    +'}'
+                   +'.content {'
+                        +'width: 800px;'
+                        +'padding: 3em;'
+                        
+                    +'}'
+                    +'.content .messages{'
+                        +'padding: 2em;'
+                        +'border-radius: 9px;'
+                        +'font-size: 1.5em;'
+                        +'background-color: #27b863;'
+                    +'}'
+                    +'}'
+                +'</style>'
+            +'</head>'
+            +'<body>'
+                +'<div class="mail">'
+                    +'<div class="action-title">'
+                        +'<h1>Learning Basics</h1>'
+                    +'</div>'
+                    +'<div class="content">'
+                    +'<ul class="messages"> '
+                        +'<li><a href="http://localhost:3001/forgot/'+email+'/'+token+'"> Cambiar Contraseña</a></li> '
+                    +'</ul>'                
+                    +'</div>'
+                +'</div>'
+            +'</body>'
+            +'</html>'
         })
         .then((resp) => {
           console.log(resp.data);
@@ -82,7 +189,6 @@ export default class Forgot extends Component {
         .catch((error) => {
           console.log(error);
         });
-    }
   }
   render() {
     
@@ -147,7 +253,7 @@ export default class Forgot extends Component {
                 className="button-3 col-s-12"
                 onClick={this.onClickForgot}
               >
-                Entrar
+                Enviar
               </button>
             </Button_F>
           </div>

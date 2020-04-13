@@ -61,7 +61,7 @@ export default class Header extends Component{
                 <div className={displaying ? "close":"hidden"}>
                 <IoIosCloseCircleOutline onClick={ ()=>{this.setState({display: !displaying})}}/>
                 </div>     
-                <ul className={(shown && true) ? "nav-links open col-s-12 col-m-5 col-6 col-l-5 no-margin center": "nav-links col-s-12 col-m-5 col-6 col-l-5 no-margin center" }>
+                <ul className={(shown && true) ? "nav-links open col-s-12 col-m-5 col-7 col-l-6 no-margin center": "nav-links col-s-12 col-m-5 col-7 col-l-6 no-margin center" }>
                     <li><Link to="/courses">Todos los Cursos</Link></li>
                     <li><Link to="/mycourses">Cursos Registrados</Link></li>
                     <li className="user-menu" onClick={ ()=>{this.setState({display: !displaying})}}><IoIosSettings/></li>
