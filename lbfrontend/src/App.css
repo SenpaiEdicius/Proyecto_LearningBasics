@@ -154,7 +154,6 @@ ul {
 a {
   display: block;
   text-decoration: none;
-  color: #fff;
 }
 
 body {
@@ -528,7 +527,7 @@ footer .rights span {
 
 .page-courses {
   padding-top: 18vw;
-  max-height: 75vh;
+  min-height: 75vh;
   overflow: auto;
 }
 
@@ -557,11 +556,11 @@ footer .rights span {
       -ms-flex-pack: start;
           justify-content: start;
   text-align: center;
-  height: 200px;
+  height: 300px;
   -webkit-box-sizing: 1px;
           box-sizing: 1px;
   border-radius: 5px;
-  margin: 0.8rem;
+  margin: 0.7rem;
   padding: 0.5rem;
   -webkit-box-shadow: 0px 0px 8px rgba(109, 109, 109, 0.582);
           box-shadow: 0px 0px 8px rgba(109, 109, 109, 0.582);
@@ -1039,7 +1038,7 @@ footer .rights span {
   }
   .page-courses {
     padding-top: 9vw;
-    max-height: 90vh;
+    height: 90vh;
     overflow: auto;
   }
   .page-courses .list {
@@ -1448,7 +1447,7 @@ footer .rights span {
             box-sizing: 1px;
     border-radius: 5px;
     margin: 1.9rem;
-    padding: 0.5rem;
+    padding: 0.7rem;
     -webkit-box-shadow: 0px 0px 8px rgba(109, 109, 109, 0.582);
             box-shadow: 0px 0px 8px rgba(109, 109, 109, 0.582);
     min-height: 3rem;
