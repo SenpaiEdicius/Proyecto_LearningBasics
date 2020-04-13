@@ -149,7 +149,7 @@ export default class CreateNode extends Component{
     }
 
     changeCMB(e){
-        this.setState({ act: e.target.value });
+        this.setState({ type: e.target.value });
     }
 
     render(){

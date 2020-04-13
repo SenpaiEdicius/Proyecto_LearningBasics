@@ -173,7 +173,7 @@ export default class UpdateNode extends Component{
     }
 
     changeCMB(e){
-        this.setState({ act: e.target.value });
+        this.setState({ type: e.target.value });
     }
 
     render(){

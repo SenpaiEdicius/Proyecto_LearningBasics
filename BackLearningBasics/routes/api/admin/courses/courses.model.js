@@ -241,7 +241,7 @@ module.exports = (db) =>{
                     "userCourses.$[c].courseNodes.$[node].nodeName": name,
                     "userCourses.$[c].courseNodes.$[node].nodeDesc": desc,
                     "userCourses.$[c].courseNodes.$[node].nodeDialogue": dialogo,
-                    "userCourses.$[c].courseNodes.$[node].completeType": tipo,
+                    "userCourses.$[c].courseNodes.$[node].completionType": tipo,
                     "userCourses.$[c].courseNodes.$[node].rightAnswer": respuesta,
                     "userCourses.$[c].courseNodes.$[node].nodeCompletion": false,
                     "userCourses.$[c].courseNodes.$[node].nodeRequest": req,
