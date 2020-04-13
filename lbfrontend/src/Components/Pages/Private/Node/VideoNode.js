@@ -45,7 +45,6 @@ export default class VideoNode extends Component {
   }
 
   onClickSubmit(e) {
-    var answer = "true";
     const courseID = this.props.match.params.idc;
     this.setState({ courseID: courseID });
     const nodeID = this.props.match.params.idn;
@@ -53,7 +52,7 @@ export default class VideoNode extends Component {
     const uri = `/api/user/course/class/${courseID}`;
     saxios
       .put(uri, {
-        answer: answer,
+        answer: this.state.data.rightAnswer,
         userid: this.props.auth.id,
         NodeNumber: nodeID,
       })
