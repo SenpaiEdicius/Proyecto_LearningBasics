@@ -21,7 +21,7 @@ export default class TextNode extends Component{
         this.setState({'nodeNumber': nodeID})
         const courseID = this.props.match.params.idc;
         this.setState({'courseID': courseID})
-        const uri = `/api/user/course/nodes/${courseID}`;
+        const uri = `/api/user/course/nodes/${this.props.auth.id}/${courseID}`;
 
         saxios.get(uri)
         .then(
@@ -43,14 +43,13 @@ export default class TextNode extends Component{
     };
 
     onClickSubmit(e){
-        var answer = "true";
         const courseID = this.props.match.params.idc;
         this.setState({'courseID': courseID})
         const nodeID = this.props.match.params.idn;
         this.setState({'nodeNumber': nodeID})
         const uri = `/api/user/course/class/${courseID}`;
         saxios.put(uri,{
-            'answer':answer,
+            'answer':this.state.data.rightAnswer,
             'userid':this.props.auth.id,
             'NodeNumber':nodeID
         }).then(
@@ -74,11 +73,11 @@ export default class TextNode extends Component{
         }
 
         if(this.state.data === null){
-            var NodeInfo = ["nodeNumber" > 0,"nodeName">"blank","nodeDesc">"blank",
-            "nodeDialogue">"blank","completionType">"blank","rightAnswer">"blank","nodeCompletion">"blank"]
+            var NodeInfo = ["nodeNumber" > 0,"nodeName">"blank","nodeDesc">"blank","nodeDialogue">"blank",
+            "completionType">"blank","rightAnswer">"blank","nodeCompletion">"blank", "nodeRequest">"blank"]
         }else{
             var NodeInfo = [this.state.data.nodeNumber,this.state.data.nodeName,this.state.data.nodeDesc,this.state.data.nodeDialogue,
-                this.state.data.completionType,this.state.data.rightAnswer,this.state.data.nodeCompletion];   //No imprime booolean completion
+                this.state.data.completionType,this.state.data.rightAnswer,this.state.data.nodeCompletion, this.state.data.nodeRequest];   //No imprime booolean completion
         }
        
         return(
@@ -91,8 +90,9 @@ export default class TextNode extends Component{
                 <ul>
                     <li><b>Titulo: </b>  {NodeInfo[1]}</li>
                     <li><b>Descripción: </b>  {NodeInfo[2]}</li>
-                    <li><b>Instrucciones: </b>  {NodeInfo[3]}</li>
-                    </ul>
+                    <li><b>Lección: </b>  {NodeInfo[3]}</li>
+                    <li><b>Manera de Completar</b>{NodeInfo[7]}</li>
+                </ul>
                 </span>
                 
                 <Button_F>

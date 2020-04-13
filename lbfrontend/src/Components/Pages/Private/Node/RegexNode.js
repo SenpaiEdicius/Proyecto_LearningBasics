@@ -31,16 +31,15 @@ export default class TextNode extends Component{
         this.setState({'nodeNumber': nodeID})
         const courseID = this.props.match.params.idc;
         this.setState({'courseID': courseID})
-        const uri = `/api/user/course/nodes/${courseID}`;
+        const uri = `/api/user/course/nodes/${this.props.auth.id}/${courseID}`;
 
         saxios.get(uri)
         .then(
             ({data})=>{
-
                 this.setState({
                     'data': data[nodeID-1]
                 }, function(){
- 
+                    console.log(this.state);
                     this.render();
                 });
             }
@@ -65,10 +64,10 @@ export default class TextNode extends Component{
             'NodeNumber':nodeID
         }).then(
             ({data})=>{
-                console.log({data});
-                this.setState({...this.state, redirectTo: true});
-               
-
+                alert(JSON.stringify(data.Resultado));
+                if(data.Resultado==="La respuesta es correcta"){
+                    this.setState({...this.state, redirectTo: true});
+                }
             }
         )
         .catch(
@@ -85,11 +84,11 @@ export default class TextNode extends Component{
             }
 
             if(this.state.data === null){
-                var NodeInfo = ["nodeNumber" > 0,"nodeName">"blank","nodeDesc">"blank",
-                "nodeDialogue">"blank","completionType">"blank","rightAnswer">"blank","nodeCompletion">"blank"]
+                var NodeInfo = ["nodeNumber" > 0,"nodeName">"blank","nodeDesc">"blank","nodeDialogue">"blank",
+                "completionType">"blank","rightAnswer">"blank","nodeCompletion">"blank", "nodeRequest">"blank"]
             }else{
                 var NodeInfo = [this.state.data.nodeNumber,this.state.data.nodeName,this.state.data.nodeDesc,this.state.data.nodeDialogue,
-                    this.state.data.completionType,this.state.data.rightAnswer,this.state.data.nodeCompletion];   //No imprime booolean completion
+                    this.state.data.completionType,this.state.data.rightAnswer,this.state.data.nodeCompletion, this.state.data.nodeRequest];   //No imprime booolean completion
             }
            
             return(
@@ -102,8 +101,9 @@ export default class TextNode extends Component{
                     <ul>
                         <li><b>Titulo: </b>  {NodeInfo[1]}</li>
                         <li><b>Descripción: </b>  {NodeInfo[2]}</li>
-                        <li><b>Instrucciones: </b>  {NodeInfo[3]}</li>
-                        </ul>
+                        <li><b>Lección: </b>  {NodeInfo[3]}</li>
+                        <li><b>Manera de Completar</b>{NodeInfo[7]}</li>
+                    </ul>
                     </span>
                     <br/>
                         <Input 
