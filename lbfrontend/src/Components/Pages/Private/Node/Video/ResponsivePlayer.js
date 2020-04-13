@@ -9,9 +9,9 @@ export default(props) => {
         url={props.url}
         width='100%'
         height='100%'
+        volume= '0.10'
         controls = {true}
         onProgress={props.onProgress}
-        playing={true}
        
       />
     </div>
