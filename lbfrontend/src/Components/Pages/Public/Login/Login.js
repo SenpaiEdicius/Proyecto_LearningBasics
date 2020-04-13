@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import Page from '../../Page';
 import Input from '../../../Common/Input/Input';
 import Button_F from '../../../Common/Button/Button';
+import Loading from "../../../Common/Loading/Loading";
 import { Link, Redirect } from 'react-router-dom';
 import {emailRegex, emptyRegex, passwordRegex} from '../../../Common/Validators/Validators';
 import { paxios, setLocalStorage } from '../../../Utilities/Utilities';
@@ -14,7 +15,8 @@ export default class Login extends Component{
             emailError: null,
             password: '',
             passwordError: null,
-            redirectTo: false
+            redirectTo: false,
+            loading:false
         }
         this.onChangeHandler = this.onChangeHandler.bind(this);
         this.onClickLogin = this.onClickLogin.bind(this);
@@ -68,6 +70,7 @@ export default class Login extends Component{
             this.setState({...this.state, ...errors});
         }else{
             const {email, password} = this.state;
+            this.setState({loading:true})
             paxios.post(
                 "/api/user/login",
                 {
@@ -83,10 +86,12 @@ export default class Login extends Component{
                     this.props.login(resp.data);
                     this.setState({...this.state, redirectTo: true});    
                 }
+                
             })
             .catch((error)=>{
                 console.log(error);
             })
+            this.setState({loading:false})
         }
 
     }
@@ -110,7 +115,7 @@ export default class Login extends Component{
                             error={this.state.emailError} 
                             className="col-s-12 col-m-12 col-12 input-1"   
                         />
-                        <Link to="/forgot">¿Olvidaste tu contraseña? </Link>
+                        <Link className="black" to="/forgot">¿Olvidaste tu contraseña? </Link>
                         
                         <Input
                             name="password"
@@ -121,9 +126,11 @@ export default class Login extends Component{
                             error={this.state.passwordError}
                             className="col-s-12 col-m-12 col-12 input-1"   
                         />
-                        <Button_F>
-                            <button className="button-3 col-s-11" onClick={this.onClickLogin}>Entrar</button>
-                        </Button_F>            
+                        {(this.state.loading && true)? <div className="loading center">
+                        <Loading />    </div>:(<Button_F>
+                            <button className="button-3 col-s-12" onClick={this.onClickLogin}>Entrar</button>
+                        </Button_F>)  }
+                              
                     </div>
                     <div className="login-background col-m-8 col-6 col-offset-1 col-offset-l-2 hide-s">
                         <img src={img} alt="Imagen de Fondo"  className="col-m-12 no-padding"/>

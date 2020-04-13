@@ -52,13 +52,18 @@ module.exports = (db) => {
     userEmail: "",
     userPassword: "",
     userCourses: [],
-    userRoles: [],
     userActive: false,
     userDateCreated: null,
+    userType: "",
+    userSubscription: "",
+    userNextPaymentDue:null
   };
 
   userModel.addNew = (dataToAdd, handler) => {
-    var { usernames, userage, usergender, useremail, userpassword } = dataToAdd;
+    var { usernames, userage, usergender, useremail, userpassword,months } = dataToAdd;
+    var dateNow = new Date().getTime();
+    var date = new Date();
+    var paymentDue = new Date(date.setMonth(date.getMonth()+months)).getTime();
     var userToAdd = Object.assign({}, userTemplate, {
       userCompleteName: usernames,
       userAge: userage,
@@ -67,8 +72,10 @@ module.exports = (db) => {
       userPassword: pswdGenerator(userpassword),
       userCourses: [],
       userActive: true,
-      userDateCreated: new Date().getTime(),
-      userType:"CLI"
+      userDateCreated: dateNow,
+      userType: "CLI",
+      userSubscription: "PND",
+      userNextPaymentDue: paymentDue
     });
 
     userCollection.insertOne(userToAdd, (err, rslt) => {
@@ -257,19 +264,18 @@ module.exports = (db) => {
   };
 
   //Used for Complete Node
-  userModel.getCourseNodes = (courseID, userId, handler) =>{
-    var query = {"_id": new ObjectID(userId), 'userCourses._id': new ObjectID(courseID)};
-    var projection = {"userCourses.courseNodes":1, "_id":0};
-    userCollection.findOne(
-      query,
-      { projection: projection },
-      (err, course) => {
-        if (err) {
-          return handler(err, null);
-        }
-        return handler(null, course.userCourses[0].courseNodes);
+  userModel.getCourseNodes = (courseID, userId, handler) => {
+    var query = {
+      _id: new ObjectID(userId),
+      "userCourses._id": new ObjectID(courseID),
+    };
+    var projection = { "userCourses.courseNodes": 1, _id: 0 };
+    userCollection.findOne(query, { projection: projection }, (err, course) => {
+      if (err) {
+        return handler(err, null);
       }
-    );
+      return handler(null, course.userCourses[0].courseNodes);
+    });
   };
 
   //Used for Complete Node
@@ -321,7 +327,7 @@ module.exports = (db) => {
     });
   };
   userModel.paypalPayment = (paymentData, handler) => {
-    var { _id, plan,planDsc, planFrequency, price } = paymentData;
+    var { _id, plan, planDsc, planFrequency, price } = paymentData;
     var url = require("url");
     var isoDate = new Date();
     isoDate.setSeconds(isoDate.getSeconds() + 4);
@@ -331,7 +337,7 @@ module.exports = (db) => {
       description: "Pago de Subscripcion de Learning Basics",
       merchant_preferences: {
         auto_bill_amount: "yes",
-        cancel_url: "http://localhost:3001",
+        cancel_url: "http://localhost:3001/canceled",
         initial_fail_amount_action: "continue",
         max_fail_attempts: "1",
         return_url: "http://localhost:3001/approved/",
@@ -351,7 +357,7 @@ module.exports = (db) => {
           cycles: "1",
           frequency: planFrequency,
           frequency_interval: plan,
-          name: "Pago "+planDsc,
+          name: "Pago " + planDsc,
           type: "TRIAL",
         },
         {
@@ -369,7 +375,7 @@ module.exports = (db) => {
       ],
       type: "INFINITE",
     };
-    if(plan==="0"){
+    if (plan === "0") {
       billingPlanAttributes.payment_definitions = [
         {
           amount: {
@@ -382,8 +388,8 @@ module.exports = (db) => {
           frequency_interval: "1",
           name: "Pago Mensual",
           type: "REGULAR",
-        }
-      ]
+        },
+      ];
     }
     var billingPlanUpdateAttributes = [
       {
@@ -396,8 +402,8 @@ module.exports = (db) => {
     ];
 
     var billingAgreementAttributes = {
-      name: "Pago de Subscripcion "+planDsc,
-      description: "Subscripción "+planDsc+" $ "+price,
+      name: "Pago de Subscripcion " + planDsc,
+      description: "Subscripción " + planDsc + " $ " + price,
       start_date: isoDate,
       plan: {
         id: _id,
@@ -421,7 +427,7 @@ module.exports = (db) => {
     ) {
       if (error) {
         console.log(error);
-        return handler(error,null);
+        return handler(error, null);
       } else {
         //console.log("Create Billing Plan Response");
         //console.log(billingPlan);
@@ -433,9 +439,9 @@ module.exports = (db) => {
           function (error, response) {
             if (error) {
               console.log(error);
-              return handler(error,null);
+              return handler(error, null);
             } else {
-             // console.log("Billing Plan state changed to " + billingPlan.state);
+              // console.log("Billing Plan state changed to " + billingPlan.state);
               billingAgreementAttributes.plan.id = billingPlan.id;
 
               // Use activated billing plan to create agreement
@@ -444,7 +450,7 @@ module.exports = (db) => {
                 function (error, billingAgreement) {
                   if (error) {
                     console.log(error);
-                    return handler(error,null);
+                    return handler(error, null);
                   } else {
                     //console.log("Create Billing Agreement Response");
                     //console.log(billingAgreement);
@@ -466,7 +472,10 @@ module.exports = (db) => {
                         console.log(url.parse(approval_url, true).query.token);*/
 
                         let token = url.parse(approval_url, true).query.token;
-                        return handler(null,{redirect:approval_url,token:token});
+                        return handler(null, {
+                          redirect: approval_url,
+                          token: token,
+                        });
                         // See billing_agreements/execute.js to see example for executing agreement
                         // after you have payment token
                       }
@@ -487,25 +496,51 @@ module.exports = (db) => {
     ) {
       if (error) {
         console.log(error);
-        return handler(error,null);
+        return handler(error, null);
       } else {
         console.log("Billing Agreement Execute Response");
         //console.log(JSON.stringify(billingAgreement));
-        return handler(null,billingAgreement);
+        return handler(null, billingAgreement);
       }
     });
   };
-  userModel.billingPaypal = (id, handler)=>{
+  userModel.billingPaypal = (id, handler) => {
     paypal.billingAgreement.get(id, function (error, billingAgreement) {
       if (error) {
-          console.log(error);
-          return handler(error,null);
+        console.log(error);
+        return handler(error, null);
       } else {
-          console.log("Get Billing Agreement");
-          //console.log(JSON.stringify(billingAgreement));
-          return handler(null, billingAgreement);
+        console.log("Get Billing Agreement");
+        //console.log(JSON.stringify(billingAgreement));
+        return handler(null, billingAgreement);
       }
     });
-  }
+  };
+  userModel.unsubscribe = (id, handler) => {
+    var query = { _id: new ObjectID(id) };
+    userCollection.deleteOne(query, (error, deletedUser) => {
+      if (error) {
+        console.log(error);
+        return handler(error, null);
+      }
+      return handler(null, deletedUser);
+    });
+  };
+  userModel.activateSubscription = (id, handler) => {
+    var query = { _id: new ObjectID(id) };
+    var updateCommad = {
+      "$set":{
+        userSubscription:"ACT"
+      }
+    }
+    userCollection.updateOne(query,updateCommad, (error, updatedUser) => {
+      if (error) {
+        console.log(error);
+        return handler(error, null);
+      }
+      return handler(null, updatedUser);
+    });
+  };
+  
   return userModel;
 };

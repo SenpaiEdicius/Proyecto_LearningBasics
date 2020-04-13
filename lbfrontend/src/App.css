@@ -138,7 +138,7 @@ GENERAL
 * {
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
   margin: 0px;
   padding: 0px;
 }
@@ -166,6 +166,7 @@ body {
   background-color: #27b863;
   width: 100%;
   height: 5px;
+  border-radius: 3px;
 }
 
 .line-pink {
@@ -190,6 +191,15 @@ body {
   -webkit-box-shadow: 0px 0px 10px rgba(109, 109, 109, 0.582);
           box-shadow: 0px 0px 10px rgba(109, 109, 109, 0.582);
   color: #27b863;
+  -webkit-transition: all 0.5s ease-in-out;
+  transition: all 0.5s ease-in-out;
+}
+
+.button-4 {
+  border: none;
+  border-radius: 5px;
+  padding: 1.2em !important;
+  color: #fff;
   -webkit-transition: all 0.5s ease-in-out;
   transition: all 0.5s ease-in-out;
 }
@@ -268,6 +278,10 @@ body {
   display: none;
 }
 
+.black {
+  color: #000;
+}
+
 /*----------------------------------
 Nav height
 ------------------------------------*/
@@ -311,6 +325,7 @@ header .title a p img {
 }
 
 header .nav-links {
+  opacity: 1 !important;
   position: absolute;
   height: 100vh;
   right: 0px;
@@ -354,6 +369,7 @@ header .nav-links li a:hover {
 }
 
 header .nav-links.open {
+  opacity: 1;
   -webkit-transition: 1s all ease-in-out;
   transition: 1s all ease-in-out;
   -webkit-clip-path: circle(1200px at 85% -5%);
@@ -361,6 +377,7 @@ header .nav-links.open {
 }
 
 header .menu-links {
+  opacity: 0;
   position: absolute;
   right: 0px;
   margin-top: 18vw !important;
@@ -397,8 +414,8 @@ header .menu-links li a {
   padding: 1em;
   color: #fff;
   font-size: 1.3em;
-  -webkit-transition: 0.4s all ease-in-out;
-  transition: 0.4s all ease-in-out;
+  -webkit-transition: 0.5s all ease-in-out;
+  transition: 0.5s all ease-in-out;
 }
 
 header .menu-links li a:hover {
@@ -413,8 +430,9 @@ header .menu-links li h2 {
 }
 
 header .menu-links.open {
-  -webkit-transition: 0.5s all ease-in-out;
-  transition: 0.5s all ease-in-out;
+  opacity: 1;
+  -webkit-transition: 0.6s all ease-in-out;
+  transition: 0.6s all ease-in-out;
   -webkit-transform: translateX(0px);
           transform: translateX(0px);
 }
@@ -508,6 +526,68 @@ footer .rights span {
   text-align: center;
 }
 
+.page-courses {
+  padding-top: 18vw;
+  max-height: 75vh;
+  overflow: auto;
+}
+
+.page-courses .list {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  padding: 0.7rem;
+}
+
+.page-courses .list .listItem {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: start;
+  text-align: center;
+  height: 200px;
+  -webkit-box-sizing: 1px;
+          box-sizing: 1px;
+  border-radius: 5px;
+  margin: 0.8rem;
+  padding: 0.5rem;
+  -webkit-box-shadow: 0px 0px 8px rgba(109, 109, 109, 0.582);
+          box-shadow: 0px 0px 8px rgba(109, 109, 109, 0.582);
+  min-height: 3rem;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.page-courses .list .listItem h1 {
+  font-size: 0.8em;
+}
+
+.page-courses .list .listItem h2 {
+  font-size: 0.8rem;
+}
+
+.page-courses .list .listItem p {
+  font-size: 0.7rem;
+}
+
+.page-courses .list .listItem .button-3 {
+  padding: 0.2rem !important;
+  font-size: 1rem !important;
+}
+
 .page-landing {
   margin-top: 18vw;
   display: -webkit-box;
@@ -546,26 +626,11 @@ footer .rights span {
   padding: 1em;
 }
 
-.page-landing .landing-photo button {
+.page-landing .landing-photo .button-3 {
   position: relative;
-  top: 60vw;
-  border: none;
-  border-radius: 5px;
-  font-size: 1.5em;
-  background-color: #27b863;
-  color: #fff;
-  -webkit-transition: all 0.5s ease-in-out;
-  transition: all 0.5s ease-in-out;
-}
-
-.page-landing .landing-photo button:hover {
-  cursor: pointer;
-  background-color: #fff;
-  -webkit-box-shadow: 0px 0px 10px rgba(109, 109, 109, 0.582);
-          box-shadow: 0px 0px 10px rgba(109, 109, 109, 0.582);
-  color: #27b863;
-  -webkit-transition: all 0.5s ease-in-out;
-  transition: all 0.5s ease-in-out;
+  top: 50%;
+  font-size: 1.2em;
+  text-align: center;
 }
 
 .page-landing h2 {
@@ -633,7 +698,7 @@ footer .rights span {
   margin-top: 18vw;
   background-color: #fafafa;
   padding: 1em;
-  height: 170vw;
+  min-height: 80vh;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -929,11 +994,12 @@ footer .rights span {
     transition: all 1s ease-in-out;
   }
   header .nav-links {
+    opacity: 0.2;
     position: absolute;
     -webkit-clip-path: circle(100%);
             clip-path: circle(100%);
-    -webkit-transform: translateX(0px);
-            transform: translateX(0px);
+    -webkit-transform: translateX(350px);
+            transform: translateX(350px);
     height: 100vh;
     display: -webkit-box;
     display: -ms-flexbox;
@@ -950,12 +1016,13 @@ footer .rights span {
     transition: 1s all ease-in-out;
   }
   header .nav-links.open {
+    opacity: 1;
     -webkit-transition: 1s all ease-in-out;
     transition: 1s all ease-in-out;
     -webkit-clip-path: circle(100%);
             clip-path: circle(100%);
-    -webkit-transform: translateX(500px);
-            transform: translateX(500px);
+    -webkit-transform: translateX(0px);
+            transform: translateX(0px);
   }
   header .menu-links {
     margin-top: 7vw !important;
@@ -969,6 +1036,52 @@ footer .rights span {
   }
   footer .rights {
     top: 25px;
+  }
+  .page-courses {
+    padding-top: 9vw;
+    max-height: 90vh;
+    overflow: auto;
+  }
+  .page-courses .list {
+    padding: 0rem;
+  }
+  .page-courses .list .listItem {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -webkit-box-pack: start;
+        -ms-flex-pack: start;
+            justify-content: start;
+    text-align: center;
+    height: 250px;
+    -webkit-box-sizing: 1px;
+            box-sizing: 1px;
+    border-radius: 5px;
+    margin: 1.2rem;
+    padding: 0.5rem;
+    -webkit-box-shadow: 0px 0px 8px rgba(109, 109, 109, 0.582);
+            box-shadow: 0px 0px 8px rgba(109, 109, 109, 0.582);
+    min-height: 3rem;
+    -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+            justify-content: space-between;
+  }
+  .page-courses .list .listItem h1 {
+    font-size: 0.8em;
+  }
+  .page-courses .list .listItem h2 {
+    font-size: 0.8rem;
+  }
+  .page-courses .list .listItem p {
+    font-size: 0.7rem;
+  }
+  .page-courses .list .listItem .button-3 {
+    padding: 0.2rem !important;
+    font-size: 1rem !important;
   }
   .page-landing {
     display: -webkit-box;
@@ -1300,6 +1413,61 @@ footer .rights span {
   }
   header .user-menu {
     padding: 1em;
+  }
+  .page-courses {
+    padding-top: 9vh;
+    overflow: auto;
+    max-height: 88.1vh;
+  }
+  .page-courses .list {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+            flex-direction: row;
+    -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+    padding: 0rem;
+  }
+  .page-courses .list .listItem {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -webkit-box-pack: start;
+        -ms-flex-pack: start;
+            justify-content: start;
+    text-align: center;
+    height: 250px;
+    -webkit-box-sizing: 1px;
+            box-sizing: 1px;
+    border-radius: 5px;
+    margin: 1.9rem;
+    padding: 0.5rem;
+    -webkit-box-shadow: 0px 0px 8px rgba(109, 109, 109, 0.582);
+            box-shadow: 0px 0px 8px rgba(109, 109, 109, 0.582);
+    min-height: 3rem;
+    -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+            justify-content: space-between;
+  }
+  .page-courses .list .listItem h1 {
+    font-size: 0.8em;
+  }
+  .page-courses .list .listItem h2 {
+    font-size: 0.8rem;
+  }
+  .page-courses .list .listItem p {
+    font-size: 0.7rem;
+  }
+  .page-courses .list .listItem .button-3 {
+    padding: 0.2rem !important;
+    font-size: 1rem !important;
   }
   .page-landing {
     margin-top: 9vh;
