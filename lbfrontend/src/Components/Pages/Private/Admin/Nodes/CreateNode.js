@@ -187,7 +187,7 @@ export default class CreateNode extends Component{
             />,
             <Input
                 name="resp"
-                caption="Respuesta correcta (Ya sea el regex, texto, draggable o url)"
+                caption="Respuesta correcta (Ya sea el regex, texto o draggable)"
                 value={this.state.resp}
                 onChange={this.onChangeHandler}
                 error={this.state.respError}
@@ -195,7 +195,7 @@ export default class CreateNode extends Component{
             />,
             <Input
                 name="req"
-                caption="Opciones o Instrucciones para completar clase"
+                caption="Opciones o Instrucciones para completar clase (o url del video)"
                 value={this.state.req}
                 onChange={this.onChangeHandler}
                 error={this.state.reqError}
