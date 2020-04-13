@@ -23,7 +23,7 @@ function initCourses(db){
           }
           return res.status(200).json(doc);
         });
-    }); //Gestionar Usuario
+    }); //Obtener curso por ID
 
     router.post('/new', (req, res)=>{
         var act = req.body.act;

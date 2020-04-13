@@ -21,6 +21,7 @@ import NodeVideo from './Components/Pages/Private/Node/VideoNode';
 
 import CreateCourse from './Components/Pages/Private/Admin/Courses/CreateCourse';
 import UpdateCourse from './Components/Pages/Private/Admin/Courses/UpdateCourse';
+import CreateNode from './Components/Pages/Private/Admin/Nodes/CreateNode';
 import Access from './Components/Pages/Private/Admin/Access/Access';
 import Level from './Components/Pages/Private/Admin/Access/Level';
 import NewPage from './Components/Pages/Private/Admin/Pages/NewPage';
@@ -107,6 +108,7 @@ class App extends Component{
           <PrivateRoute component={NodeVideo} path='/course/class/v/:idc/:idn' auth={auth}/>
           <PrivateRoute component={CreateCourse} path='/courses/newCourse' auth={auth}/>
           <PrivateRoute component={UpdateCourse} path='/courses/updateCourse/:id' auth={auth}/>
+          <PrivateRoute component={CreateNode} path='/courses/newNode/:idc' auth={auth}/>
 
           <PrivateRoute component={Access} path="/access" exact auth={auth}/>
           <PrivateRoute component={Level} path="/access/level/:userType/:op" exact auth={auth}/>

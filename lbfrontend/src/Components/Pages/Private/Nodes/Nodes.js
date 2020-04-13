@@ -24,6 +24,7 @@ export default class Nodes extends Component {
         saxios.get(uri)
         .then(
             ({data})=>{
+                console.log(data);
                 const alldata = [];
                 data.map((e)=>alldata.push(e)); 
                 this.setState({
@@ -74,7 +75,7 @@ export default class Nodes extends Component {
                             <span>Estado: {txt}</span>
                             <span className='updateListItem'>
                                 <Link to={uri}>
-                                    <IoMdPlay size='1em'/>
+                                    <IoMdPlay size='1em' color="#000"/>
                                     Realizar clase
                                 </Link></span>
                         </div>

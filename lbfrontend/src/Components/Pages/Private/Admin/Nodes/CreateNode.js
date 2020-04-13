@@ -6,19 +6,22 @@ import Select from '../../../../Common/Select/Select';
 import { longStringRegex, emptyRegex, edadRegex } from '../../../../Common/Validators/Validators';
 import { saxios } from '../../../../Utilities/Utilities';
 
-export default class UpdateCourse extends Component{
+export default class CreateNode extends Component{
     constructor(){
         super();
         this.state ={
+            number:'',
             name: '',
             nameError: null,
             desc: '',
             descError: null,
-            chours:'',
-            choursError: null,
+            dialogue:'',
+            dialogueError: null,
             req:'',
-            reqError:'',
-            act: "false"
+            reqError: null,
+            resp:'',
+            respError:null,
+            type: "Drag"
         }
         this.onClickUpdate = this.onClickUpdate.bind(this);
         this.onChangeHandler = this.onChangeHandler.bind(this);
@@ -27,30 +30,20 @@ export default class UpdateCourse extends Component{
     }
 
     componentDidMount(){
-        saxios
-        .get(`/api/admin/courses/${this.props.match.params.id}`)
-        .then((data) => {
-          //alert(JSON.stringify(data.data));
-          var active = '';
-          const sel = document.getElementById("act");
-          if(data.data.courseActive){
-            active="true";
-            sel.selectedIndex = 1;
-          }else{
-            active="false";
-            sel.selectedIndex = 0;
-          }
-          this.setState({
-            name: data.data.courseName,
-            desc: data.data.courseDesc,
-            chours: data.data.courseHours,
-            req: data.data.courseRequirements,
-            act: active
-          });
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+        const courseID = this.props.match.params.idc;
+        const uri = `/api/admin/courses/${courseID}`;
+        saxios.get(uri)
+        .then(
+            ({data})=>{
+                console.log(data.nodes);
+                this.setState({number: (data.nodes+1)});
+            }
+        )
+        .catch(
+            (err)=>{
+                console.log(err);
+            }
+        )
     }
 
     onClickUpdate(e){
@@ -66,21 +59,26 @@ export default class UpdateCourse extends Component{
                 alert("Ingrese una cantidad de horas realista");
             }
             else{
-                const uri = `/api/admin/courses/update/${this.props.match.params.id}`;
+                const uri = `/api/admin/courses/node/new/${this.props.match.params.idc}`;
                 saxios.put(uri,{
+                    num: this.state.number,
                     name: this.state.name,
                     desc: this.state.desc,
-                    chours: this.state.chours,
-                    req: this.state.req,
-                    act: this.state.act
+                    dialogo: this.state.dialogue,
+                    tipo: this.state.type,
+                    respuesta: this.state.resp,
+                    req: this.state.req
                 })
-                .then(({ data }) => {
-                    alert("Ha sido actualizado correctamente el curso");
-                })
-                .catch((err) => {
-                    console.log(err);
-                    alert("Ha ocurrido un error. Intente nuevamente");
-                });
+                .then(
+                    ({data})=>{
+                        alert("Se ha agregado correctamente la clase");
+                    }
+                )
+                .catch(
+                    (err)=>{
+                        console.log(err);
+                    }
+                )
             }
         }
     }
@@ -88,7 +86,7 @@ export default class UpdateCourse extends Component{
     validate(state){
         let nameErrors = false;
         let tmpErrors = [];
-        const { name,  desc, chours, req} = state;
+        const { name,  desc, req, resp, dialogue} = state;
         if (name !== undefined) {
           if (!longStringRegex.test(name) || emptyRegex.test(name)) {
             tmpErrors.push("Ingrese un nombre en un formato válido (Mínimo 4 letras)");
@@ -106,22 +104,31 @@ export default class UpdateCourse extends Component{
               nameErrors = Object.assign({}, nameErrors, { descError: tmpErrors });
             }
         }
-        if (chours !== undefined) {
-            let tmpErrors = [];
-            if (!edadRegex.test(chours) || emptyRegex.test(chours)) {
-              tmpErrors.push("Ingrese una cantidad de horas en un formato válido (numérico)");
-            }
-            if (tmpErrors.length) {
-              nameErrors = Object.assign({}, nameErrors, { choursError: tmpErrors });
-            }
-        }
         if (req !== undefined) {
             let tmpErrors = [];
-            if (!longStringRegex.test(req) || emptyRegex.test(req)) {
-              tmpErrors.push("Ingrese una cantidad de horas en un formato válido (Mínimo 4 letras)");
+            if (emptyRegex.test(req)) {
+              tmpErrors.push("No lo deje vacio");
             }
             if (tmpErrors.length) {
               nameErrors = Object.assign({}, nameErrors, { reqError: tmpErrors });
+            }
+        }
+        if (resp !== undefined) {
+            let tmpErrors = [];
+            if (emptyRegex.test(resp)) {
+              tmpErrors.push("No lo deje vacio");
+            }
+            if (tmpErrors.length) {
+              nameErrors = Object.assign({}, nameErrors, { respError: tmpErrors });
+            }
+        }
+        if (dialogue !== undefined) {
+            let tmpErrors = [];
+            if (emptyRegex.test(dialogue)) {
+              tmpErrors.push("Ingrese una descripción en un formato válido (Mínimo 4 letras)");
+            }
+            if (tmpErrors.length) {
+              nameErrors = Object.assign({}, nameErrors, { dialogueError: tmpErrors });
             }
         }
 
@@ -146,15 +153,17 @@ export default class UpdateCourse extends Component{
     }
 
     render(){
-        const action ="Actualizar Curso";
+        const action ="Crear Clase";
         const selectItems=[
-            { value: "false", dsc: "Inactivo" },
-            { value: "true", dsc: "Activo" }
-        ]
+            { value: "Drag", dsc: "Drag" },
+            { value: "Video", dsc: "Video" },
+            { value: "Regex", dsc: "Regex" },
+            { value: "Text", dsc: "Text" }
+        ];
         const formContent = [
             <Input
                 name="name"
-                caption="Nombre del Curso"
+                caption="Nombre de la Clase"
                 value={this.state.name}
                 onChange={this.onChangeHandler}
                 error={this.state.nameError}
@@ -162,38 +171,46 @@ export default class UpdateCourse extends Component{
             />,
             <Input
                 name="desc"
-                caption="Descripción del Curso"
+                caption="Descripción de la clase"
                 value={this.state.desc}
                 onChange={this.onChangeHandler}
                 error={this.state.descError}
                 className="col-s-12"
             />,
             <Input
-                name="chours"
-                caption="Horas aproximadas para completar el curso"
-                value={this.state.chours}
+                name="dialogue"
+                caption="Descripcion de lo que la clase va a enseñar"
+                value={this.state.dialogue}
                 onChange={this.onChangeHandler}
-                error={this.state.choursError}
+                error={this.state.dialogueError}
+                className="col-s-12"
+            />,
+            <Input
+                name="resp"
+                caption="Respuesta correcta (Ya sea el regex, texto o draggable)"
+                value={this.state.resp}
+                onChange={this.onChangeHandler}
+                error={this.state.respError}
                 className="col-s-12"
             />,
             <Input
                 name="req"
-                caption="Requerimientos para el Curso"
+                caption="Opciones o Instrucciones para completar clase"
                 value={this.state.req}
                 onChange={this.onChangeHandler}
                 error={this.state.reqError}
                 className="col-s-12"
             />,
             <Select
-              name="act"
-              id="act"
-              item={selectItems}
-              caption="Activacion del Curso"
-              onChange={this.changeCMB}
+                name="type"
+                id="type"
+                item={selectItems}
+                caption="Activacion del Curso"
+                onChange={this.changeCMB}
             />,
           ];
         return(
-            <Page pageURL="UpdateCourse" auth={this.props.auth}>
+            <Page pageURL="CreateCourse" auth={this.props.auth}>
                 <Form
                     title={action}
                     id="form-update-user"

@@ -144,10 +144,10 @@ router.put('/course/class/:id', (req, res)=>{
   var answer = req.body.answer;
   var userID = req.body.userid;
   var nodeNumber = parseInt(req.body.NodeNumber);
-  userModel.getCourseNodes(id, (err, nodes)=>{
+  userModel.getCourseNodes(id, userID, (err, nodes)=>{
     if(err){
       console.log(err);
-      return res.status(500).json({"error":"No se ha podido confirmar el nodo. Intente nuevamente"});
+      return res.status(200).json({"error":"No se ha podido confirmar el nodo. Intente nuevamente"});
     }
       var correctAnswer = userModel.extractCorrectAnswer(nodes, nodeNumber);
       if(!((nodes[correctAnswer.index].completionType === "Regex" && (answer.match(correctAnswer.correctAnswer))) ||
@@ -157,7 +157,7 @@ router.put('/course/class/:id', (req, res)=>{
       userModel.completeNode(userID, id, nodeNumber, (err, completed)=>{
         if(err){
           console.log(err);
-          return res.status(500).json({"error":"ERROR. Intente nuevamente el nodo"});
+          return res.status(200).json({"error":"ERROR. Intente nuevamente el nodo"});
         }
         console.log(completed);
         return res.status(200).json({"Resultado":"La respuesta es correcta"});

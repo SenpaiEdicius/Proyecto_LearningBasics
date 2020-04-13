@@ -17,6 +17,7 @@ export default class DragNode extends Component{
                 nodeName: '',
                 nodeDesc: '',
                 nodeDialogue: '',
+                nodeRequest: '',
                 rightAnswer: ''
             }
         }
@@ -103,6 +104,7 @@ export default class DragNode extends Component{
                     <h2>{this.state.data.nodeName || ''}</h2>
                     <h4>{this.state.data.nodeDesc || ''}</h4>
                     <p>{this.state.data.nodeDialogue || ''}</p>
+                    <p>{this.state.data.nodeRequest || ''}</p>
                 </div>
                 <div className="Options">
                     <Container id="Container_Option_1" className="col-offset-m-1">

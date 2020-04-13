@@ -53,13 +53,10 @@ export default class MyCourses extends Component {
                 return(
                     <div className='list-item' key={item._id}>
                         <span>{item.courseName}</span>
-                        <br/>
                         <span>Average Hours: {item.courseHours}</span>
-                        <br/>
-                        <span>Requirements: {item.courseRequirements}</span>
                         <span className='updateListItem'>
                             <Link to={`/course/classes/${item._id}`}>
-                            <IoMdPlay size='1em'/>
+                            <IoMdPlay size='1em' color='#000'/>
                             </Link></span>
                     </div>
                 );

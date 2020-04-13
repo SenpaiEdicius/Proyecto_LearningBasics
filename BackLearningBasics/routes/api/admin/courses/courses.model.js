@@ -10,7 +10,8 @@ module.exports = (db) =>{
         courseHours: "",
         courseRequirements: "",
         courseActive: null,
-        courseNodes: []
+        courseNodes: [],
+        nodes: ""
     };
     var nodeTemplate = {
         nodeNumber: null,
@@ -19,7 +20,8 @@ module.exports = (db) =>{
         nodeDialogue: "",
         completionType: "",
         rightAnswer: "",
-        nodeCompletion: null
+        nodeCompletion: null,
+        nodeRequest:""
     };
 
     coursesModel.showCourses = (handler) =>{
@@ -49,7 +51,8 @@ module.exports = (db) =>{
                 courseDesc: desc,
                 courseHours: hours,
                 courseRequirements: req,
-                courseActive: active
+                courseActive: active,
+                nodes: 0
             }
         );
         coursesCollection.insertOne(courseToAdd, (err, newCourse)=>{
@@ -137,7 +140,7 @@ module.exports = (db) =>{
     }
 
     coursesModel.addNode = (data, handler) =>{
-        var {_id, number, name, desc, dialogo, tipo, respuesta} = data;
+        var {_id, number, name, desc, dialogo, tipo, respuesta, req} = data;
         var query = {"_id":new ObjectID(_id)};
         var a = Object.assign(
             {},
@@ -149,7 +152,8 @@ module.exports = (db) =>{
                 nodeDialogue: dialogo,
                 completionType: tipo,
                 rightAnswer: respuesta,
-                nodeCompletion: false
+                nodeCompletion: false,
+                nodeRequest: req
             }
         );
         var updateCommand = {
@@ -168,8 +172,45 @@ module.exports = (db) =>{
                 if(err){
                     return handler(err, null); 
                 }
-                console.log(rslt);
-                return handler(null, rslt.value);
+                var query2 = {"userCourses": {"$elemMatch":{"_id": new ObjectID(_id)}}};
+                var b = Object.assign(
+                    {},
+                    nodeTemplate,
+                    {
+                        nodeNumber: number,
+                        nodeName: name,
+                        nodeDesc: desc,
+                        nodeDialogue: dialogo,
+                        completionType: tipo,
+                        rightAnswer: respuesta,
+                        nodeCompletion: false,
+                        nodeRequest: req
+                    }
+                );
+                var updateCommand2 = {
+                    "$addToSet":{
+                        "userCourses.$[course].courseNodes": b
+                    },
+                    "$inc":{
+                        "userCourses.$[course].nodes": 1
+                    }
+                };
+                var filters = {
+                    arrayFilters:[
+                        {"course._id":new ObjectID(_id)}
+                    ]
+                };
+                userCollection.updateMany(
+                    query2,
+                    updateCommand2,
+                    filters,
+                    (err, userUpd)=>{
+                        if(err){
+                            return handler(err, null);
+                        }
+                        console.log("Si pasa por aqui");
+                        return handler(null, userUpd);
+                    });
             });
     }
 
