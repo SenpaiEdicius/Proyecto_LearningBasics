@@ -9,6 +9,7 @@ import Forgot from './Components/Pages/Public/Forgot/Forgot';
 import AllCourses from './Components/Pages/Public/Courses/Courses';
 import Register from './Components/Pages/Public/Register/Register';
 import Subs from './Components/Pages/Public/Subscripciones/Subs';
+import Canceled from './Components/Pages/Public/Canceled/Canceled';
 /*--------------Private Routing------------------*/
 import MyCourses from './Components/Pages/Private/MyCourses/MyCourses';
 import UpdateUser from './Components/Pages/Private/UpdateUser/UpdateUser';
@@ -38,6 +39,7 @@ class App extends Component{
       user: getLocalStorage('user')||{},
       jwt: getLocalStorage('jwt')||'',
       id: getLocalStorage('id')||'',
+      type: getLocalStorage('type')||'',
       isLogged: false
     }
     if(this.state.jwt!==''){
@@ -46,7 +48,6 @@ class App extends Component{
     }
     this.login = this.login.bind(this);
     this.logout = this.logout.bind(this);
-
   }
   login(user){
     const {jwt, ...fuser} = user;
@@ -75,15 +76,14 @@ class App extends Component{
       user:{},
       jwt:''
     });
-    window.location.replace("http://localhost:3001");
   }
-
   render(){
     const auth = {
       isLogged:this.state.isLogged,
       user:this.state.user,
       id: this.state.id,
-      logout: this.logout
+      type:this.state.type,
+      logout: this.logout,
     };
     return (
       <Router>
@@ -94,7 +94,7 @@ class App extends Component{
           <Route render={(props) => { return (<Forgot {...props} auth={auth}/>)}} path="/forgot" exact/>
           <Route render={(props) => { return (<AllCourses {...props} auth={auth} />) }} path="/courses" exact/>
           <Route render={(props) => { return (<Subs {...props} auth={auth} />) }} path="/subscription" exact/>
-          <Route render={(props) => { return (<Approved {...props} auth={auth} />) }} path="/approved" exact />
+          <Route render={(props) => { return (<Canceled {...props} auth={auth} />) }} path="/canceled" exact />
           <Route render={(props) => { return (<Found {...props} auth={auth} />) }} path="/404" exact />
           
           
@@ -107,6 +107,7 @@ class App extends Component{
           <PrivateRoute component={NodeRegex} path='/course/class/r/:idc/:idn' auth={auth}/>
           <PrivateRoute component={NodeVideo} path='/course/class/v/:idc/:idn' auth={auth}/>
           <PrivateRoute component={CreateCourse} path='/courses/newCourse' auth={auth}/>
+          <PrivateRoute component={Approved} path='/approved' auth={auth}/>
           <PrivateRoute component={UpdateCourse} path='/courses/updateCourse/:id' auth={auth}/>
           <PrivateRoute component={CreateNode} path='/courses/newNode/:idc' auth={auth}/>
 

@@ -1,6 +1,10 @@
 import React, { Component } from "react";
 import Page from "../../Page";
-import { paxios, getLocalStorage } from "../../../Utilities/Utilities";
+import {
+  paxios,
+  getLocalStorage,
+  removeLocalStorage,
+} from "../../../Utilities/Utilities";
 import Loading from "../../../Common/Loading/Loading";
 export default class Approved extends Component {
   constructor() {
@@ -8,33 +12,18 @@ export default class Approved extends Component {
     this.state = {
       loading: true,
     };
-    this.activateSubscription = this.activateSubscription.bind(this);
   }
   componentDidMount() {
-    const token = getLocalStorage("token") || undefined;
-    if (token !== undefined) {
-      paxios
-        .post(`/api/user/payment/execute/${token}`)
-        .then((resp) => {
-          console.log(resp.data);
-          this.activateSubscription();
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    } else {
-      alert("Ocurrio un error");
-      window.location.replace("http://localhost:3001/");
-    }
-  }
-  activateSubscription() {
     const id = getLocalStorage("id") || undefined;
     if (id !== undefined) {
       paxios
-        .put(`/api/user/subscription/activate/${id}`)
+        .delete(`/api/user/unsubscribe/${id}`)
         .then((resp) => {
           console.log(resp.data);
+          removeLocalStorage("jwt");
+          removeLocalStorage("id");
           this.setState({ loading: false });
+          this.props.auth.logout();
         })
         .catch((error) => {
           console.log(error);
@@ -47,7 +36,7 @@ export default class Approved extends Component {
   render() {
     if (this.state.loading) {
       return (
-        <Page pageURL="/approved" auth={this.props.auth}>
+        <Page pageURL="/approved">
           <section className="page-approved">
             <div className="approved-text main-color col-9">
               <Loading />
@@ -57,10 +46,10 @@ export default class Approved extends Component {
       );
     } else {
       return (
-        <Page pageURL="/approved" auth={this.props.auth}>
+        <Page pageURL="/approved">
           <section className="page-approved">
             <div className="approved-text main-color col-9">
-              <h2>Tu transaccion fue aprovada exitosamente</h2>
+              <h2>Ocurrio un error con tu transaccion</h2>
             </div>
           </section>
         </Page>

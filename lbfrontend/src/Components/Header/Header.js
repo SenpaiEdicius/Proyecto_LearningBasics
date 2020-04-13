@@ -11,7 +11,7 @@ export default class Header extends Component{
         this.logoutOnClick = this.logoutOnClick.bind(this);
         this.state = {
             open : false,
-            display: true,
+            display: false,
             userType : getLocalStorage('type')||'UKN',
             menu:[]
         }
@@ -44,6 +44,7 @@ export default class Header extends Component{
             })
         }
         const shown = this.state.open;
+        console.log(shown);
         const displaying = this.state.display;
         if(this.props.auth && this.props.auth.isLogged && true){
             return(
@@ -60,7 +61,7 @@ export default class Header extends Component{
                 <div className={displaying ? "close":"hidden"}>
                 <IoIosCloseCircleOutline onClick={ ()=>{this.setState({display: !displaying})}}/>
                 </div>     
-                <ul className={ shown ? "nav-links  open col-s-12 col-m-5 col-6 col-l-5 no-margin center": "nav-links col-s-12 col-m-5 col-6 col-l-5 no-margin center" }>
+                <ul className={(shown && true) ? "nav-links open col-s-12 col-m-5 col-6 col-l-5 no-margin center": "nav-links col-s-12 col-m-5 col-6 col-l-5 no-margin center" }>
                     <li><Link to="/courses">Todos los Cursos</Link></li>
                     <li><Link to="/mycourses">Cursos Registrados</Link></li>
                     <li className="user-menu" onClick={ ()=>{this.setState({display: !displaying})}}><IoIosSettings/></li>

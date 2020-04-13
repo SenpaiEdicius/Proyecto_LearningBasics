@@ -19,33 +19,33 @@ export default class MyCourses extends Component {
         this.loadMore = this.loadMore.bind(this);
     }
 
-    loadMore(page){
-        const items = this.state.itemsToLoad;
-        const uri = `api/user/mycourses/${this.props.auth.id}/${page}/${items}`;
-        saxios.get(uri)
-        .then(
-            ({data})=>{
-                const {allcourses, total} = data;
-                const loadedItems = this.state.items;
-                allcourses.map((e)=>loadedItems.push(e));
-                if(total){
-                    this.setState({
-                        'items':loadedItems,
-                        'hasMore':(page * items < total)
-                    });
-                }else{
-                    this.setState({
-                        'hasMore': false
-                    });
+        loadMore(page){
+            const items = this.state.itemsToLoad;
+            const uri = `api/user/mycourses/${this.props.auth.id}/${page}/${items}`;
+            saxios.get(uri)
+            .then(
+                ({data})=>{
+                    const {allcourses, total} = data;
+                    const loadedItems = this.state.items;
+                    allcourses.map((e)=>loadedItems.push(e));
+                    if(total){
+                        this.setState({
+                            'items':loadedItems,
+                            'hasMore':(page * items < total)
+                        });
+                    }else{
+                        this.setState({
+                            'hasMore': false
+                        });
+                    }
                 }
-            }
-        )
-        .catch(
-            (err)=>{
-                console.log(err);
-            }
-        )
-    };
+            )
+            .catch(
+                (err)=>{
+                    console.log(err);
+                }
+            )
+        };
 
     render(){
         const uiItems = this.state.items.map(

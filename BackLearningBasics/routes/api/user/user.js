@@ -34,10 +34,13 @@ router.get('/mycourses/:id/:page/:items',(req, res)=>{
 
 router.post('/register', (req, res)=>{
   var edad = parseInt(req.body.edad);
+  var months = parseInt(req.body.months);
   var data = {
     "userage": edad,
+    "months": months,
     ...req.body
   };
+  //console.log(data);
   userModel.addNew(data, (err, addedDoc)=>{
     if(err){
       console.log(err);
@@ -181,6 +184,16 @@ router.post('/forgot',(req,res)=>{
     return res.status(200).json({"mensaje":"EL correo fue enviado satisfactoriamente"});
   });
 });//Forgot
+router.delete('/unsubscribe/:id',(req,res)=>{
+  var id = req.params.id;
+  userModel.unsubscribe(id ,(error,result)=>{
+    if(error){
+      console.log(error);
+      return res.status(500).json({"error":error});
+    }
+    return res.status(200).json(result)
+  });
+});
 router.post('/payment/:id',(req,res)=>{
   var data = {
     _id: req.params.id,
@@ -218,7 +231,18 @@ router.get('/payment/agreement/:id',(req,res)=>{
   
   });
 });
-
+router.put('/subscription/activate/:id', (req,res)=>{
+  var id = req.params.id;
+  userModel.activateSubscription(id,(error,result)=>{
+    if(error){
+      console.log(error);
+      return res.status(500).json({"error":error});
+    }
+    return res.status(200).json(result);
+    
+  });
+});
  return router;
 }
+
 module.exports = initUser;

@@ -4,6 +4,7 @@
 
 @import "Components/Header/headerMobile";
 @import "Components/Footer/footerMobile";
+@import "Components/Pages/Public/Courses/coursesMobile";
 
 @import "Components/Pages/Public/Home/homeMobile";
 @import "Components/Pages/Public/Found/foundMobile";
@@ -22,6 +23,7 @@
   @import "Components/Header/headerTablet";
   @import "Components/Footer/footerTablet";
 
+  @import "Components/Pages/Public/Courses/coursesTablet";
   @import "Components/Pages/Public/Home/homeTablet";
   @import "Components/Pages/Public/Login/loginTablet";
   @import "Components/Pages/Public/Found/foundTablet";
@@ -37,7 +39,7 @@
 @media (min-width: 1024px) {
   @import "Sass/Grid/gridDesktop";
   @import "Components/Header/headerDesktop";
-
+  @import "Components/Pages/Public/Courses/coursesDesktop";
   @import "Components/Pages/Public/Home/homeDesktop";
   @import "Components/Pages/Public/Login/loginDesktop";
   @import "Components/Pages/Public/Found/foundDesktop";

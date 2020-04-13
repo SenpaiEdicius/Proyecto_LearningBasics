@@ -11,7 +11,7 @@ module.exports = (db)=>{
             "limit": itemsPerPage,
             "skip": ((page-1)*itemsPerPage),
             "projection":{
-                "courseName":1, "courseHours":1
+                "courseName":1, "courseHours":1,"courseDesc":1,"_id":1
             }
         }
         let cursor = coursesCollection.find(filter, options);

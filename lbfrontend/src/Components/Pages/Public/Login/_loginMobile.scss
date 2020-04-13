@@ -2,7 +2,7 @@
     margin-top: $mobileHeight;
     background-color: $pageWhiteDark;
     padding: 1em;
-    height: 170vw;
+    min-height: 80vh;
     display: flex;
     align-items: center;
     .login-data{

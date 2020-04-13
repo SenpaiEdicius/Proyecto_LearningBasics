@@ -25,8 +25,9 @@ export default class Signin extends Component {
       passwordError: null,
       price: "5.99",
       plan: "0",
-      redirect : false,
-      url: ""
+      redirect: false,
+      url: "",
+      loading: false,
     };
     this.onChangeHandler = this.onChangeHandler.bind(this);
     this.validate = this.validate.bind(this);
@@ -114,15 +115,26 @@ export default class Signin extends Component {
       else if (email === "easter@egg.com")
         alert("Easter Egg detected. Congratulations");
       else {
+        this.setState({ loading: true });
+        let plan = this.props.match.params.plan;
+        let months = 1;
+        if (plan === "2") 
+            months=3;
+            
+        if (plan === "3")
+            months=12 
+            
         paxios
           .post("/api/user/register", {
             usernames: name,
             useremail: email,
             userpassword: password,
+            months:months
           })
           .then((resp) => {
             //console.log(resp.data);
             setLocalStorage("jwt", resp.data.jwt);
+            setLocalStorage("id",resp.data._id);
             console.log(resp.data)
             this.startPayment(resp.data._id)
           })
@@ -135,46 +147,47 @@ export default class Signin extends Component {
   startPayment(id) {
     if (id !== undefined) {
       let plan = this.props.match.params.plan;
-      let paymentData ={
-        plan:"0",
-        planDsc : "Mensual",
-        price : "5.99",
-        planFrequency : ""
-      }
+      let paymentData = {
+        plan: "0",
+        planDsc: "Mensual",
+        price: "5.99",
+        planFrequency: "",
+      };
       if (plan === "2") {
-          paymentData = {
-            plan:"3",
-            planDsc : "Trimestral",
-            price : "14.99",
-            planFrequency : "MONTH"
-          }
+        paymentData = {
+          plan: "3",
+          planDsc: "Trimestral",
+          price: "14.99",
+          planFrequency: "MONTH",
+        };
       }
       if (plan === "3") {
-          paymentData = {
-            plan:"1",
-            planDsc : "Anual",
-            price : "59.99",
-            planFrequency : "YEAR"
-          }
+        paymentData = {
+          plan: "1",
+          planDsc: "Anual",
+          price: "59.99",
+          planFrequency: "YEAR",
+        };
       }
       paxios
         .post(`/api/user/payment/${id}`, paymentData)
         .then((resp) => {
           console.log(resp.data);
           setLocalStorage("token", resp.data.token);
-          window.location.replace(resp.data.redirect)
+          window.location.replace(resp.data.redirect);
         })
         .catch((error) => {
           console.log(error);
           alert("ocurrio un error 1, vuelve a intentarlo");
         });
     } else {
-        alert("ocurrio un error 2, vuelve a intentarlo");
+      alert("ocurrio un error 2, vuelve a intentarlo");
     }
   }
   render() {
     const price = this.state.price;
-    
+    let loading = this.state.loading;
+    //console.log(loading)
     const formItems = [
       <Input
         key="1"
@@ -205,8 +218,8 @@ export default class Signin extends Component {
         className="col-s-12 col-m-6"
       />,
     ];
-    if(this.state.redirect){
-        return(<Redirect to={this.state.url}/>)
+    if (this.state.redirect) {
+      return <Redirect to={this.state.url} />;
     }
     return (
       <Page pageURL="SignIn" price="5.99">
@@ -222,6 +235,7 @@ export default class Signin extends Component {
             className="form col-s-10 col-m-7 col-6 col-l-5"
             redirect="/subscription"
             price={price}
+            loading={this.state.loading}
           />
         </div>
       </Page>

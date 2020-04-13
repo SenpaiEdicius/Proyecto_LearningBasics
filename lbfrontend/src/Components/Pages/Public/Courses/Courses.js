@@ -2,7 +2,7 @@ import  React, { Component } from 'react';
 import InfiniteScroll from 'react-infinite-scroller';
 import { IoIosInformationCircleOutline, IoIosSync, IoMdAddCircle, IoIosImage } from 'react-icons/io';
 import {Link} from 'react-router-dom';
-
+import Loading from '../../../Common/Loading/Loading';
 import Page from '../../Page';
 import { paxios } from '../../../Utilities/Utilities.js';
 export default class Courses extends Component {
@@ -12,7 +12,7 @@ export default class Courses extends Component {
      items:[],
      hasMore:true,
      page:1,
-     itemsToLoad:10
+     itemsToLoad:5
     }
     this.loadMore = this.loadMore.bind(this);
  }
@@ -22,7 +22,7 @@ export default class Courses extends Component {
     paxios.get(uri)
       .then(
         ({data})=>{
-          console.log(data);
+          //console.log(data);
           const { courses:apiItems, total} = data;
           const loadedItems = this.state.items;
           apiItems.map((e)=>loadedItems.push(e));
@@ -45,12 +45,31 @@ export default class Courses extends Component {
        );
    }
    render() {
+    let link = "/subscription";
+    let dsc ="";
+    if(this.props.auth.isLogged){
+      link="/course/classes/";
+      dsc="Iniciar"
+    }
+    if(this.props.auth.isLogged===true && this.props.auth.type==="ADM"){
+      link="/courses/updateCourse/";
+      dsc="Modificar"
+    }
+      
     const uiItems = this.state.items.map(
       (item)=>{
-        console.log(item.courseName);
+        //console.log(item.courseName);
         return (
-          <div className='listItem' key={item._id}>
-            <span>{item.courseName} {item.courseHours}</span>
+          <div className='listItem col-s-5 col-m-3 col-2' key={item._id}>
+            <h1 className="main-color">{item.courseName} </h1>
+            <div className="line"></div>
+            <h2>Tiempo de Completación <br/> {item.courseHours} H</h2>
+            <p>{item.courseDesc}</p>
+            <div className="line"></div>
+            {(this.props.auth.isLogged)? <Link className="button-3" to={link+item._id}>{dsc}</Link>:
+            <Link className="button-3" to={link}>Registrar</Link> }
+            
+           
           </div>);
       }
     );
@@ -61,21 +80,22 @@ export default class Courses extends Component {
       </div>);
   
     return (
-      <Page pageTitle="Cursos" auth={this.props.auth}>
-        <div className="list" ref={(ref)=> this.scrollParentRef = ref}>
-            <br/><br/><br/>
-            <InfiniteScroll
+      <Page pageURL="/courses " auth={this.props.auth}>
+        <div className="page-courses">
+        <InfiniteScroll
               pageStart={0}
               loadMore={this.loadMore}
               hasMore={this.state.hasMore}
               useWindow={false}
               threshold={108}
               getScrollParent={()=>this.scrollParentRef}
-              loader={<div key="pbListLoading" className="listItem center"><IoIosSync/></div>}
+              loader={<Loading key="pbListLoading" className="listItem center col-s-5 col-offset-1 col-m-3 col-2"/>}
+              className="list col-s-12 col-offset-m-1 col-m-11 col-9 col-offset-2"
               >
                 {uiItems}
             </InfiniteScroll>
         </div>
+            
       </Page>
      );
     }
