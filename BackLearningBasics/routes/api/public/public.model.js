@@ -1,4 +1,5 @@
-var ObjectId = require('mongodb').ObjectID;
+var ObjectID = require('mongodb').ObjectID;
+
 module.exports = (db)=>{
     var courseModel = {};
     var coursesCollection = db.collection('courses');
@@ -23,6 +24,21 @@ module.exports = (db)=>{
             }
             return handler(null, {total: totalCourses, courses: docs});
         });
+    }
+
+    courseModel.getCourseInfo = (id, handler) => {
+        var query = {"_id":new ObjectID(id)};
+        var projection = { "courseName": 1, "courseDesc": 1, "courseHours":1};
+        coursesCollection.findOne(
+          query,
+          {"projection":projection},
+          (err, Course)=>{
+            if(err){
+              return handler(err,null);
+            }
+            return handler(null, Course);
+          }
+        );
     }
     
     return courseModel;

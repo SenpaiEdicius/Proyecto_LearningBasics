@@ -13,9 +13,9 @@ export default ({auth})=>{
                 <h2 className="col-s-12">Populares</h2>
                 <section className="courses col-s-12 col-m-3 col-2 no-padding">
                     <h2 className="col-s-12">Populares</h2>
-                    <div className="info"><span><DiHtml5/></span></div>
-                    <div className="info"><span><DiCss3/></span></div>
-                    <div className="info"><span><DiPhp/></span></div>
+                    <Link className="info" to="/landingcourse/5e93dbee6ddabd5ba4554503"><span><DiHtml5/></span></Link>
+                    <Link className="info" to="/landingcourse/5e93dc176ddabd5ba4554504"><span><DiCss3/></span></Link>
+                    <Link className="info" to="/landingcourse/5e93dc3e6ddabd5ba4554505"><span><DiPhp/></span></Link>
                 </section>
             </section>
         </Page>

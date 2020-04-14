@@ -12,7 +12,7 @@ import Register from './Components/Pages/Public/Register/Register';
 import Subs from './Components/Pages/Public/Subscripciones/Subs';
 import Canceled from './Components/Pages/Public/Canceled/Canceled';
 import Change from './Components/Pages/Public/Forgot/Change/Change';
-
+import LandingCourses from './Components/Pages/Public/LandingCourses/LandingCourses';
 /*--------------Private Routing------------------*/
 import MyCourses from './Components/Pages/Private/MyCourses/MyCourses';
 import UpdateUser from './Components/Pages/Private/UpdateUser/UpdateUser';
@@ -98,6 +98,7 @@ class App extends Component{
           <Route render={(props) => { return (<Register {...props} auth={auth}/>) }} path="/register/:plan" component={Register}  exact/>
           <Route render={(props) => { return (<Forgot {...props} auth={auth}/>)}} path="/forgot" exact/>
           <Route render={(props) => { return (<AllCourses {...props} auth={auth} />) }} path="/courses" exact/>
+          <Route render={(props) => { return (<LandingCourses {...props} auth={auth} />) }} path="/landingcourse/:id"/>
           <Route render={(props) => { return (<Subs {...props} auth={auth} />) }} path="/subscription" exact/>
           <Route render={(props) => { return (<Change {...props} auth={auth} />) }} path="/forgot/:email/:token" exact />
           <Route render={(props) => { return (<Canceled {...props} auth={auth} />) }} path="/canceled" exact />

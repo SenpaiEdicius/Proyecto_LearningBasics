@@ -15,7 +15,21 @@ function initPublic(db){
             return res.status(200).json(courses);
         });//getActiveCourses
     });// /courses
+
+    router.get('/landingcourse/:id',(req, res)=>{
+        var id =  req.params.id ;
+        coursesModel.getCourseInfo(id, (err, doc)=>{
+          if(err){
+            console.log(err);
+            return res.status(500).json({"error":"error"});
+          }
+          return res.status(200).json(doc);
+        });
+      });//CourseByID
+
     return router;
+
+    
 }
 
 module.exports = initPublic;
