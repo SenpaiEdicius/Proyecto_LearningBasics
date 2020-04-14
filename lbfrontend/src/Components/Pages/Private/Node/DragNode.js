@@ -19,7 +19,8 @@ export default class DragNode extends Component{
                 nodeDialogue: '',
                 nodeRequest: '',
                 rightAnswer: ''
-            }
+            },
+            opt: []
         }
         this.onClickSubmit = this.onClickSubmit.bind(this);
         this.dragElementRef = React.createRef();
@@ -48,8 +49,26 @@ export default class DragNode extends Component{
         saxios.get(uri)
         .then(
             ({data})=>{
+                var a, b, c, d = 0;
+                for (a=0;a<data[nodeID-1].nodeRequest.length;a++){
+                    if(data[nodeID-1].nodeRequest[a]==='B' && data[nodeID-1].nodeRequest[a+1]===':'){
+                        b = a;
+                    }
+                    if(data[nodeID-1].nodeRequest[a]==='C' && data[nodeID-1].nodeRequest[a+1]===':'){
+                        c = a;
+                    }
+                    if(data[nodeID-1].nodeRequest[a]==='D' && data[nodeID-1].nodeRequest[a+1]===':'){
+                        d = a;
+                    }
+                }
                 this.setState({
-                    'data': data[nodeID-1]
+                    data: data[nodeID-1],
+                    opt: [
+                        data[nodeID-1].nodeRequest.substring(0,b),
+                        data[nodeID-1].nodeRequest.substring(b,c),
+                        data[nodeID-1].nodeRequest.substring(c,d),
+                        data[nodeID-1].nodeRequest.substring(d,(data[nodeID-1].nodeRequest.length-1)),
+                    ]
                 }, function(){
                     this.render();
                 });
@@ -104,7 +123,12 @@ export default class DragNode extends Component{
                     <h2>{this.state.data.nodeName || ''}</h2>
                     <h4>{this.state.data.nodeDesc || ''}</h4>
                     <p>{this.state.data.nodeDialogue || ''}</p>
-                    <p>{this.state.data.nodeRequest || ''}</p>
+                    <ul>
+                        <li>{this.state.opt[0]||''}</li>
+                        <li>{this.state.opt[1]||''}</li>
+                        <li>{this.state.opt[2]||''}</li>
+                        <li>{this.state.opt[3]||''}</li>
+                    </ul>
                 </div>
                 <div className="Options">
                     <Container id="Container_Option_1" className="col-offset-m-1">
