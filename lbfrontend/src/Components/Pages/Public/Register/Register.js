@@ -133,7 +133,6 @@ export default class Signin extends Component {
           })
           .then((resp) => {
             //console.log(resp.data);
-            setLocalStorage("jwt", resp.data.jwt);
             setLocalStorage("id",resp.data._id);
             setLocalStorage("type","CLI");
             console.log(resp.data)

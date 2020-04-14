@@ -5,11 +5,14 @@ import  PrivateRoute  from './Components/SecureRoutes/SecureRoutes';
 /*--------------Public Routing------------------*/
 import Home from './Components/Pages/Public/Home/Home';
 import Login from './Components/Pages/Public/Login/Login';
+import Reactivate from './Components/Pages/Public/Reactivate/Reactivate';
 import Forgot from './Components/Pages/Public/Forgot/Forgot';
 import AllCourses from './Components/Pages/Public/Courses/Courses';
 import Register from './Components/Pages/Public/Register/Register';
 import Subs from './Components/Pages/Public/Subscripciones/Subs';
 import Canceled from './Components/Pages/Public/Canceled/Canceled';
+import Change from './Components/Pages/Public/Forgot/Change/Change';
+
 /*--------------Private Routing------------------*/
 import MyCourses from './Components/Pages/Private/MyCourses/MyCourses';
 import UpdateUser from './Components/Pages/Private/UpdateUser/UpdateUser';
@@ -19,7 +22,6 @@ import NodeDrag from './Components/Pages/Private/Node/DragNode';
 import NodeText from './Components/Pages/Private/Node/TextNode';
 import NodeRegex from './Components/Pages/Private/Node/RegexNode';
 import NodeVideo from './Components/Pages/Private/Node/VideoNode';
-
 import CreateCourse from './Components/Pages/Private/Admin/Courses/CreateCourse';
 import UpdateCourse from './Components/Pages/Private/Admin/Courses/UpdateCourse';
 import CreateNode from './Components/Pages/Private/Admin/Nodes/CreateNode';
@@ -29,6 +31,7 @@ import Level from './Components/Pages/Private/Admin/Access/Level';
 import NewPage from './Components/Pages/Private/Admin/Pages/NewPage';
 import Approved from './Components/Pages/Public/Approved/Approved';
 import Pages from './Components/Pages/Private/Admin/Pages/Pages';
+import Deactivate from './Components/Pages/Private/Deactivate/Deactivate';
 /*--------------Errors--------------------------*/
 import Found from './Components/Pages/Public/Found/Found';
 import './App.css';
@@ -96,9 +99,15 @@ class App extends Component{
           <Route render={(props) => { return (<Forgot {...props} auth={auth}/>)}} path="/forgot" exact/>
           <Route render={(props) => { return (<AllCourses {...props} auth={auth} />) }} path="/courses" exact/>
           <Route render={(props) => { return (<Subs {...props} auth={auth} />) }} path="/subscription" exact/>
+          <Route render={(props) => { return (<Change {...props} auth={auth} />) }} path="/forgot/:email/:token" exact />
           <Route render={(props) => { return (<Canceled {...props} auth={auth} />) }} path="/canceled" exact />
+          <Route render={(props) => { return (<Approved {...props} auth={auth} />) }} path="/approved" exact />
+          <Route render={(props) => { return (<Reactivate {...props} auth={auth} />) }} path="/reactivate" exact />
+          
           <Route render={(props) => { return (<Found {...props} auth={auth} />) }} path="/404" exact />
           <PrivateRoute component={MyCourses} path="/mycourses" exact auth={auth}/>
+          <PrivateRoute component={Deactivate} path="/deactivate" exact auth={auth}/>
+          
           <PrivateRoute component={UpdatePassword} path='/updatePass' exact auth={auth}/>
           <PrivateRoute component={UpdateUser} path="/update" exact auth={auth}/>
           <PrivateRoute component={Nodes} path='/course/classes/:id' auth={auth}/>
@@ -107,7 +116,7 @@ class App extends Component{
           <PrivateRoute component={NodeRegex} path='/course/class/r/:idc/:idn' auth={auth}/>
           <PrivateRoute component={NodeVideo} path='/course/class/v/:idc/:idn' auth={auth}/>
           <PrivateRoute component={CreateCourse} path='/courses/newCourse' auth={auth}/>
-          <PrivateRoute component={Approved} path='/approved' auth={auth}/>
+
           <PrivateRoute component={UpdateCourse} path='/courses/updateCourse/:id' auth={auth}/>
           <PrivateRoute component={CreateNode} path='/courses/newNode/:idc' auth={auth}/>
           <PrivateRoute component={UpdateNode} path='/courses/updateNode/:idc/:idn' auth={auth}/>

@@ -17,7 +17,7 @@ export default class Approved extends Component {
         .post(`/api/user/payment/execute/${token}`)
         .then((resp) => {
           console.log(resp.data);
-          this.activateSubscription();
+          this.activateSubscription(resp.data.id);
         })
         .catch((error) => {
           console.log(error);
@@ -27,11 +27,11 @@ export default class Approved extends Component {
       window.location.replace("http://localhost:3001/");
     }
   }
-  activateSubscription() {
+  activateSubscription(billingId) {
     const id = getLocalStorage("id") || undefined;
     if (id !== undefined) {
       paxios
-        .put(`/api/user/subscription/activate/${id}`)
+        .put(`/api/user/subscription/activate/${id}`,{billingId:billingId})
         .then((resp) => {
           console.log(resp.data);
           this.setState({ loading: false });
@@ -61,6 +61,7 @@ export default class Approved extends Component {
           <section className="page-approved">
             <div className="approved-text main-color col-9">
               <h2>Tu transaccion fue aprovada exitosamente</h2>
+              <h2>Ya puedes Iniciar Sesión con tus credenciales </h2>
             </div>
           </section>
         </Page>
