@@ -81,7 +81,7 @@ render(){
     }
    
     return(
-        <Page pageURL="landingcourse" >
+        <Page pageURL="landingcourse" auth={this.props.auth}>
             <br/>
             <br/>
             <br/>

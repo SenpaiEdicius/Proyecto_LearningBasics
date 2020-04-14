@@ -42,7 +42,7 @@ export default class NewPage extends Component {
           title={action}
           id="form-deactivate-page"
           content={formContent}
-          redirect="/pages"
+          redirect="/"
           onClick={this.onClick}
         />
       </Page>
