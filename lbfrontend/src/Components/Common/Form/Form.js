@@ -5,7 +5,7 @@ export default (props) => {
     <div className="page-single">
       <br />
       <div className="action-title">
-        <h1>{props.title}</h1>
+        <h1 className="center">{props.title}</h1>
       </div>
       <form
         id={props.id}

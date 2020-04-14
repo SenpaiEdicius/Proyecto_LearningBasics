@@ -131,6 +131,13 @@ export default class Login extends Component{
                         <Loading />    </div>:(<Button_F>
                             <button className="button-3 col-s-12" type="button" onClick={this.onClickLogin}>Entrar</button>
                         </Button_F>)  }
+                        <br />
+                        <div className="line"></div>
+                        <br />
+                        <h1 className="center">Reactivación de Usuario</h1>
+                        <br />
+                        
+                        <Link className="button-3 center" to="/reactivate">Reactivar Usuario</Link>
                         </form>
                               
                     </div>

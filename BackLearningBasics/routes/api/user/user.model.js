@@ -56,14 +56,23 @@ module.exports = (db) => {
     userDateCreated: null,
     userType: "",
     userSubscription: "",
-    userNextPaymentDue:null
+    userNextPaymentDue: null,
   };
 
   userModel.addNew = (dataToAdd, handler) => {
-    var { usernames, userage, usergender, useremail, userpassword,months } = dataToAdd;
+    var {
+      usernames,
+      userage,
+      usergender,
+      useremail,
+      userpassword,
+      months,
+    } = dataToAdd;
     var dateNow = new Date().getTime();
     var date = new Date();
-    var paymentDue = new Date(date.setMonth(date.getMonth()+months)).getTime();
+    var paymentDue = new Date(
+      date.setMonth(date.getMonth() + months)
+    ).getTime();
     var userToAdd = Object.assign({}, userTemplate, {
       userCompleteName: usernames,
       userAge: userage,
@@ -71,11 +80,11 @@ module.exports = (db) => {
       userEmail: useremail,
       userPassword: pswdGenerator(userpassword),
       userCourses: [],
-      userActive: true,
+      userActive: false,
       userDateCreated: dateNow,
       userType: "CLI",
       userSubscription: "PND",
-      userNextPaymentDue: paymentDue
+      userNextPaymentDue: paymentDue,
     });
 
     userCollection.insertOne(userToAdd, (err, rslt) => {
@@ -195,14 +204,9 @@ module.exports = (db) => {
       userCompleteName: 1,
       userActive: 1,
       userType: 1,
-      forgotToken:1
+      forgotToken: 1,
     };
-    userCollection.findOne(query, { projection: projection }, (err, user) => {
-      if (err) {
-        return handler(err, null);
-      }
-      return handler(null, user);
-    });
+    userCollection.findOne(query, { projection: projection },handler);
   };
 
   userModel.RegisterToCourse = (userID, courseID, handler) => {
@@ -220,7 +224,7 @@ module.exports = (db) => {
       courseJSON = course;
       if (courseJSON.courseActive && true) {
         var query = { _id: new ObjectID(userID) };
-        var projection = { "userCourses": 1, "_id": 0 };
+        var projection = { userCourses: 1, _id: 0 };
         userCollection.findOne(
           query,
           { projection: projection },
@@ -248,23 +252,23 @@ module.exports = (db) => {
               if (err) {
                 return handler(err, null);
               }
-              query3 = {"_id":new ObjectID(courseID)};
-              updateCommand3 =  {
-                "$inc":{
-                  courseParticipants: 1
-                }
+              query3 = { _id: new ObjectID(courseID) };
+              updateCommand3 = {
+                $inc: {
+                  courseParticipants: 1,
+                },
               };
               coursesCollection.findOneAndUpdate(
                 query3,
                 updateCommand3,
-                (err, result)=>{
-                  if(err){
+                (err, result) => {
+                  if (err) {
                     console.log(err);
                     return handler(err, null);
                   }
                   return handler(rslt.result);
                 }
-              )
+              );
             }); //UpdateOne
           }
         );
@@ -540,14 +544,16 @@ module.exports = (db) => {
       return handler(null, deletedUser);
     });
   };
-  userModel.activateSubscription = (id, handler) => {
+  userModel.activateSubscription = (id, billingId, handler) => {
     var query = { _id: new ObjectID(id) };
     var updateCommad = {
-      "$set":{
-        userSubscription:"ACT"
-      }
-    }
-    userCollection.updateOne(query,updateCommad, (error, updatedUser) => {
+      $set: {
+        billingId: billingId,
+        userSubscription: "ACT",
+        userActive: true,
+      },
+    };
+    userCollection.updateOne(query, updateCommad, (error, updatedUser) => {
       if (error) {
         console.log(error);
         return handler(error, null);
@@ -555,36 +561,102 @@ module.exports = (db) => {
       return handler(null, updatedUser);
     });
   };
-  userModel.createForgotToken = (email,token,handler)=>{
-    var query = {"userEmail":email};
+  userModel.createForgotToken = (email, token, handler) => {
+    var query = { userEmail: email };
 
     var updateCommad = {
-      "$set":{
-        "forgotToken":token
-      }
-    }
-    userCollection.updateOne(query,updateCommad, (error,updatedUser)=>{
+      $set: {
+        forgotToken: token,
+      },
+    };
+    userCollection.updateOne(query, updateCommad, (error, updatedUser) => {
       if (error) {
         console.log(error);
         return handler(error, null);
       }
       return handler(null, updatedUser);
     });
-  }
-  userModel.deleteToken = (id, handler)=>{
-    var query = {_id: new ObjectID(id)};
+  };
+  userModel.deleteToken = (id, handler) => {
+    var query = { _id: new ObjectID(id) };
     var updateCommad = {
-      "$unset":{
-        "forgotToken":""
-      }
-    }
-    userCollection.updateOne(query,updateCommad,(error,updatedUser)=>{
+      $unset: {
+        forgotToken: "",
+      },
+    };
+    userCollection.updateOne(query, updateCommad, (error, updatedUser) => {
       if (error) {
         console.log(error);
         return handler(error, null);
       }
       return handler(null, updatedUser);
-    })
-  }
+    });
+  };
+  userModel.getBillingId = (id, handler) => {
+    var query = { _id: new ObjectID(id) };
+    var projection = { billingId: 1 };
+    userCollection.findOne(
+      query,
+      { projection: projection },
+      (error, result) => {
+        if (error) {
+          console.log(error);
+          return handler(error, null);
+        }
+        return handler(null, result);
+      }
+    );
+  };
+  
+  userModel.cancelSubscription = (billingId, handler) => {
+    var cancel_note = {
+      note: "Cancelación de Subscripción",
+    };
+
+    paypal.billingAgreement.cancel(billingId, cancel_note, function (
+      error,
+      response
+    ) {
+      if (error) {
+        console.log(error);
+        return handler(error, null);
+      } else {
+        console.log("Cancel Billing Agreement Response");
+        console.log(response);
+
+        paypal.billingAgreement.get(billingId, function (
+          error,
+          billingAgreement
+        ) {
+          if (error) {
+            console.log(error.response);
+            return handler(error, null);
+          } else {
+            console.log(billingAgreement.state);
+            return handler(null, billingAgreement.state);
+          }
+        });
+      }
+    });
+  };
+  userModel.inactivateUser = (id, handler) => {
+    var query = { _id: new ObjectID(id) };
+    var updateCommad = {
+      $set: {
+        userSubscription: "INA",
+        userActive: false,
+      },
+      $unset: {
+        billingId: "",
+      },
+    };
+    userCollection.updateOne(query, updateCommad, (error, result) => {
+      if (error) {
+        console.log(error);
+        return handler(error, null);
+      }
+      return handler(null, result);
+    });
+  };
   return userModel;
 };
